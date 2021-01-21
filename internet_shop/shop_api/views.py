@@ -4,11 +4,12 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 
-from shop_api.filters import ProductFilter, ReviewFilter
-from shop_api.models import Product, Review
+from shop_api.filters import ProductFilter, ReviewFilter, OrderFilter
+from shop_api.models import Product, Review, Order, Position
 
 from shop_api.serializers import ProductListSerializer, ProductDetailSerializer, \
-    ReviewCreateSerializer, ProductCreateSerializer, ReviewSerializer
+    ReviewCreateSerializer, ProductCreateSerializer, ReviewSerializer, OrderSerializer, OrderCreateSerializer, \
+    PositionCreateSerializer, OrderDetailSerializer
 
 
 class ProductViewSet(ModelViewSet):
@@ -67,25 +68,55 @@ class ReviewViewSet(ModelViewSet):
 
     @transaction.atomic
     def update(self, request, *args, **kwargs):
-        # print("Удаление внутри транзакции")
-        # Получаем имя пользователя, который сделал запрос
         review_user = request.user
-        # получаем имя пользователя, который создал сущность, которую нужно удалить
         instance = self.get_object()
         review_creator = instance.creator
-
         if review_user != review_creator:
             raise ValidationError({"Review": "Обновлять можно только свои записи!"})
-
         return super().update(request, *args, **kwargs)
 
 
-# class OrderViewSet(ModelViewSet):
-#
-#     queryset = Order.objects.all()
-#
-#     def get_serializer_class(self):
-#         if self.action == "list":
-#             return OrderSerializer
-#         elif self.action == "create":
-#             return OrderCreateSerializer
+class OrderViewSet(ModelViewSet):
+
+    filter_backends = (DjangoFilterBackend,)
+    filterset_class = OrderFilter
+    queryset = Order.objects.all()
+
+    def get_serializer_class(self):
+        if self.action == "list":
+            return OrderSerializer
+        elif self.action == "create":
+            return OrderCreateSerializer
+        elif self.action == "retrieve":
+            return OrderDetailSerializer
+        elif self.action == "update":
+            return OrderCreateSerializer
+
+    def get_permissions(self):
+        """Получение прав для действий."""
+        if self.action in ["create", "destroy"]:
+            return [IsAuthenticated()]
+        elif self.action in ["list", "update"]:
+            return [IsAdminUser()]
+        return []
+
+    @transaction.atomic
+    def retrieve(self, request, *args, **kwargs):
+        order_user = request.user
+        instance = self.get_object()
+        order_creator = instance.user
+        if order_user != order_creator:
+            raise ValidationError({"Order": "Просматривать можно только свои заказы!"})
+        return super().retrieve(request, *args, **kwargs)
+
+
+class PositionViewSet(ModelViewSet):
+
+    queryset = Position.objects.all()
+    serializer_class = PositionCreateSerializer
+
+    def get_permissions(self):
+        """Получение прав для действий."""
+        if self.action == "create":
+            return [IsAuthenticated()]
+        return []

@@ -2,7 +2,7 @@ from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 from django.contrib.auth.models import User
 
-from shop_api.models import Product, Review
+from shop_api.models import Product, Review, Order, Position
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -32,7 +32,8 @@ class ProductCreateSerializer(serializers.ModelSerializer):
 
 class ReviewCreateSerializer(serializers.ModelSerializer):
 
-    creator = UserSerializer(
+    creator = serializers.SlugRelatedField(
+        slug_field='username',
         read_only=True,
     )
 
@@ -50,10 +51,11 @@ class ReviewCreateSerializer(serializers.ModelSerializer):
         # валидация количества отзывов и значения рейтинга
         review_user = self.context["request"].user
         post_data = self.context["request"].data
+        product_id = post_data.get('product')
         if int(post_data.get('rating')) < 1 or int(post_data.get('rating')) > 5:
             raise ValidationError({"Review": "Рейтинг должен быть от 1 до 5"})
-        reviews_count = Review.objects.filter(creator=review_user).count()
-        if reviews_count > 1:
+        reviews_count = Review.objects.filter(creator=review_user).filter(product=product_id).count()
+        if reviews_count >= 1:
             raise ValidationError({"Review": "Количество отзывов > 1"})
         return data
 
@@ -84,39 +86,75 @@ class ProductDetailSerializer(serializers.ModelSerializer):
         model = Product
         fields = ('id', 'name', 'description', 'price', 'review', 'created_at', 'updated_at')
 
-#
-# class OrderSerializer(serializers.ModelSerializer):
-#
-#     user_id = serializers.SlugRelatedField(
-#         slug_field='username',
-#         read_only=True,
-#     )
-#
-#     # position = serializers.SlugRelatedField(
-#     #     slug_field='name',
-#     #     read_only=True,
-#     # )
-#
-#     class Meta:
-#         model = Order
-#         fields = '__all__'
-#
-#
-# class OrderCreateSerializer(serializers.ModelSerializer):
-#
-#     user_id = serializers.SlugRelatedField(
-#         slug_field='username',
-#         read_only=True,
-#     )
-#
-#     # position = serializers.SlugRelatedField(
-#     #     slug_field='product',
-#     #     read_only=True,
-#     # )
-#
-#     class Meta:
-#         model = Order
-#         fields = ('id', 'user_id', 'position')
+
+class PositionSerializer(serializers.ModelSerializer):
+
+    product = serializers.SlugRelatedField(
+        slug_field='name',
+        read_only=True,
+    )
+
+    class Meta:
+        model = Position
+        fields = ('product', 'quantity')
+
+
+class OrderSerializer(serializers.ModelSerializer):
+
+    user = serializers.SlugRelatedField(
+        slug_field='username',
+        read_only=True,
+    )
+
+    class Meta:
+        model = Order
+        fields = ('user', 'status', 'total', 'created_at', 'updated_at')
+
+
+class OrderDetailSerializer(serializers.ModelSerializer):
+
+    user = serializers.SlugRelatedField(
+        slug_field='username',
+        read_only=True,
+    )
+
+    position = PositionSerializer(many=True)
+
+    class Meta:
+        model = Order
+        fields = ('user', 'status', 'total', 'position', 'created_at', 'updated_at')
+
+
+class OrderCreateSerializer(serializers.ModelSerializer):
+
+    # user = serializers.SlugRelatedField(
+    #     slug_field='username',
+    #     read_only=True,
+    # )
+
+    class Meta:
+        model = Order
+        fields = ('status',)
+
+    def create(self, validated_data):
+        """Метод для создания"""
+        validated_data["creator"] = self.context["request"].user
+        return super().create(validated_data)
+
+
+class PositionCreateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Position
+        fields = ('product', 'order', 'quantity')
+
+    def create(self, validated_data):
+        return Position.objects.create(**validated_data)
 #
 #     # def create(self, validated_data):
 #     #     print(self.context["request"])
+
+    # def create(self, validated_data):
+    #     """Метод для создания"""
+    #     validated_data["user_id"] = self.context["request"].user
+    #     return super().create(validated_data)

@@ -1,7 +1,7 @@
 from django.contrib import admin
-from django.contrib.admin import ModelAdmin
+from django.contrib.admin import ModelAdmin, DateFieldListFilter
 
-from shop_api.models import Product, Review
+from shop_api.models import Product, Review, Order, Position
 
 
 class ReviewInline(admin.TabularInline):
@@ -11,11 +11,11 @@ class ReviewInline(admin.TabularInline):
     readonly_fields = ("creator", "review_text", "rating")
 
 
-# class PositionInline(admin.TabularInline):
-#     """Позиции на странице заказов"""
-#     model = Positions
-#     extra = 1
-#     readonly_fields = ("count", "order")
+class PositionInline(admin.TabularInline):
+    """Позиции на странице заказов"""
+    model = Position
+    extra = 1
+    list_display = ("product", "quantity")
 
 
 @admin.register(Product)
@@ -27,13 +27,15 @@ class ProductAdmin(ModelAdmin):
 
 @admin.register(Review)
 class ReviewAdmin(ModelAdmin):
-    """Продукты"""
+    """Отзывы"""
     list_display = ("creator", "review_text", "rating", "product", "created_at", "updated_at")
 
 
-# @admin.register(Order)
-# class OrderAdmin(ModelAdmin):
-#     """Заказы"""
-#     list_display = ("user_id", "status", "created_at", "updated_at")
-#     readonly_fields = ("total",)
-#     inlines = [PositionInline]
+@admin.register(Order)
+class OrderAdmin(ModelAdmin):
+    """Заказы"""
+    list_display = ("user", "status", "total", "count", "created_at", "updated_at")
+    inlines = [PositionInline]
+    list_filter = (
+        ('created_at', DateFieldListFilter),
+    )
