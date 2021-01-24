@@ -13,64 +13,22 @@ class OrderStatusChoices(models.TextChoices):
     DONE = "DONE", "Готов"
 
 
-# class Order(models.Model):
-#
-#     user_id = models.ForeignKey(
-#         settings.AUTH_USER_MODEL,
-#         verbose_name="Пользователь",
-#         on_delete=models.CASCADE
-#     )
-#
-#     status = models.TextField(
-#         OrderStatusChoices.choices,
-#         default=OrderStatusChoices.NEW
-#     )
-#
-#     # position = models.ForeignKey(
-#     #         'Positions',
-#     #         verbose_name='Наименование',
-#     #         on_delete=models.CASCADE,
-#     #         related_name='order'
-#     #     )
-#     total = models.DecimalField("Общая стоимость заказа", max_digits=10, decimal_places=2, null=True)
-#     created_at = models.DateTimeField("Создано", auto_now_add=True)
-#     updated_at = models.DateTimeField("Обновлено", auto_now=True)
-#
-#     def __str__(self):
-#         return f'{self.user_id}, {self.status}, {self.total}'
-#
-#     def get_position(self):
-#         return self.positions.all()
-#
-#     class Meta:
-#         verbose_name = "Заказ"
-#         verbose_name_plural = "Заказы"
-#
-#
-# class Positions(models.Model):
-#
-#     user_id = models.ForeignKey(
-#         settings.AUTH_USER_MODEL,
-#         verbose_name="Пользователь",
-#         on_delete=models.CASCADE
-#     )
-#     count = models.PositiveSmallIntegerField(default=0)
-#     order = models.ForeignKey(
-#         Order,
-#         verbose_name='Номер заказа',
-#         on_delete=models.CASCADE,
-#         related_name='positions'
-#     )
-#
-#     def __str__(self):
-#         return self.user_id
-#
-#     def get_product(self):
-#         return self.product.all()
-#
-#     class Meta:
-#         verbose_name = "Наименование"
-#         verbose_name_plural = "Наименования"
+class ProductCollections(models.Model):
+
+    title = models.CharField("Заголовок", max_length=50)
+    text = models.TextField()
+    created_at = models.DateTimeField("Создано", auto_now_add=True)
+    updated_at = models.DateTimeField("Обновлено", auto_now=True)
+
+    def __str__(self):
+        return self.title
+
+    def get_productlistforcollection(self):
+        return self.productlistforcollection.all()
+
+    class Meta:
+        verbose_name = "Подборка"
+        verbose_name_plural = "Подборки"
 
 
 class Product(models.Model):
@@ -80,16 +38,21 @@ class Product(models.Model):
     price = models.DecimalField("Цена", default=0.00, max_digits=10, decimal_places=2)
     created_at = models.DateTimeField("Создано", auto_now_add=True)
     updated_at = models.DateTimeField("Обновлено", auto_now=True)
+    product_collection = models.ForeignKey(
+        ProductCollections,
+        verbose_name="Подборки",
+        on_delete=models.CASCADE,
+        related_name="products")
 
     def __str__(self):
-        return self.name
+        return f'{self.name}'
 
     def get_review(self):
         return self.review.all()
 
     class Meta:
-        verbose_name = "Продукт"
-        verbose_name_plural = "Продукты"
+        verbose_name = "Товар"
+        verbose_name_plural = "Товары"
 
 
 class Order(models.Model):
@@ -119,6 +82,19 @@ class Order(models.Model):
         verbose_name = "Заказ"
         verbose_name_plural = "Заказы"
         ordering = ["created_at"]
+
+
+class ProductListForCollection(models.Model):
+
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='product_list')
+    collection = models.ForeignKey(ProductCollections, on_delete=models.CASCADE, related_name='product_list')
+
+    def __str__(self):
+        return self.product.name
+
+    class Meta:
+        verbose_name = "Коллекция"
+        verbose_name_plural = "Коллекции"
 
 
 class Position(models.Model):
@@ -157,26 +133,6 @@ class Review(models.Model):
     class Meta:
         verbose_name = "Отзыв"
         verbose_name_plural = "Отзывы"
-
-#
-# class ProductCollections(models.Model):
-#
-#     title = models.CharField("Заголовок", max_length=50)
-#     text = models.TextField()
-#     product_collections = models.ManyToManyField(
-#         Product,
-#         verbose_name="Подборки",
-#         related_name="collections"
-#     )
-#     created_at = models.DateTimeField("Создано", auto_now_add=True)
-#     updated_at = models.DateTimeField("Обновлено", auto_now=True)
-#
-#     def __str__(self):
-#         return self.title
-#
-#     class Meta:
-#         verbose_name = "Подборка"
-#         verbose_name_plural = "Подборки"
 
 
 @receiver(post_save, sender=Position)

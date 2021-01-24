@@ -5,11 +5,12 @@ from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 
 from shop_api.filters import ProductFilter, ReviewFilter, OrderFilter
-from shop_api.models import Product, Review, Order, Position
+from shop_api.models import Product, Review, Order, Position, ProductCollections, ProductListForCollection
 
 from shop_api.serializers import ProductListSerializer, ProductDetailSerializer, \
     ReviewCreateSerializer, ProductCreateSerializer, ReviewSerializer, OrderSerializer, OrderCreateSerializer, \
-    PositionCreateSerializer, OrderDetailSerializer
+    PositionCreateSerializer, OrderDetailSerializer, CollectionsSerializer, CollectionsCreateSerializer, \
+    AddProductToCollectionSerializer, CollectionsDetailSerializer
 
 
 class ProductViewSet(ModelViewSet):
@@ -119,4 +120,35 @@ class PositionViewSet(ModelViewSet):
         """Получение прав для действий."""
         if self.action == "create":
             return [IsAuthenticated()]
+        return []
+
+
+class CollectionViewSet(ModelViewSet):
+
+    queryset = ProductCollections.objects.all()
+
+    def get_serializer_class(self):
+        if self.action == "list":
+            return CollectionsSerializer
+        elif self.action == "create":
+            return CollectionsCreateSerializer
+        elif self.action == "retrieve":
+            return CollectionsDetailSerializer
+
+    def get_permissions(self):
+        """Получение прав для действий."""
+        if self.action == "create":
+            return [IsAdminUser()]
+        return []
+
+
+class AddProductToCollectionViewSet(ModelViewSet):
+
+    queryset = ProductListForCollection.objects.all()
+    serializer_class = AddProductToCollectionSerializer
+
+    def get_permissions(self):
+        """Получение прав для действий."""
+        if self.action == "create":
+            return [IsAdminUser()]
         return []

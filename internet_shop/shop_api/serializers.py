@@ -2,7 +2,7 @@ from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 from django.contrib.auth.models import User
 
-from shop_api.models import Product, Review, Order, Position
+from shop_api.models import Product, Review, Order, Position, ProductCollections, ProductListForCollection
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -127,11 +127,6 @@ class OrderDetailSerializer(serializers.ModelSerializer):
 
 class OrderCreateSerializer(serializers.ModelSerializer):
 
-    # user = serializers.SlugRelatedField(
-    #     slug_field='username',
-    #     read_only=True,
-    # )
-
     class Meta:
         model = Order
         fields = ('status',)
@@ -150,11 +145,62 @@ class PositionCreateSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         return Position.objects.create(**validated_data)
-#
-#     # def create(self, validated_data):
-#     #     print(self.context["request"])
 
-    # def create(self, validated_data):
-    #     """Метод для создания"""
-    #     validated_data["user_id"] = self.context["request"].user
-    #     return super().create(validated_data)
+
+class CollectionsSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ProductCollections
+        fields = ('id', 'title', 'text', 'created_at', 'updated_at')
+
+
+class CollectionsCreateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ProductCollections
+        fields = ('title', 'text')
+
+    def create(self, validated_data):
+        return ProductCollections.objects.create(**validated_data)
+
+
+class ProductToCollectionSerializer(serializers.ModelSerializer):
+
+    product = serializers.SlugRelatedField(
+        slug_field='name',
+        read_only=True,
+    )
+
+    class Meta:
+        model = ProductListForCollection
+        fields = ('product',)
+
+
+class AddProductToCollectionSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = ProductListForCollection
+        fields = ('collection', 'product')
+
+    def create(self, validated_data):
+        return ProductListForCollection.objects.create(**validated_data)
+
+    def validate(self, data):
+        post_data = self.context["request"].data
+        collection_id = post_data.get('collection')
+        product_id = post_data.get('product')
+        product_name = Product.objects.get(id=product_id)
+        collection_items = ProductListForCollection.objects.filter(collection_id=collection_id)
+        for item in collection_items:
+            if str(product_name) == str(item):
+                raise ValidationError({"ProductListForCollection": "Товар уже есть в списке"})
+        return data
+
+
+class CollectionsDetailSerializer(serializers.ModelSerializer):
+
+    product_list = ProductToCollectionSerializer(many=True)
+
+    class Meta:
+        model = ProductCollections
+        fields = ('id', 'title', 'text', 'product_list', 'created_at', 'updated_at')
