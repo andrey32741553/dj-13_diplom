@@ -1,5 +1,3 @@
-from collections import Counter
-
 from django import forms
 
 
