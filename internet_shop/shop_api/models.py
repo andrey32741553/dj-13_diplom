@@ -3,6 +3,7 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils.datetime_safe import datetime
+from rest_framework.exceptions import ValidationError
 
 
 class OrderStatusChoices(models.TextChoices):
@@ -42,6 +43,7 @@ class Product(models.Model):
         ProductCollections,
         verbose_name="Подборки",
         on_delete=models.CASCADE,
+        blank=True, null=True,
         related_name="products")
 
     def __str__(self):
@@ -95,6 +97,7 @@ class ProductListForCollection(models.Model):
     class Meta:
         verbose_name = "Коллекция"
         verbose_name_plural = "Коллекции"
+        unique_together = ('product', 'collection')
 
 
 class Position(models.Model):

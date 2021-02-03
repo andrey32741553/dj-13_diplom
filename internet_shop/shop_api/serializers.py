@@ -30,6 +30,14 @@ class ProductCreateSerializer(serializers.ModelSerializer):
         fields = ('name', 'price', 'description')
 
 
+class ProductUpdateSerializer(serializers.ModelSerializer):
+    """Serializer для списка продуктов."""
+
+    class Meta:
+        model = Product
+        fields = ('name', 'price', 'description')
+
+
 class ReviewCreateSerializer(serializers.ModelSerializer):
 
     creator = serializers.SlugRelatedField(
@@ -129,12 +137,10 @@ class OrderCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ('status',)
+        fields = ('user', 'status',)
 
     def create(self, validated_data):
-        """Метод для создания"""
-        validated_data["creator"] = self.context["request"].user
-        return super().create(validated_data)
+        return Order.objects.create(**validated_data)
 
 
 class PositionCreateSerializer(serializers.ModelSerializer):

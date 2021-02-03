@@ -10,7 +10,7 @@ from shop_api.models import Product, Review, Order, Position, ProductCollections
 from shop_api.serializers import ProductListSerializer, ProductDetailSerializer, \
     ReviewCreateSerializer, ProductCreateSerializer, ReviewSerializer, OrderSerializer, OrderCreateSerializer, \
     PositionCreateSerializer, OrderDetailSerializer, CollectionsSerializer, CollectionsCreateSerializer, \
-    AddProductToCollectionSerializer, CollectionsDetailSerializer
+    AddProductToCollectionSerializer, CollectionsDetailSerializer, ProductUpdateSerializer
 
 
 class ProductViewSet(ModelViewSet):
@@ -27,6 +27,8 @@ class ProductViewSet(ModelViewSet):
             return ProductDetailSerializer
         elif self.action == "create":
             return ProductCreateSerializer
+        elif self.action == "update":
+            return ProductUpdateSerializer
 
     def get_permissions(self):
         """Получение прав для действий."""
@@ -149,6 +151,6 @@ class AddProductToCollectionViewSet(ModelViewSet):
 
     def get_permissions(self):
         """Получение прав для действий."""
-        if self.action == "create":
+        if self.action in ["create", "destroy"]:
             return [IsAdminUser()]
         return []
