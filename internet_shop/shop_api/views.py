@@ -7,28 +7,24 @@ from rest_framework.viewsets import ModelViewSet
 from shop_api.filters import ProductFilter, ReviewFilter, OrderFilter
 from shop_api.models import Product, Review, Order, Position, ProductCollections, ProductListForCollection
 
-from shop_api.serializers import ProductListSerializer, ProductDetailSerializer, \
-    ReviewCreateSerializer, ProductCreateSerializer, ReviewSerializer, OrderSerializer, OrderCreateSerializer, \
+from shop_api.serializers import ProductSerializer, ProductDetailSerializer, \
+    ReviewCreateSerializer, ReviewSerializer, OrderSerializer, OrderCreateSerializer, \
     PositionCreateSerializer, OrderDetailSerializer, CollectionsSerializer, CollectionsCreateSerializer, \
-    AddProductToCollectionSerializer, CollectionsDetailSerializer, ProductUpdateSerializer
+    AddProductToCollectionSerializer, CollectionsDetailSerializer, ReviewUpdateSerializer
 
 
 class ProductViewSet(ModelViewSet):
-    """ViewSet для продуктов."""
+    """ViewSet для продуктов """
 
     filter_backends = (DjangoFilterBackend,)
     filterset_class = ProductFilter
     queryset = Product.objects.all()
 
     def get_serializer_class(self):
-        if self.action == "list":
-            return ProductListSerializer
+        if self.action in ["list", "create", "update"]:
+            return ProductSerializer
         elif self.action == "retrieve":
             return ProductDetailSerializer
-        elif self.action == "create":
-            return ProductCreateSerializer
-        elif self.action == "update":
-            return ProductUpdateSerializer
 
     def get_permissions(self):
         """Получение прав для действий."""
@@ -38,6 +34,7 @@ class ProductViewSet(ModelViewSet):
 
 
 class ReviewViewSet(ModelViewSet):
+    """ViewSet для отзывов """
 
     filter_backends = (DjangoFilterBackend,)
     filterset_class = ReviewFilter
@@ -48,25 +45,22 @@ class ReviewViewSet(ModelViewSet):
             return ReviewSerializer
         elif self.action == "create":
             return ReviewCreateSerializer
+        elif self.action == "update":
+            return ReviewUpdateSerializer
 
     def get_permissions(self):
-        """Получение прав для действий."""
         if self.action in ["create"]:
             return [IsAuthenticated()]
         return []
 
     @transaction.atomic
     def destroy(self, request, *args, **kwargs):
-        # print("Удаление внутри транзакции")
-        # Получаем имя пользователя, который сделал запрос
         review_user = request.user
-        # получаем имя пользователя, который создал сущность, которую нужно удалить
         instance = self.get_object()
         review_creator = instance.creator
 
         if review_user != review_creator:
             raise ValidationError({"Review": "Удалять можно только свои записи!"})
-
         return super().destroy(request, *args, **kwargs)
 
     @transaction.atomic
@@ -80,6 +74,7 @@ class ReviewViewSet(ModelViewSet):
 
 
 class OrderViewSet(ModelViewSet):
+    """ViewSet для заказов """
 
     filter_backends = (DjangoFilterBackend,)
     filterset_class = OrderFilter
@@ -96,7 +91,6 @@ class OrderViewSet(ModelViewSet):
             return OrderCreateSerializer
 
     def get_permissions(self):
-        """Получение прав для действий."""
         if self.action in ["create", "destroy"]:
             return [IsAuthenticated()]
         elif self.action in ["list", "update"]:
@@ -114,18 +108,21 @@ class OrderViewSet(ModelViewSet):
 
 
 class PositionViewSet(ModelViewSet):
+    """ViewSet для позиций в заказах """
 
     queryset = Position.objects.all()
     serializer_class = PositionCreateSerializer
 
     def get_permissions(self):
-        """Получение прав для действий."""
-        if self.action == "create":
+        if self.action in ["create", "partial_update", "destroy"]:
             return [IsAuthenticated()]
+        if self.action == "list":
+            return [IsAdminUser()]
         return []
 
 
 class CollectionViewSet(ModelViewSet):
+    """ViewSet для подборок """
 
     queryset = ProductCollections.objects.all()
 
@@ -138,19 +135,18 @@ class CollectionViewSet(ModelViewSet):
             return CollectionsDetailSerializer
 
     def get_permissions(self):
-        """Получение прав для действий."""
         if self.action == "create":
             return [IsAdminUser()]
         return []
 
 
 class AddProductToCollectionViewSet(ModelViewSet):
+    """ViewSet для добавления товаров в подборки """
 
     queryset = ProductListForCollection.objects.all()
     serializer_class = AddProductToCollectionSerializer
 
     def get_permissions(self):
-        """Получение прав для действий."""
         if self.action in ["create", "destroy"]:
             return [IsAdminUser()]
         return []

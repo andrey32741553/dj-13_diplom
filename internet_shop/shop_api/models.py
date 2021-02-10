@@ -70,7 +70,7 @@ class Order(models.Model):
         default=OrderStatusChoices.NEW
     )
     count = models.PositiveIntegerField(default=0)
-    total = models.FloatField(default=0.00)
+    total = models.DecimalField(default=0.00, max_digits=10, decimal_places=2)
     created_at = models.DateTimeField("Создано", auto_now_add=True)
     updated_at = models.DateTimeField("Обновлено", auto_now=True)
 

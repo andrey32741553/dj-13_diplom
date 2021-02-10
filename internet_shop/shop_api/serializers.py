@@ -14,23 +14,7 @@ class UserSerializer(serializers.ModelSerializer):
                   'last_name',)
 
 
-class ProductListSerializer(serializers.ModelSerializer):
-    """Serializer для списка продуктов."""
-
-    class Meta:
-        model = Product
-        fields = ('name', 'price', 'description')
-
-
-class ProductCreateSerializer(serializers.ModelSerializer):
-    """Serializer для списка продуктов."""
-
-    class Meta:
-        model = Product
-        fields = ('name', 'price', 'description')
-
-
-class ProductUpdateSerializer(serializers.ModelSerializer):
+class ProductSerializer(serializers.ModelSerializer):
     """Serializer для списка продуктов."""
 
     class Meta:
@@ -68,6 +52,18 @@ class ReviewCreateSerializer(serializers.ModelSerializer):
         return data
 
 
+class ReviewUpdateSerializer(serializers.ModelSerializer):
+
+    creator = serializers.SlugRelatedField(
+        slug_field='username',
+        read_only=True,
+    )
+
+    class Meta:
+        model = Review
+        fields = ('creator', 'review_text', 'rating', 'product')
+
+
 class ReviewSerializer(serializers.ModelSerializer):
 
     creator = serializers.SlugRelatedField(
@@ -97,14 +93,19 @@ class ProductDetailSerializer(serializers.ModelSerializer):
 
 class PositionSerializer(serializers.ModelSerializer):
 
-    product = serializers.SlugRelatedField(
-        slug_field='name',
-        read_only=True,
-    )
+    # product = serializers.SlugRelatedField(
+    #     slug_field='name',
+    #     read_only=True,
+    # )
+    #
+    # order = serializers.SlugRelatedField(
+    #     slug_field='user',
+    #     read_only=True,
+    # )
 
     class Meta:
         model = Position
-        fields = ('product', 'quantity')
+        fields = ('product', 'order', 'quantity')
 
 
 class OrderSerializer(serializers.ModelSerializer):
@@ -116,7 +117,7 @@ class OrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ('user', 'status', 'total', 'created_at', 'updated_at')
+        fields = ('id', 'user', 'status', 'total', 'created_at', 'updated_at')
 
 
 class OrderDetailSerializer(serializers.ModelSerializer):
