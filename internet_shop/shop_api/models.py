@@ -3,7 +3,6 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.utils.datetime_safe import datetime
-from rest_framework.exceptions import ValidationError
 
 
 class OrderStatusChoices(models.TextChoices):
@@ -47,7 +46,7 @@ class Product(models.Model):
         related_name="products")
 
     def __str__(self):
-        return f'{self.name}'
+        return self.name
 
     def get_review(self):
         return self.review.all()
@@ -92,7 +91,7 @@ class ProductListForCollection(models.Model):
     collection = models.ForeignKey(ProductCollections, on_delete=models.CASCADE, related_name='product_list')
 
     def __str__(self):
-        return self.product.name
+        return f'{self.product.name} принадлежит подборке {self.collection.title}'
 
     class Meta:
         verbose_name = "Коллекция"
@@ -131,7 +130,7 @@ class Review(models.Model):
     updated_at = models.DateTimeField("Обновлено", auto_now=True)
 
     def __str__(self):
-        return f'{self.creator}, {self.product}'
+        return self.creator, self.product
 
     class Meta:
         verbose_name = "Отзыв"
@@ -148,6 +147,15 @@ def update_order(sender, instance, **kwargs):
     user_order.update(count=instance.order.count)
     instance.order.updated_at = datetime.now()
     user_order.update(updated_at=instance.order.updated_at)
+#
+#
+# @receiver(post_save, sender=Review)
+# def update_review(sender, instance, **kwargs):
+#     review_creator = Review.objects.filter(creator=instance.creator)
+#     review_creator.update(review_text=instance.review_text)
+#     review_creator.update(rating=instance.rating)
+#     instance.updated_at = datetime.now()
+#     review_creator.update(updated_at=instance.updated_at)
 
 
 def save(self, *args, **kwargs):

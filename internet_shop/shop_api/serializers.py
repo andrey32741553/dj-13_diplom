@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 from django.contrib.auth.models import User
@@ -19,7 +21,7 @@ class ProductSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Product
-        fields = ('name', 'price', 'description')
+        fields = ('id', 'name', 'price', 'description')
 
 
 class ReviewCreateSerializer(serializers.ModelSerializer):
@@ -39,8 +41,7 @@ class ReviewCreateSerializer(serializers.ModelSerializer):
         return super().create(validated_data)
 
     def validate(self, data):
-        """Метод для валидации. Вызывается при создании и обновлении."""
-        # валидация количества отзывов и значения рейтинга
+        """ валидация количества отзывов и значения рейтинга """
         review_user = self.context["request"].user
         post_data = self.context["request"].data
         product_id = post_data.get('product')
@@ -62,6 +63,20 @@ class ReviewUpdateSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
         fields = ('creator', 'review_text', 'rating', 'product')
+
+    def update(self, instance, validated_data):
+        instance.review_text = validated_data.get('review_text', instance.review_text)
+        instance.rating = validated_data.get('rating', instance.rating)
+        instance.updated_at = datetime.now()
+        instance.save()
+        return instance
+
+    def validate(self, data):
+        """ валидация количества отзывов и значения рейтинга """
+        post_data = self.context["request"].data
+        if int(post_data.get('rating')) < 1 or int(post_data.get('rating')) > 5:
+            raise ValidationError({"Review": "Рейтинг должен быть от 1 до 5"})
+        return data
 
 
 class ReviewSerializer(serializers.ModelSerializer):
@@ -93,11 +108,11 @@ class ProductDetailSerializer(serializers.ModelSerializer):
 
 class PositionSerializer(serializers.ModelSerializer):
 
-    # product = serializers.SlugRelatedField(
-    #     slug_field='name',
-    #     read_only=True,
-    # )
-    #
+    product = serializers.SlugRelatedField(
+        slug_field='name',
+        read_only=True,
+    )
+
     # order = serializers.SlugRelatedField(
     #     slug_field='user',
     #     read_only=True,
@@ -106,6 +121,16 @@ class PositionSerializer(serializers.ModelSerializer):
     class Meta:
         model = Position
         fields = ('product', 'order', 'quantity')
+
+
+class PositionCreateSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Position
+        fields = ('product', 'quantity')
+
+    def create(self, validated_data):
+        return Position.objects.create(**validated_data)
 
 
 class OrderSerializer(serializers.ModelSerializer):
@@ -118,6 +143,27 @@ class OrderSerializer(serializers.ModelSerializer):
     class Meta:
         model = Order
         fields = ('id', 'user', 'status', 'total', 'created_at', 'updated_at')
+
+
+class OrderUpdateSerializer(serializers.ModelSerializer):
+
+    user = serializers.SlugRelatedField(
+        slug_field='username',
+        read_only=True,
+    )
+
+    class Meta:
+        model = Order
+        fields = ('user', 'status', 'updated_at')
+
+    def update(self, instance, validated_data):
+        if self.context['request'].user.is_staff:
+            instance.status = validated_data.get('status', instance.status)
+            instance.updated_at = datetime.now()
+            instance.save()
+            return instance
+        else:
+            raise ValidationError({"Order": "Менять статус заказа может только админ"})
 
 
 class OrderDetailSerializer(serializers.ModelSerializer):
@@ -138,20 +184,19 @@ class OrderCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = ('user', 'status',)
+        fields = ()
 
     def create(self, validated_data):
-        return Order.objects.create(**validated_data)
+        validated_data["user"] = self.context["request"].user
+        return super().create(validated_data)
 
-
-class PositionCreateSerializer(serializers.ModelSerializer):
-
-    class Meta:
-        model = Position
-        fields = ('product', 'order', 'quantity')
-
-    def create(self, validated_data):
-        return Position.objects.create(**validated_data)
+    def validate(self, data):
+        """ валидация количества заказов - не более одного для каждого пользователя"""
+        order_user = self.context["request"].user
+        orders_count = Order.objects.filter(user=order_user).count()
+        if orders_count >= 1:
+            raise ValidationError({"Order": "Количество заказов > 1. Дополните имеющийся заказ"})
+        return data
 
 
 class CollectionsSerializer(serializers.ModelSerializer):

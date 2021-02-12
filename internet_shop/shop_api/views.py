@@ -10,7 +10,7 @@ from shop_api.models import Product, Review, Order, Position, ProductCollections
 from shop_api.serializers import ProductSerializer, ProductDetailSerializer, \
     ReviewCreateSerializer, ReviewSerializer, OrderSerializer, OrderCreateSerializer, \
     PositionCreateSerializer, OrderDetailSerializer, CollectionsSerializer, CollectionsCreateSerializer, \
-    AddProductToCollectionSerializer, CollectionsDetailSerializer, ReviewUpdateSerializer
+    AddProductToCollectionSerializer, CollectionsDetailSerializer, ReviewUpdateSerializer, OrderUpdateSerializer
 
 
 class ProductViewSet(ModelViewSet):
@@ -41,7 +41,7 @@ class ReviewViewSet(ModelViewSet):
     queryset = Review.objects.all()
 
     def get_serializer_class(self):
-        if self.action == "list":
+        if self.action in ["list", "retrieve"]:
             return ReviewSerializer
         elif self.action == "create":
             return ReviewCreateSerializer
@@ -49,7 +49,7 @@ class ReviewViewSet(ModelViewSet):
             return ReviewUpdateSerializer
 
     def get_permissions(self):
-        if self.action in ["create"]:
+        if self.action in ["create", "update", "retrieve", "partial_update", "destroy"]:
             return [IsAuthenticated()]
         return []
 
@@ -88,7 +88,7 @@ class OrderViewSet(ModelViewSet):
         elif self.action == "retrieve":
             return OrderDetailSerializer
         elif self.action == "update":
-            return OrderCreateSerializer
+            return OrderUpdateSerializer
 
     def get_permissions(self):
         if self.action in ["create", "destroy"]:

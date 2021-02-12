@@ -30,5 +30,5 @@ router.register("product-to-collection", AddProductToCollectionViewSet, basename
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/', include('shop_api.urls')),
-    path('api/v1/', include(router.urls))
+    # path('api/v1/', include(router.urls))
 ]
