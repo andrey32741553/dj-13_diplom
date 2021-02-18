@@ -143,7 +143,7 @@ def test_order_filter_by_total_price(admin_client, client, django_user_model):
     resp_json = resp.json()
     assert resp.status_code == HTTP_200_OK
     for item in resp_json:
-        assert item['total'] == str(order_info.total)
+        assert item['total'] == order_info.total
 
 
 def test_order_filter_by_create_date_and_update_date(admin_client, client, django_user_model):
@@ -231,39 +231,21 @@ def test_order_filter_by_product_in_positions(admin_client, client, django_user_
     username = "foo"
     password = "bar"
     user = django_user_model.objects.create_user(username=username, password=password)
-    username = "vasia"
-    password = "123"
-    user1 = django_user_model.objects.create_user(username=username, password=password)
-    username = "petya"
-    password = "456"
-    user2 = django_user_model.objects.create_user(username=username, password=password)
     client.force_login(user)
-    client.force_login(user1)
-    client.force_login(user2)
     url = reverse("orders-list")
     name = User.objects.get(pk=user.pk)
-    name1 = User.objects.get(pk=user1.pk)
-    name2 = User.objects.get(pk=user2.pk)
-    order = {"user": name.id, "status": "NEW"}
-    order1 = {"user": name1.id, "status": "NEW"}
-    order2 = {"user": name2.id, "status": "NEW"}
+    order = {"user": name.id}
     resp = client.post(url, order)
-    resp1 = client.post(url, order1)
-    resp2 = client.post(url, order2)
     assert resp.status_code == HTTP_201_CREATED
-    assert resp1.status_code == HTTP_201_CREATED
-    assert resp2.status_code == HTTP_201_CREATED
     """ Создание позиций заказа пользователем """
     order_info = Order.objects.get(user=order['user'])
-    order_info1 = Order.objects.get(user=order1['user'])
-    order_info2 = Order.objects.get(user=order2['user'])
     url = reverse("positions-list")
     product_info = Product.objects.get(name=product['name'])
     product_info1 = Product.objects.get(name=product1['name'])
     product_info2 = Product.objects.get(name=product2['name'])
     position = {'user': name.id, 'product': product_info.id, 'order': order_info.id, 'quantity': 100}
-    position1 = {'user': name1.id, 'product': product_info1.id, 'order': order_info1.id, 'quantity': 1}
-    position2 = {'user': name2.id, 'product': product_info2.id, 'order': order_info2.id, 'quantity': 5}
+    position1 = {'user': name.id, 'product': product_info1.id, 'order': order_info.id, 'quantity': 1}
+    position2 = {'user': name.id, 'product': product_info2.id, 'order': order_info.id, 'quantity': 5}
     response = client.post(url, position)
     response1 = client.post(url, position1)
     response2 = client.post(url, position2)
