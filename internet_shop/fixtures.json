@@ -1,5 +1,317 @@
 [
 {
+  "model": "admin.logentry",
+  "pk": 73,
+  "fields": {
+    "action_time": "2021-02-13T05:38:17.922Z",
+    "user": 4,
+    "content_type": 4,
+    "object_id": "5",
+    "object_repr": "petya",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 74,
+  "fields": {
+    "action_time": "2021-02-13T05:38:49.860Z",
+    "user": 4,
+    "content_type": 12,
+    "object_id": "17",
+    "object_repr": "User: petya has 0 items in order. Their total is $0.0",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 75,
+  "fields": {
+    "action_time": "2021-02-13T05:39:06.214Z",
+    "user": 4,
+    "content_type": 12,
+    "object_id": "17",
+    "object_repr": "User: petya has 4 items in order. Their total is $3200.00",
+    "action_flag": 2,
+    "change_message": "[{\"added\": {\"name\": \"\\u041d\\u0430\\u0438\\u043c\\u0435\\u043d\\u043e\\u0432\\u0430\\u043d\\u0438\\u0435\", \"object\": \"This entry contains 4 \\u0421\\u0442\\u0443\\u043b(s).\"}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 76,
+  "fields": {
+    "action_time": "2021-02-13T05:39:13.983Z",
+    "user": 4,
+    "content_type": 12,
+    "object_id": "17",
+    "object_repr": "User: petya has 5 items in order. Their total is $9200.00",
+    "action_flag": 2,
+    "change_message": "[{\"added\": {\"name\": \"\\u041d\\u0430\\u0438\\u043c\\u0435\\u043d\\u043e\\u0432\\u0430\\u043d\\u0438\\u0435\", \"object\": \"This entry contains 1 \\u0421\\u0442\\u043e\\u043b(s).\"}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 77,
+  "fields": {
+    "action_time": "2021-02-13T05:39:22.868Z",
+    "user": 4,
+    "content_type": 12,
+    "object_id": "17",
+    "object_repr": "User: petya has 6 items in order. Their total is $9700.00",
+    "action_flag": 2,
+    "change_message": "[{\"added\": {\"name\": \"\\u041d\\u0430\\u0438\\u043c\\u0435\\u043d\\u043e\\u0432\\u0430\\u043d\\u0438\\u0435\", \"object\": \"This entry contains 1 \\u0401\\u043b\\u043a\\u0430(s).\"}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 78,
+  "fields": {
+    "action_time": "2021-02-13T05:41:20.137Z",
+    "user": 4,
+    "content_type": 12,
+    "object_id": "18",
+    "object_repr": "User: petya has 0 items in order. Their total is $0.0",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 79,
+  "fields": {
+    "action_time": "2021-02-13T05:41:39.644Z",
+    "user": 4,
+    "content_type": 12,
+    "object_id": "18",
+    "object_repr": "User: petya has 0 items in order. Their total is $0.00",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 80,
+  "fields": {
+    "action_time": "2021-02-14T10:34:11.917Z",
+    "user": 4,
+    "content_type": 4,
+    "object_id": "5",
+    "object_repr": "petya",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Active\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 81,
+  "fields": {
+    "action_time": "2021-02-14T10:34:17.290Z",
+    "user": 4,
+    "content_type": 4,
+    "object_id": "7",
+    "object_repr": "test",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Active\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 82,
+  "fields": {
+    "action_time": "2021-02-14T10:46:14.634Z",
+    "user": 4,
+    "content_type": 8,
+    "object_id": "4",
+    "object_repr": "56dbe18cd79cd3b2e04d2245c06c5a5597a73a54",
+    "action_flag": 2,
+    "change_message": "[]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 83,
+  "fields": {
+    "action_time": "2021-02-14T10:47:17.832Z",
+    "user": 4,
+    "content_type": 8,
+    "object_id": "4",
+    "object_repr": "56dbe18cd79cd3b2e04d2245c06c5a5597a73a54",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 84,
+  "fields": {
+    "action_time": "2021-02-17T14:11:49.116Z",
+    "user": 4,
+    "content_type": 4,
+    "object_id": "8",
+    "object_repr": "admin",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 85,
+  "fields": {
+    "action_time": "2021-02-17T14:12:22.133Z",
+    "user": 4,
+    "content_type": 4,
+    "object_id": "8",
+    "object_repr": "admin",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Staff status\", \"Superuser status\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 86,
+  "fields": {
+    "action_time": "2021-02-17T14:13:44.038Z",
+    "user": 4,
+    "content_type": 8,
+    "object_id": "8",
+    "object_repr": "b836d180dea51b27d0be83e4bfb2f9de27dee570",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 87,
+  "fields": {
+    "action_time": "2021-02-18T09:29:33.153Z",
+    "user": 4,
+    "content_type": 8,
+    "object_id": "4",
+    "object_repr": "e72832803e3c08131d413e45a772655d378a7d6d",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 88,
+  "fields": {
+    "action_time": "2021-02-18T09:30:25.713Z",
+    "user": 4,
+    "content_type": 8,
+    "object_id": "4",
+    "object_repr": "e72832803e3c08131d413e45a772655d378a7d6d",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 89,
+  "fields": {
+    "action_time": "2021-02-18T12:56:55.528Z",
+    "user": 4,
+    "content_type": 8,
+    "object_id": "4",
+    "object_repr": "71f92936a905195fb724ddd0d263abf0ea61e6cf",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 90,
+  "fields": {
+    "action_time": "2021-02-19T09:54:02.144Z",
+    "user": 4,
+    "content_type": 8,
+    "object_id": "8",
+    "object_repr": "b836d180dea51b27d0be83e4bfb2f9de27dee570",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 91,
+  "fields": {
+    "action_time": "2021-02-19T09:54:23.445Z",
+    "user": 4,
+    "content_type": 8,
+    "object_id": "4",
+    "object_repr": "71f92936a905195fb724ddd0d263abf0ea61e6cf",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 92,
+  "fields": {
+    "action_time": "2021-02-19T09:54:29.896Z",
+    "user": 4,
+    "content_type": 8,
+    "object_id": "8",
+    "object_repr": "a09c1975ca70d0bc212fbbe5b7db7cc597ed6641",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 93,
+  "fields": {
+    "action_time": "2021-02-19T10:16:27.510Z",
+    "user": 4,
+    "content_type": 10,
+    "object_id": "19",
+    "object_repr": "Ёлка",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 94,
+  "fields": {
+    "action_time": "2021-02-19T12:56:31.645Z",
+    "user": 4,
+    "content_type": 8,
+    "object_id": "3",
+    "object_repr": "a7f47919b671e51a962e6bf0c92d343046b0e2ac",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 95,
+  "fields": {
+    "action_time": "2021-02-19T12:58:07.562Z",
+    "user": 4,
+    "content_type": 4,
+    "object_id": "3",
+    "object_repr": "vasia",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Active\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 96,
+  "fields": {
+    "action_time": "2021-02-19T13:38:55.862Z",
+    "user": 4,
+    "content_type": 8,
+    "object_id": "3",
+    "object_repr": "a7f47919b671e51a962e6bf0c92d343046b0e2ac",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
   "model": "auth.permission",
   "pk": 1,
   "fields": {
@@ -540,21 +852,75 @@
   }
 },
 {
-  "model": "auth.user",
-  "pk": 1,
+  "model": "auth.permission",
+  "pk": 61,
   "fields": {
-    "password": "admin",
-    "last_login": "2021-01-30T10:28:02.722Z",
-    "is_superuser": true,
-    "username": "admin",
-    "first_name": "",
-    "last_name": "",
-    "email": "",
-    "is_staff": true,
-    "is_active": true,
-    "date_joined": "2021-01-10T07:02:27.678Z",
-    "groups": [],
-    "user_permissions": []
+    "name": "Can add Избранное",
+    "content_type": 16,
+    "codename": "add_favourites"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 62,
+  "fields": {
+    "name": "Can change Избранное",
+    "content_type": 16,
+    "codename": "change_favourites"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 63,
+  "fields": {
+    "name": "Can delete Избранное",
+    "content_type": 16,
+    "codename": "delete_favourites"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 64,
+  "fields": {
+    "name": "Can view Избранное",
+    "content_type": 16,
+    "codename": "view_favourites"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 65,
+  "fields": {
+    "name": "Can add user methods",
+    "content_type": 17,
+    "codename": "add_usermethods"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 66,
+  "fields": {
+    "name": "Can change user methods",
+    "content_type": 17,
+    "codename": "change_usermethods"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 67,
+  "fields": {
+    "name": "Can delete user methods",
+    "content_type": 17,
+    "codename": "delete_usermethods"
+  }
+},
+{
+  "model": "auth.permission",
+  "pk": 68,
+  "fields": {
+    "name": "Can view user methods",
+    "content_type": 17,
+    "codename": "view_usermethods"
   }
 },
 {
@@ -587,8 +953,80 @@
     "last_name": "",
     "email": "",
     "is_staff": false,
-    "is_active": false,
+    "is_active": true,
     "date_joined": "2021-01-10T07:07:24Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 4,
+  "fields": {
+    "password": "pbkdf2_sha256$216000$3X1riBFnrZgW$HzLSNDUQbNE/wH0u3XytVn8F3IYCqvwVJfext4BY6xI=",
+    "last_login": "2021-02-14T10:26:57.324Z",
+    "is_superuser": true,
+    "username": "andrey",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2021-02-11T09:42:00.994Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 5,
+  "fields": {
+    "password": "pbkdf2_sha256$216000$AIZakqoSfISq$dMp1GVHNYQh/YpBoB+LJQavHUWHE28eRn1URvDCUHc4=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "petya",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": false,
+    "date_joined": "2021-02-13T05:38:17Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 7,
+  "fields": {
+    "password": "pbkdf2_sha256$216000$xNqjbiuz3Q2O$mRSlv2BATyGFCDahmQKXD1VmdgGAl9lkw4WJ74/ZWwg=",
+    "last_login": "2021-02-13T11:12:15Z",
+    "is_superuser": false,
+    "username": "test",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": false,
+    "date_joined": "2021-02-13T11:09:36Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 8,
+  "fields": {
+    "password": "pbkdf2_sha256$216000$iY2MpqSWRno2$fT8txMepn9jECRIcWGeCZU5k8lCnbe4ZhSB41B03Zqs=",
+    "last_login": null,
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2021-02-17T14:11:48Z",
     "groups": [],
     "user_permissions": []
   }
@@ -714,8 +1152,48 @@
   }
 },
 {
+  "model": "contenttypes.contenttype",
+  "pk": 16,
+  "fields": {
+    "app_label": "shop_api",
+    "model": "favourites"
+  }
+},
+{
+  "model": "contenttypes.contenttype",
+  "pk": 17,
+  "fields": {
+    "app_label": "shop_api",
+    "model": "usermethods"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "7xoy1gvxkjb1s7jq0gbdsiyoq5otibrr",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2hBKCwMu3XsGMsOAVA0kpV0Z765NutDtf-_9lwi4rSVsPS1hZnEWkzj9boTxkeoO-I711mRsdV1mkrsiD9rltXF6Xg7376BgL98aIAGTsRm1tY4HsOCZcsboR2CdwedotDKUHBsHSo0WeWKvtWczOCfeH_JeN9E:1lA8UY:8nq4AAHq1hOApBreoGEDMrU1_hruA1oG0tmAeGcvlhM",
+    "expire_date": "2021-02-25T09:42:30.981Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "7xpmy51ld2d3aurgbc6ujvzo7zpwx34y",
+  "fields": {
+    "session_data": ".eJxVjMsOwiAUBf-FtSFcWii6dN9vIPdBpWogKe3K-O_apAvdnpk5LxVxW3PcWlriLOqiQJ1-N0J-pLIDuWO5Vc21rMtMelf0QZseq6Tn9XD_DjK2_K07JjtZlsFDTxwsBTCIGMB14BCYUUw6O2EwyU3OIVGy5EPX-wGN9-r9Afg4ODs:1kzKOx:ZTNodRZ5IQEPAwYDNd_9w_50P6ZUdVSb_WnqJYepGI0",
+    "expire_date": "2021-01-26T14:12:03.111Z"
+  }
+},
+{
+  "model": "authtoken.token",
+  "pk": "a09c1975ca70d0bc212fbbe5b7db7cc597ed6641",
+  "fields": {
+    "user": 8,
+    "created": "2021-02-19T09:54:29.894Z"
+  }
+},
+{
   "model": "shop_api.productcollections",
-  "pk": 1,
+  "pk": 43,
   "fields": {
     "title": "Для дома",
     "text": "товары для дома",
@@ -725,7 +1203,7 @@
 },
 {
   "model": "shop_api.productcollections",
-  "pk": 2,
+  "pk": 44,
   "fields": {
     "title": "для гаража",
     "text": "товары для гаража",
@@ -734,12 +1212,22 @@
   }
 },
 {
+  "model": "shop_api.productcollections",
+  "pk": 45,
+  "fields": {
+    "title": "для дома и развлечений",
+    "text": "отличная техника для дома и развлечений",
+    "created_at": "2021-02-19T12:46:14.259Z",
+    "updated_at": "2021-02-19T12:53:06.123Z"
+  }
+},
+{
   "model": "shop_api.product",
   "pk": 1,
   "fields": {
     "name": "Арбуз",
     "description": "Вкусный, сочный",
-    "price": 150,
+    "price": 150.0,
     "created_at": "2021-01-08T08:29:22.792Z",
     "updated_at": "2021-01-08T08:29:22.792Z",
     "product_collection": null
@@ -751,7 +1239,7 @@
   "fields": {
     "name": "Стул",
     "description": "Крепкий",
-    "price": 800,
+    "price": 800.0,
     "created_at": "2021-01-08T08:30:29.690Z",
     "updated_at": "2021-01-08T08:30:29.690Z",
     "product_collection": null
@@ -763,7 +1251,7 @@
   "fields": {
     "name": "Автомобиль",
     "description": "Б/у, в хорошем состоянии",
-    "price": 100000,
+    "price": 100000.0,
     "created_at": "2021-01-08T08:33:40.321Z",
     "updated_at": "2021-01-08T08:33:40.321Z",
     "product_collection": null
@@ -775,7 +1263,7 @@
   "fields": {
     "name": "Ёлка",
     "description": "Красивая, пушистая",
-    "price": 500,
+    "price": 500.0,
     "created_at": "2021-01-08T08:34:06.842Z",
     "updated_at": "2021-01-08T08:34:06.842Z",
     "product_collection": null
@@ -787,58 +1275,82 @@
   "fields": {
     "name": "Стол",
     "description": "Крепкий",
-    "price": 6000,
+    "price": 6000.0,
     "created_at": "2021-01-08T08:34:22.789Z",
     "updated_at": "2021-01-08T08:34:22.789Z",
     "product_collection": null
   }
 },
 {
-  "model": "shop_api.order",
-  "pk": 1,
+  "model": "shop_api.product",
+  "pk": 8,
   "fields": {
-    "user": 1,
-    "status": "NEW",
-    "count": 17,
-    "total": "53650.00",
-    "created_at": "2021-01-16T05:27:55.621Z",
-    "updated_at": "2021-01-19T20:05:07.758Z"
+    "name": "Компьютер",
+    "description": "Хороший офисный компьютер",
+    "price": 35000.0,
+    "created_at": "2021-02-19T13:36:43.423Z",
+    "updated_at": "2021-02-19T13:36:43.423Z",
+    "product_collection": null
   }
 },
 {
   "model": "shop_api.order",
-  "pk": 2,
+  "pk": 11,
   "fields": {
     "user": 3,
     "status": "NEW",
-    "count": 12,
-    "total": "117650.00",
+    "count": 19,
+    "total": 817650.0,
     "created_at": "2021-01-19T09:24:04.415Z",
-    "updated_at": "2021-01-19T20:02:59.579Z"
+    "updated_at": "2021-02-19T23:25:43.244Z"
   }
 },
 {
   "model": "shop_api.order",
-  "pk": 3,
+  "pk": 12,
   "fields": {
     "user": 2,
     "status": "NEW",
     "count": 3,
-    "total": "2100.00",
+    "total": 2100.0,
     "created_at": "2021-01-19T10:06:27.416Z",
     "updated_at": "2021-01-19T20:06:34.340Z"
   }
 },
 {
   "model": "shop_api.order",
-  "pk": 4,
+  "pk": 16,
   "fields": {
-    "user": 2,
+    "user": 4,
+    "status": "DONE",
+    "count": 6,
+    "total": 109200.0,
+    "created_at": "2021-02-12T14:24:28.002Z",
+    "updated_at": "2021-02-19T13:43:00.540Z"
+  }
+},
+{
+  "model": "shop_api.order",
+  "pk": 17,
+  "fields": {
+    "user": 5,
     "status": "NEW",
-    "count": 0,
-    "total": "0.00",
-    "created_at": "2021-02-03T11:36:12.378Z",
-    "updated_at": "2021-02-03T11:36:12.378Z"
+    "count": 6,
+    "total": 9700.0,
+    "created_at": "2021-02-13T05:38:49.849Z",
+    "updated_at": "2021-02-13T15:39:22.866Z"
+  }
+},
+{
+  "model": "shop_api.order",
+  "pk": 19,
+  "fields": {
+    "user": 8,
+    "status": "IN_PROGRESS",
+    "count": 4,
+    "total": 600.0,
+    "created_at": "2021-02-19T10:40:47.337Z",
+    "updated_at": "2021-02-19T11:09:22.765Z"
   }
 },
 {
@@ -846,7 +1358,7 @@
   "pk": 1,
   "fields": {
     "product": 2,
-    "collection": 1
+    "collection": 43
   }
 },
 {
@@ -854,7 +1366,7 @@
   "pk": 2,
   "fields": {
     "product": 2,
-    "collection": 1
+    "collection": 43
   }
 },
 {
@@ -862,7 +1374,7 @@
   "pk": 3,
   "fields": {
     "product": 1,
-    "collection": 1
+    "collection": 43
   }
 },
 {
@@ -870,7 +1382,7 @@
   "pk": 4,
   "fields": {
     "product": 4,
-    "collection": 1
+    "collection": 43
   }
 },
 {
@@ -878,7 +1390,7 @@
   "pk": 5,
   "fields": {
     "product": 3,
-    "collection": 2
+    "collection": 44
   }
 },
 {
@@ -886,7 +1398,7 @@
   "pk": 6,
   "fields": {
     "product": 5,
-    "collection": 2
+    "collection": 44
   }
 },
 {
@@ -894,33 +1406,49 @@
   "pk": 7,
   "fields": {
     "product": 4,
-    "collection": 2
+    "collection": 44
+  }
+},
+{
+  "model": "shop_api.productlistforcollection",
+  "pk": 58,
+  "fields": {
+    "product": 5,
+    "collection": 45
+  }
+},
+{
+  "model": "shop_api.productlistforcollection",
+  "pk": 59,
+  "fields": {
+    "product": 8,
+    "collection": 45
   }
 },
 {
   "model": "shop_api.position",
   "pk": 1,
   "fields": {
-    "product": 2,
-    "order": 1,
-    "quantity": 4
+    "product": 1,
+    "order": 11,
+    "quantity": 1
   }
 },
 {
   "model": "shop_api.position",
   "pk": 2,
   "fields": {
-    "product": 1,
-    "order": 1,
-    "quantity": 3
+    "product": 5,
+    "order": 11,
+    "quantity": 2
   }
 },
 {
   "model": "shop_api.position",
   "pk": 3,
   "fields": {
-    "product": 3,
-    "order": 1,
+    "product": 2,
+    "order": 11,
     "quantity": 5
   }
 },
@@ -928,8 +1456,8 @@
   "model": "shop_api.position",
   "pk": 4,
   "fields": {
-    "product": 1,
-    "order": 2,
+    "product": 4,
+    "order": 11,
     "quantity": 1
   }
 },
@@ -937,9 +1465,9 @@
   "model": "shop_api.position",
   "pk": 5,
   "fields": {
-    "product": 5,
-    "order": 2,
-    "quantity": 2
+    "product": 3,
+    "order": 11,
+    "quantity": 4
   }
 },
 {
@@ -947,8 +1475,8 @@
   "pk": 6,
   "fields": {
     "product": 2,
-    "order": 2,
-    "quantity": 5
+    "order": 12,
+    "quantity": 2
   }
 },
 {
@@ -956,7 +1484,7 @@
   "pk": 7,
   "fields": {
     "product": 4,
-    "order": 2,
+    "order": 12,
     "quantity": 1
   }
 },
@@ -964,18 +1492,18 @@
   "model": "shop_api.position",
   "pk": 8,
   "fields": {
-    "product": 4,
-    "order": 1,
-    "quantity": 2
+    "product": 3,
+    "order": 16,
+    "quantity": 1
   }
 },
 {
   "model": "shop_api.position",
   "pk": 9,
   "fields": {
-    "product": 3,
-    "order": 2,
-    "quantity": 1
+    "product": 2,
+    "order": 17,
+    "quantity": 4
   }
 },
 {
@@ -983,25 +1511,43 @@
   "pk": 10,
   "fields": {
     "product": 5,
-    "order": 1,
-    "quantity": 6
+    "order": 17,
+    "quantity": 1
   }
 },
 {
   "model": "shop_api.position",
   "pk": 11,
   "fields": {
-    "product": 2,
-    "order": 3,
-    "quantity": 2
+    "product": 4,
+    "order": 17,
+    "quantity": 1
   }
 },
 {
   "model": "shop_api.position",
   "pk": 12,
   "fields": {
-    "product": 4,
-    "order": 3,
+    "product": 2,
+    "order": 16,
+    "quantity": 4
+  }
+},
+{
+  "model": "shop_api.position",
+  "pk": 13,
+  "fields": {
+    "product": 5,
+    "order": 16,
+    "quantity": 1
+  }
+},
+{
+  "model": "shop_api.position",
+  "pk": 14,
+  "fields": {
+    "product": 1,
+    "order": 19,
     "quantity": 1
   }
 },
@@ -1010,23 +1556,23 @@
   "pk": 1,
   "fields": {
     "creator": 3,
-    "review_text": "Очень вкусный, сочный!",
-    "rating": 5,
+    "review_text": "всё-таки неочень",
+    "rating": 2,
     "product": 1,
     "created_at": "2021-01-08T10:11:51.276Z",
-    "updated_at": "2021-01-10T07:08:43.090Z"
+    "updated_at": "2021-02-19T13:31:21.038Z"
   }
 },
 {
   "model": "shop_api.review",
   "pk": 2,
   "fields": {
-    "creator": 1,
-    "review_text": "Реально пушистая",
+    "creator": 4,
+    "review_text": "надёжен",
     "rating": 4,
-    "product": 4,
-    "created_at": "2021-01-09T02:38:28.714Z",
-    "updated_at": "2021-01-10T07:08:50.282Z"
+    "product": 3,
+    "created_at": "2021-02-11T10:00:25.194Z",
+    "updated_at": "2021-02-12T23:04:44.548Z"
   }
 },
 {
@@ -1043,50 +1589,54 @@
 },
 {
   "model": "shop_api.review",
-  "pk": 4,
+  "pk": 20,
   "fields": {
-    "creator": 1,
-    "review_text": "Мощный, крепкий, деревянный",
-    "rating": 3,
-    "product": 2,
-    "created_at": "2021-01-10T09:17:31.566Z",
-    "updated_at": "2021-01-10T09:17:31.566Z"
+    "creator": 8,
+    "review_text": "довольно-таки шустрый",
+    "rating": 5,
+    "product": 8,
+    "created_at": "2021-02-19T13:41:13.041Z",
+    "updated_at": "2021-02-19T13:41:13.041Z"
   }
 },
 {
-  "model": "shop_api.review",
-  "pk": 5,
+  "model": "shop_api.favourites",
+  "pk": 10,
   "fields": {
-    "creator": 1,
-    "review_text": "хлам",
-    "rating": 1,
-    "product": 3,
-    "created_at": "2021-01-16T08:09:04.885Z",
-    "updated_at": "2021-01-16T08:09:04.885Z"
+    "user": 4,
+    "product": 5
   }
 },
 {
-  "model": "shop_api.review",
-  "pk": 6,
+  "model": "shop_api.favourites",
+  "pk": 11,
   "fields": {
-    "creator": 1,
-    "review_text": "труха",
-    "rating": 2,
-    "product": 5,
-    "created_at": "2021-01-16T08:16:24.394Z",
-    "updated_at": "2021-01-16T08:16:24.394Z"
+    "user": 4,
+    "product": 3
   }
 },
 {
-  "model": "shop_api.review",
-  "pk": 7,
+  "model": "shop_api.favourites",
+  "pk": 12,
   "fields": {
-    "creator": 1,
-    "review_text": "нормальный",
-    "rating": 4,
-    "product": 1,
-    "created_at": "2021-01-16T08:18:52.150Z",
-    "updated_at": "2021-01-16T08:18:52.150Z"
+    "user": 4,
+    "product": 1
+  }
+},
+{
+  "model": "shop_api.favourites",
+  "pk": 13,
+  "fields": {
+    "user": 4,
+    "product": 2
+  }
+},
+{
+  "model": "shop_api.favourites",
+  "pk": 14,
+  "fields": {
+    "user": 3,
+    "product": 2
   }
 }
 ]
