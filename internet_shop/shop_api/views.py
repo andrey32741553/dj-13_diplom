@@ -157,7 +157,7 @@ class AddProductToCollectionViewSet(ModelViewSet):
 
 
 class FavouritesViewSet(ModelViewSet):
-
+    """ ViewSet для списка избранных товаров """
     queryset = Favourites.objects.all()
 
     def get_serializer_class(self):
@@ -173,7 +173,7 @@ class FavouritesViewSet(ModelViewSet):
 
 
 class UserViewSet(ModelViewSet):
-
+    """ ViewSet для информации о пользователе """
     queryset = UserMethods.objects.all()
 
     def get_serializer_class(self):

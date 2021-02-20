@@ -1,4 +1,3 @@
-# from django.conf import settings
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -7,6 +6,7 @@ from django.contrib.auth.models import User
 
 
 class UserMethods(User):
+    """ Привязка списка избранных товаров к модели User """
 
     def __str__(self):
         return self.username
@@ -27,6 +27,7 @@ class OrderStatusChoices(models.TextChoices):
 
 
 class ProductCollections(models.Model):
+    """ Подборки товаров """
 
     title = models.CharField("Заголовок", max_length=50)
     text = models.TextField()
@@ -45,6 +46,7 @@ class ProductCollections(models.Model):
 
 
 class Product(models.Model):
+    """ Модель товаров """
 
     name = models.CharField("Название", max_length=50)
     description = models.TextField("Описание", default='')
@@ -70,6 +72,7 @@ class Product(models.Model):
 
 
 class Order(models.Model):
+    """ Модель заказов """
 
     user = models.ForeignKey(
         UserMethods,
@@ -99,12 +102,13 @@ class Order(models.Model):
 
 
 class ProductListForCollection(models.Model):
+    """ Таблица связей подборок и товаров """
 
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='product_list')
     collection = models.ForeignKey(ProductCollections, on_delete=models.CASCADE, related_name='product_list')
 
     def __str__(self):
-        return f'{self.product.name} принадлежит подборке {self.collection.title}'
+        return f'{self.product.name}{self.collection.title}'
 
     class Meta:
         verbose_name = "Коллекция"
@@ -113,6 +117,7 @@ class ProductListForCollection(models.Model):
 
 
 class Position(models.Model):
+    """ Позиции товаров """
 
     product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='position')
     order = models.ForeignKey(Order, on_delete=models.CASCADE, related_name='position')
@@ -127,6 +132,7 @@ class Position(models.Model):
 
 
 class Review(models.Model):
+    """ Отзывы """
 
     creator = models.ForeignKey(
         UserMethods,
@@ -151,6 +157,7 @@ class Review(models.Model):
 
 
 class Favourites(models.Model):
+    """ Избранное """
 
     user = models.ForeignKey(
         UserMethods,
@@ -173,6 +180,7 @@ class Favourites(models.Model):
 
 @receiver(post_save, sender=Position)
 def update_order(sender, instance, **kwargs):
+    """ Подсчёт total в заказах """
     user_order = Order.objects.filter(user=instance.order.user)
     line_price = instance.quantity * instance.product.price
     instance.order.total += line_price
@@ -184,5 +192,6 @@ def update_order(sender, instance, **kwargs):
 
 
 def save(self, *args, **kwargs):
+    """ Переопредение save в Position """
     self.revision += 1
     return super(Position, self).save(*args, **kwargs)
