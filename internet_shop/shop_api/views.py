@@ -5,12 +5,14 @@ from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 
 from shop_api.filters import ProductFilter, ReviewFilter, OrderFilter
-from shop_api.models import Product, Review, Order, Position, ProductCollections, ProductListForCollection
+from shop_api.models import Product, Review, Order, Position, ProductCollections, ProductListForCollection, Favourites, \
+    UserMethods
 
 from shop_api.serializers import ProductSerializer, ProductDetailSerializer, \
     ReviewCreateSerializer, ReviewSerializer, OrderSerializer, OrderCreateSerializer, \
     PositionCreateSerializer, OrderDetailSerializer, CollectionsSerializer, CollectionsCreateSerializer, \
-    AddProductToCollectionSerializer, CollectionsDetailSerializer, ReviewUpdateSerializer, OrderUpdateSerializer
+    AddProductToCollectionSerializer, CollectionsDetailSerializer, ReviewUpdateSerializer, OrderUpdateSerializer, \
+    FavouritesSerializer, UserSerializer, UserDetailSerializer, FavouritesCreateSerializer, CollectionsUpdateSerializer
 
 
 class ProductViewSet(ModelViewSet):
@@ -28,7 +30,7 @@ class ProductViewSet(ModelViewSet):
 
     def get_permissions(self):
         """Получение прав для действий."""
-        if self.action in ["create", "update", "partial_update", "destroy"]:
+        if self.action in ["create", "update", "destroy"]:
             return [IsAdminUser()]
         return []
 
@@ -133,9 +135,11 @@ class CollectionViewSet(ModelViewSet):
             return CollectionsCreateSerializer
         elif self.action == "retrieve":
             return CollectionsDetailSerializer
+        elif self.action == "update":
+            return CollectionsUpdateSerializer
 
     def get_permissions(self):
-        if self.action == "create":
+        if self.action in ["create", "update", "destroy"]:
             return [IsAdminUser()]
         return []
 
@@ -150,3 +154,44 @@ class AddProductToCollectionViewSet(ModelViewSet):
         if self.action in ["create", "destroy"]:
             return [IsAdminUser()]
         return []
+
+
+class FavouritesViewSet(ModelViewSet):
+
+    queryset = Favourites.objects.all()
+
+    def get_serializer_class(self):
+        if self.action == "list":
+            return FavouritesSerializer
+        elif self.action == "create":
+            return FavouritesCreateSerializer
+
+    def get_permissions(self):
+        if self.action in ["list", "create", "destroy"]:
+            return [IsAuthenticated()]
+        return []
+
+
+class UserViewSet(ModelViewSet):
+
+    queryset = UserMethods.objects.all()
+
+    def get_serializer_class(self):
+        if self.action == "list":
+            return UserSerializer
+        elif self.action == "retrieve":
+            return UserDetailSerializer
+
+    def get_permissions(self):
+        if self.action == "list":
+            return [IsAuthenticated()]
+        return []
+
+    @transaction.atomic
+    def retrieve(self, request, *args, **kwargs):
+        request_user = self.request.user
+        instance = self.get_object()
+        request_creator = instance
+        if request_user != request_creator:
+            raise ValidationError({"Favourites": "Просматривать можно только свой список избранных товаров!"})
+        return super().retrieve(request, *args, **kwargs)
