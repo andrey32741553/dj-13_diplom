@@ -1,7 +1,6 @@
-from django.contrib.auth.models import User
 from django_filters import rest_framework as filters
 
-from shop_api.models import Product, Review, Order, OrderStatusChoices, Position
+from shop_api.models import Product, Review, Order, OrderStatusChoices, Position, UserMethods
 
 
 class ProductFilter(filters.FilterSet):
@@ -24,7 +23,7 @@ class ReviewFilter(filters.FilterSet):
 
     # фильтр по ID продукта, по автору и дате создания
     product = filters.ModelChoiceFilter(queryset=Product.objects.all())
-    creator = filters.ModelChoiceFilter(queryset=User.objects.all())
+    creator = filters.ModelChoiceFilter(queryset=UserMethods.objects.all())
     created_at = filters.DateFromToRangeFilter()
 
     class Meta:
@@ -43,17 +42,11 @@ class OrderFilter(filters.FilterSet):
     total_price__gt = filters.NumberFilter(field_name='total', lookup_expr='gt')
     total_price__lt = filters.NumberFilter(field_name='total', lookup_expr='lt')
 
-    # фильтр по дате создания и обновления
+    # фильтр по товарам, по дате создания и обновления
     created_at = filters.DateFromToRangeFilter()
     updated_at = filters.DateFromToRangeFilter()
-
-    class Meta:
-        model = Order
-        fields = ['created_at', 'updated_at']
-
-    # TODO: фильтр по товарам !!!!
     position = filters.ModelChoiceFilter(queryset=Position.objects.all())
 
     class Meta:
         model = Order
-        fields = ['position']
+        fields = ['created_at', 'updated_at', 'position']
