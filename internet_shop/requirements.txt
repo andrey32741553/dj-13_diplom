@@ -5,3 +5,4 @@ django-filter
 pytest
 pytest-django
 django-nose
+pytest-cov
