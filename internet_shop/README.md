@@ -44,98 +44,37 @@ ip, например: /api/v1/favourites/1/. Просматривать можн
 Для того, чтоб разлогинить пользователя, необходимо по адресу http://127.0.0.1:8000/auth/token/logout/ в HEADERS указать
 токен, как в предыдущем примере, а тело запроса оставить пустым. Пользователь будет разлогинен.
 ### Тесты ###
-Coverage тесты с использованием django-nose показали разные данные. Первый тест (без модели favourites) показал такой 
-результат:
+Coverage тест с использованием pytest-cov:
 ```
-Name                                             Stmts   Miss  Cover
-shop_api\__init__.py                                 0      0   100%
-shop_api\admin.py                                   31      0   100%
-shop_api\migrations\0001_initial.py                  7      0   100%
-shop_api\migrations\0002_auto_20210201_2327.py       5      0   100%
-shop_api\migrations\0003_auto_20210206_1241.py       4      0   100%
-shop_api\migrations\__init__.py                      0      0   100%
-shop_api\models.py                                  92     19    79%
+Coverage report: 93%
 
-TOTAL                                              139     19    86%
+Module	                               statements  missing excluded	coverage
+Total	                                      554	39	0	93%
+shop_api\__init__.py	                        0	0	0	100%
+shop_api\admin.py	                       31	0	0	100%
+shop_api\apps.py	                        3	3	0	0%
+shop_api\filters.py	                       25	0	0	100%
+shop_api\migrations\0001_initial.py	        7	0	0	100%
+shop_api\migrations\0002_auto_20210201_2327.py	5	0	0	100%
+shop_api\migrations\0003_auto_20210206_1241.py	4	0	0	100%
+shop_api\migrations\0004_favourites.py	        6	0	0	100%
+shop_api\migrations\0005_auto_20210215_2024.py	4	0	0	100%
+shop_api\migrations\0006_auto_20210215_2340.py	5	0	0	100%
+shop_api\migrations\0007_auto_20210215_2348.py	5	0	0	100%
+shop_api\migrations\0008_auto_20210216_0000.py	5	0	0	100%
+shop_api\migrations\0009_auto_20210216_2319.py	6	0	0	100%
+shop_api\migrations\0010_auto_20210216_2324.py	5	0	0	100%
+shop_api\migrations\0011_auto_20210217_2055.py	5	0	0	100%
+shop_api\migrations\0012_auto_20210218_1944.py	4	0	0	100%
+shop_api\migrations\0013_auto_20210218_2306.py	4	0	0	100%
+shop_api\migrations\__init__.py	                0	0	0	100%
+shop_api\models.py	                      106	10	0	91%
+shop_api\serializers.py	                      183	13	0	93%
+shop_api\tests.py	                        1	1	0	0%
+shop_api\urls.py	                        4	0	0	100%
+shop_api\views.py	                      136	12	0	91%
 
-Ran 20 tests in 0.009s
-
-FAILED (errors=20)
+coverage.py v5.4, created at 2021-02-22 23:22 +1000
 ```
-далее, также django-nose, но добавлен --cover-html в NOSE_ARGS в settings (без модели favourites):
-```
-Name                                             Stmts   Miss Branch BrPart  Cover
-shop_api\__init__.py                                 0      0      0      0   100%
-shop_api\admin.py                                   31     31      8      0     0%
-shop_api\apps.py                                     3      0      0      0   100%
-shop_api\filters.py                                 29      0      0      0   100%
-shop_api\migrations\0001_initial.py                  7      0      0      0   100%
-shop_api\migrations\0002_auto_20210201_2327.py       5      0      0      0   100%
-shop_api\migrations\0003_auto_20210206_1241.py       4      0      0      0   100%
-shop_api\migrations\__init__.py                      0      0      0      0   100%
-shop_api\models.py                                  92     92      0      0     0%
-shop_api\serializers.py                            144     47     14      0    61%
-shop_api\urls.py                                     4      0      0      0   100%
-shop_api\views.py                                  105     64     46      0    27%
-
-TOTAL                                              424    234     68      0    39%
-
-Ran 20 tests in 0.009s
-
-FAILED (errors=20)
-```
-Далее, тест с помощью команды: pytest --cov-report=html --cov=shop_api (без модели favourites):
-```
-Name                                             Stmts   Miss Branch BrPart  Cover
-----------------------------------------------------------------------------------
-shop_api\__init__.py                                 0      0      0      0   100%
-shop_api\admin.py                                   31     31      8      0     0%
-shop_api\apps.py                                     3      0      0      0   100%
-shop_api\filters.py                                 29      0      0      0   100%
-shop_api\migrations\0001_initial.py                  7      0      0      0   100%
-shop_api\migrations\0002_auto_20210201_2327.py       5      0      0      0   100%
-shop_api\migrations\0003_auto_20210206_1241.py       4      0      0      0   100%
-shop_api\migrations\__init__.py                      0      0      0      0   100%
-shop_api\models.py                                  92     92      0      0     0%
-shop_api\serializers.py                            144     47     14      0    61%
-shop_api\urls.py                                     4      0      0      0   100%
-shop_api\views.py                                  105     64     46      0    27%
-
-TOTAL                                              424    234     68      0    39%
-
-Ran 20 tests in 0.009s
-
-FAILED (errors=20)                                                             
-```
-Тест django-nose после добавления модели избранных товаров:
-```
-Name                                             Stmts   Miss  Cover
---------------------------------------------------------------------
-shop_api\__init__.py                                 0      0   100%
-shop_api\admin.py                                   31     31     0%
-shop_api\migrations\0001_initial.py                  7      0   100%
-shop_api\migrations\0002_auto_20210201_2327.py       5      0   100%
-shop_api\migrations\0003_auto_20210206_1241.py       4      0   100%
-shop_api\migrations\0004_favourites.py               6      0   100%
-shop_api\migrations\0005_auto_20210215_2024.py       4      0   100%
-shop_api\migrations\0006_auto_20210215_2340.py       5      0   100%
-shop_api\migrations\0007_auto_20210215_2348.py       5      0   100%
-shop_api\migrations\0008_auto_20210216_0000.py       5      0   100%
-shop_api\migrations\0009_auto_20210216_2319.py       6      0   100%
-shop_api\migrations\0010_auto_20210216_2324.py       5      0   100%
-shop_api\migrations\0011_auto_20210217_2055.py       5      0   100%
-shop_api\migrations\0012_auto_20210218_1944.py       4      0   100%
-shop_api\migrations\0013_auto_20210218_2306.py       4      0   100%
-shop_api\migrations\__init__.py                      0      0   100%
-shop_api\models.py                                 106    106     0%
---------------------------------------------------------------------
-TOTAL                                              202    137    32%
-----------------------------------------------------------------------
-Ran 21 tests in 0.021s
-
-FAILED (errors=21)
-```
-Результаты теста с помощью команды: pytest --cov-report=html --cov=shop_api, можно найти в папках "cover" и "htmlcov" в 
-корне проекта. Тест проводился с моделью favourites.
 ### Примеры запросов ###
 Файл, internet_shop_queries.json, с примерами запросов находится в корне проекта.
