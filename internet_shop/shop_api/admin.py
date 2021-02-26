@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.admin import ModelAdmin, DateFieldListFilter
 
-from shop_api.models import Product, Review, Order, Position, ProductListForCollection, ProductCollections
+from shop_api.models import Product, Review, Order, Position, ProductCollections
 
 
 class ReviewInline(admin.TabularInline):
@@ -16,13 +16,6 @@ class PositionInline(admin.TabularInline):
     model = Position
     extra = 1
     list_display = ("product", "quantity")
-
-
-class ProductListForCollectionInline(admin.TabularInline):
-    """Позиции на странице заказов"""
-    model = ProductListForCollection
-    extra = 1
-    list_display = ("product",)
 
 
 @admin.register(Product)
@@ -52,4 +45,3 @@ class OrderAdmin(ModelAdmin):
 class ProductCollectionsAdmin(ModelAdmin):
     """Подборки"""
     list_display = ('title', 'text', 'created_at', 'updated_at')
-    inlines = [ProductListForCollectionInline]
