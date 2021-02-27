@@ -26,25 +26,6 @@ class OrderStatusChoices(models.TextChoices):
     DONE = "DONE", "Готов"
 
 
-class ProductCollections(models.Model):
-    """ Подборки товаров """
-
-    title = models.CharField("Заголовок", max_length=50)
-    text = models.TextField()
-    created_at = models.DateTimeField("Создано", auto_now_add=True)
-    updated_at = models.DateTimeField("Обновлено", auto_now=True)
-
-    def __str__(self):
-        return self.title
-
-    def get_productlistforcollection(self):
-        return self.productlistforcollection.all()
-
-    class Meta:
-        verbose_name = "Подборка"
-        verbose_name_plural = "Подборки"
-
-
 class Product(models.Model):
     """ Модель товаров """
 
@@ -53,12 +34,6 @@ class Product(models.Model):
     price = models.FloatField("Цена", default=0.00)
     created_at = models.DateTimeField("Создано", auto_now_add=True)
     updated_at = models.DateTimeField("Обновлено", auto_now=True)
-    product_collection = models.ForeignKey(
-        ProductCollections,
-        verbose_name="Подборки",
-        on_delete=models.CASCADE,
-        blank=True, null=True,
-        related_name="products")
 
     def __str__(self):
         return self.name
@@ -84,6 +59,7 @@ class Order(models.Model):
         OrderStatusChoices.choices,
         default=OrderStatusChoices.NEW
     )
+    products = models.ManyToManyField(Product, related_name='order', through='Position')
     count = models.PositiveIntegerField(default=0)
     total = models.FloatField(default=0.00)
     created_at = models.DateTimeField("Создано", auto_now_add=True)
@@ -92,28 +68,10 @@ class Order(models.Model):
     def __str__(self):
         return "User: {} has {} items in order. Their total is ${}".format(self.user, self.count, self.total)
 
-    def get_position(self):
-        return self.position.all()
-
     class Meta:
         verbose_name = "Заказ"
         verbose_name_plural = "Заказы"
         ordering = ["created_at"]
-
-
-class ProductListForCollection(models.Model):
-    """ Таблица связей подборок и товаров """
-
-    product = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='product_list')
-    collection = models.ForeignKey(ProductCollections, on_delete=models.CASCADE, related_name='product_list')
-
-    def __str__(self):
-        return f'{self.product.name}{self.collection.title}'
-
-    class Meta:
-        verbose_name = "Коллекция"
-        verbose_name_plural = "Коллекции"
-        unique_together = ('product', 'collection')
 
 
 class Position(models.Model):
@@ -154,6 +112,23 @@ class Review(models.Model):
     class Meta:
         verbose_name = "Отзыв"
         verbose_name_plural = "Отзывы"
+
+
+class ProductCollections(models.Model):
+    """ Подборки товаров """
+
+    title = models.CharField("Заголовок", max_length=50)
+    text = models.TextField()
+    products = models.ManyToManyField(Product, related_name='product_collections')
+    created_at = models.DateTimeField("Создано", auto_now_add=True)
+    updated_at = models.DateTimeField("Обновлено", auto_now=True)
+
+    def __str__(self):
+        return self.title
+
+    class Meta:
+        verbose_name = "Подборка"
+        verbose_name_plural = "Подборки"
 
 
 class Favourites(models.Model):

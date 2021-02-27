@@ -3,8 +3,7 @@ from datetime import datetime
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
-from shop_api.models import Product, Review, Order, Position, ProductCollections, ProductListForCollection, Favourites, \
-    UserMethods
+from shop_api.models import Product, Review, Order, Position, Favourites, UserMethods, ProductCollections
 
 
 class ProductSerializer(serializers.ModelSerializer):
@@ -127,6 +126,17 @@ class PositionCreateSerializer(serializers.ModelSerializer):
                                        order_id=order_id,
                                        quantity=validated_data['quantity'])
 
+    def validate(self, data):
+        order_user = self.context["request"].user
+        order_id = Order.objects.get(user=order_user).id
+        products = Position.objects.filter(order_id=order_id)
+        post_data = self.context["request"].data
+        product_id = post_data.get('product')
+        for product in products:
+            if int(product_id) == product.product.id:
+                raise ValidationError({"Position": "Товар уже есть в списке"})
+        return data
+
 
 class OrderSerializer(serializers.ModelSerializer):
     """ Сериализатор списка заказов """
@@ -211,18 +221,27 @@ class CollectionsCreateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = ProductCollections
-        fields = ('title', 'text')
+        fields = ('id', 'title', 'text', 'products', 'created_at', 'updated_at')
 
     def create(self, validated_data):
-        return ProductCollections.objects.create(**validated_data)
+        products = validated_data.pop('products')
+        collection = ProductCollections.objects.create(**validated_data)
+        collection.products.add(*products)
+        return collection
 
 
-class CollectionsUpdateSerializer(serializers.ModelSerializer):
-    """ Сериализатор обновления подборок товаров """
+class CollectionsDetailSerializer(serializers.ModelSerializer):
+    """ Сериализатор конкретной подборки товаров """
+
+    products = serializers.SerializerMethodField()
+
+    def get_products(self, data):
+        product_info = ProductCollections.objects.get(id=data.id).products.all()
+        return ProductDetailSerializer(product_info, many=True).data
 
     class Meta:
         model = ProductCollections
-        fields = ('title', 'text')
+        fields = ('id', 'title', 'text', 'products', 'created_at', 'updated_at')
 
     def update(self, instance, validated_data):
         if self.context['request'].user.is_staff:
@@ -232,53 +251,7 @@ class CollectionsUpdateSerializer(serializers.ModelSerializer):
             instance.save()
             return instance
         else:
-            raise ValidationError({"ProductCollections": "Вносить изменения в подборки может только админ"})
-
-
-class ProductToCollectionSerializer(serializers.ModelSerializer):
-    """ Сериализатор списка товаров в подборках """
-
-    product = serializers.SlugRelatedField(
-        slug_field='name',
-        read_only=True,
-    )
-
-    class Meta:
-        model = ProductListForCollection
-        fields = ('product',)
-
-
-class AddProductToCollectionSerializer(serializers.ModelSerializer):
-    """ Сериализатор добавления товаров в подборку """
-
-    class Meta:
-        model = ProductListForCollection
-        fields = ('collection', 'product')
-
-    def create(self, validated_data):
-        return ProductListForCollection.objects.create(**validated_data)
-
-    """ Проверка на наличие повторяющихся товаров в подборке """
-    def validate(self, data):
-        post_data = self.context["request"].data
-        collection_id = post_data.get('collection')
-        product_id = post_data.get('product')
-        product_name = Product.objects.get(id=product_id)
-        collection_items = ProductListForCollection.objects.filter(collection_id=collection_id)
-        for item in collection_items:
-            if str(product_name) == str(item):
-                raise ValidationError({"ProductListForCollection": "Товар уже есть в списке"})
-        return data
-
-
-class CollectionsDetailSerializer(serializers.ModelSerializer):
-    """ Сериализатор конкретной подборки товаров """
-
-    product_list = ProductToCollectionSerializer(many=True)
-
-    class Meta:
-        model = ProductCollections
-        fields = ('id', 'title', 'text', 'product_list', 'created_at', 'updated_at')
+            raise ValidationError({"Collections": "Менять информацию может только админ"})
 
 
 class FavouritesSerializer(serializers.ModelSerializer):
@@ -337,7 +310,8 @@ class UserDetailSerializer(serializers.ModelSerializer):
     """Serializer для информации об избранных продуктах пользователя."""
 
     favourites = FavouritesSerializer(many=True, read_only=True)
+    order = OrderDetailSerializer(many=True, read_only=True)
 
     class Meta:
         model = UserMethods
-        fields = ('username', 'favourites')
+        fields = ('username', 'favourites', 'order')
