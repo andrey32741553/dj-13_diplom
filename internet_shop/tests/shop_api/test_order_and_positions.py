@@ -1,139 +1,52 @@
-from django.contrib.auth.models import User
+import pytest
 from django.urls import reverse
-from rest_framework.status import HTTP_201_CREATED, HTTP_200_OK, HTTP_204_NO_CONTENT
+from rest_framework.status import HTTP_200_OK
 
 from shop_api.models import Order, Product, Position
 import datetime as dt
 
 
-def test_create_update_delete_order_and_positions_by_authenticated_client(client, admin_client, django_user_model):
-    """ Тест на создание заказа; создание, обновление и удаление позиций заказа  """
-    """ Создание списка товаров """
-    url = reverse("products-list")
-    product = {"name": "гвозди", "price": 10, "description": "китайские"}
-    product1 = {"name": "молоток", "price": 100, "description": "для забивания китайских гвоздей"}
-    product2 = {"name": "доска", "price": 5, "description": "для китайских гвоздей"}
-    response = admin_client.post(url, product)
-    response1 = admin_client.post(url, product1)
-    response2 = admin_client.post(url, product2)
-    assert response.status_code == HTTP_201_CREATED
-    assert response1.status_code == HTTP_201_CREATED
-    assert response2.status_code == HTTP_201_CREATED
-    """ Регистрация пользователя и создание заказа """
-    username = "foo"
-    password = "bar"
-    user = django_user_model.objects.create_user(username=username, password=password)
-    client.force_login(user)
-    url = reverse("orders-list")
-    name = User.objects.get(pk=user.pk)
-    order = {"user": name.id, "status": "NEW"}
-    resp = client.post(url, order)
-    assert resp.status_code == HTTP_201_CREATED
-    """ Создание позиций заказа пользователем """
-    order_info = Order.objects.get(user=order['user'])
-    url = reverse("positions-list")
-    product_info = Product.objects.get(name=product['name'])
-    product_info1 = Product.objects.get(name=product1['name'])
-    product_info2 = Product.objects.get(name=product2['name'])
-    position = {'user': name.id, 'product': product_info.id, 'order': order_info.id, 'quantity': 100}
-    position1 = {'user': name.id, 'product': product_info1.id, 'order': order_info.id, 'quantity': 1}
-    position2 = {'user': name.id, 'product': product_info2.id, 'order': order_info.id, 'quantity': 5}
-    response = client.post(url, position)
-    response1 = client.post(url, position1)
-    response2 = client.post(url, position2)
-    assert response.status_code == HTTP_201_CREATED
-    assert response1.status_code == HTTP_201_CREATED
-    assert response2.status_code == HTTP_201_CREATED
-    """ Изменение количества товара в заказе """
-    new_position = {'quantity': 10}
-    position_info = Position.objects.get(product=position2["product"])
-    url = reverse("positions-detail", args=(position_info.id,))
-    resp = client.patch(url, data=new_position, content_type='application/json')
-    new_position = Position.objects.get(product=position2["product"])
-    assert resp.status_code == HTTP_200_OK
-    assert new_position.quantity == 10
-    """ Удаление позиции из заказа """
-    position_info = Position.objects.get(product=position2["product"])
-    url = reverse("positions-detail", args=(position_info.id,))
-    resp = client.delete(url, position_info)
-    assert resp.status_code == HTTP_204_NO_CONTENT
+@pytest.mark.django_db
+def test_create_order_and_positions_by_authenticated_client(product_factory, authenticated_client,
+                                                            create_order_by_authenticated_user,
+                                                            create_positions_by_authenticated_user):
+    """ Тест на создание заказа и создание позиций заказа  """
+    product_factory(_quantity=3)
+    create_order_by_authenticated_user
+    create_positions_by_authenticated_user
 
 
-def test_get_list_of_orders(admin_client, client, django_user_model):
+@pytest.mark.django_db
+def test_get_list_of_orders_by_admin(product_factory, admin_client, create_order_by_authenticated_user):
     """ Тест на вывод списка заказов """
-    """ Создание списка товаров """
-    url = reverse("products-list")
-    product = {"name": "гвозди", "price": 10, "description": "китайские"}
-    product1 = {"name": "молоток", "price": 100, "description": "для забивания китайских гвоздей"}
-    product2 = {"name": "доска", "price": 5, "description": "для китайских гвоздей"}
-    response = admin_client.post(url, product)
-    response1 = admin_client.post(url, product1)
-    response2 = admin_client.post(url, product2)
-    assert response.status_code == HTTP_201_CREATED
-    assert response1.status_code == HTTP_201_CREATED
-    assert response2.status_code == HTTP_201_CREATED
-    """ Регистрация пользователя и создание заказа """
-    username = "foo"
-    password = "bar"
-    user = django_user_model.objects.create_user(username=username, password=password)
-    client.force_login(user)
-    url = reverse("orders-list")
-    name = User.objects.get(pk=user.pk)
-    order = {"user": name.id, "status": "NEW"}
-    resp = client.post(url, order)
-    assert resp.status_code == HTTP_201_CREATED
-    """ Вывод списка заказов админом """
+    product_factory(_quantity=3)
+    create_order_by_authenticated_user
     url = reverse("orders-list")
     resp = admin_client.get(url)
     assert resp.status_code == HTTP_200_OK
-    """ Получение своего заказа пользователем"""
+
+
+@pytest.mark.django_db
+def test_get_own_list_of_orders_by_authenticated_user(product_factory, authenticated_client,
+                                                      create_order_by_authenticated_user):
+    """ Тест на получение своего заказа пользователем"""
+    product_factory(_quantity=3)
+    order, name = create_order_by_authenticated_user
     order_info = Order.objects.get(user=order["user"])
     url = reverse("orders-detail", args=(order_info.id,))
-    resp = client.get(url)
+    resp = authenticated_client.get(url)
     resp_json = resp.json()
     assert resp.status_code == HTTP_200_OK
     assert str(order_info.user) == resp_json['user']
 
 
-def test_order_filter_by_total_price(admin_client, client, django_user_model):
+@pytest.mark.django_db
+def test_order_filter_by_total_price(product_factory, create_order_by_authenticated_user,
+                                     authenticated_client, admin_client, create_positions_by_authenticated_user):
     """ Тест фильтра по итоговой цене """
-    """ Создание списка товаров """
-    url = reverse("products-list")
-    product = {"name": "гвозди", "price": 10, "description": "китайские"}
-    product1 = {"name": "молоток", "price": 100, "description": "для забивания китайских гвоздей"}
-    product2 = {"name": "доска", "price": 15, "description": "для китайских гвоздей"}
-    response = admin_client.post(url, product)
-    response1 = admin_client.post(url, product1)
-    response2 = admin_client.post(url, product2)
-    assert response.status_code == HTTP_201_CREATED
-    assert response1.status_code == HTTP_201_CREATED
-    assert response2.status_code == HTTP_201_CREATED
-    """ Регистрация пользователя и создание заказа """
-    username = "foo"
-    password = "bar"
-    user = django_user_model.objects.create_user(username=username, password=password)
-    client.force_login(user)
-    url = reverse("orders-list")
-    name = User.objects.get(pk=user.pk)
-    order = {"user": name.id, "status": "NEW"}
-    resp = client.post(url, order)
-    assert resp.status_code == HTTP_201_CREATED
-    """ Создание позиций заказа пользователем """
-    order_info = Order.objects.get(user=order['user'])
-    url = reverse("positions-list")
-    product_info = Product.objects.get(name=product['name'])
-    product_info1 = Product.objects.get(name=product1['name'])
-    product_info2 = Product.objects.get(name=product2['name'])
-    position = {'user': name.id, 'product': product_info.id, 'order': order_info.id, 'quantity': 100}
-    position1 = {'user': name.id, 'product': product_info1.id, 'order': order_info.id, 'quantity': 1}
-    position2 = {'user': name.id, 'product': product_info2.id, 'order': order_info.id, 'quantity': 5}
-    response = client.post(url, position)
-    response1 = client.post(url, position1)
-    response2 = client.post(url, position2)
-    assert response.status_code == HTTP_201_CREATED
-    assert response1.status_code == HTTP_201_CREATED
-    assert response2.status_code == HTTP_201_CREATED
-    """ Фильтр по итоговой цене заказа """
+    product_factory(_quantity=3)
+    order, name = create_order_by_authenticated_user
+    create_positions_by_authenticated_user
     order_info = Order.objects.get(user=order['user'])
     total_price__gt = 10
     total_price__lt = 1200
@@ -146,45 +59,14 @@ def test_order_filter_by_total_price(admin_client, client, django_user_model):
         assert item['total'] == order_info.total
 
 
-def test_order_filter_by_create_date_and_update_date(admin_client, client, django_user_model):
-    """ Тест фильтра по дате создания и обновления """
-    """ Создание списка товаров """
-    url = reverse("products-list")
-    product = {"name": "гвозди", "price": 10, "description": "китайские"}
-    product1 = {"name": "молоток", "price": 100, "description": "для забивания китайских гвоздей"}
-    product2 = {"name": "доска", "price": 15, "description": "для китайских гвоздей"}
-    response = admin_client.post(url, product)
-    response1 = admin_client.post(url, product1)
-    response2 = admin_client.post(url, product2)
-    assert response.status_code == HTTP_201_CREATED
-    assert response1.status_code == HTTP_201_CREATED
-    assert response2.status_code == HTTP_201_CREATED
-    """ Регистрация пользователя и создание заказа """
-    username = "foo"
-    password = "bar"
-    user = django_user_model.objects.create_user(username=username, password=password)
-    client.force_login(user)
-    url = reverse("orders-list")
-    name = User.objects.get(pk=user.pk)
-    order = {"user": name.id, "status": "NEW"}
-    resp = client.post(url, order)
-    assert resp.status_code == HTTP_201_CREATED
-    """ Создание позиций заказа пользователем """
-    order_info = Order.objects.get(user=order['user'])
-    url = reverse("positions-list")
-    product_info = Product.objects.get(name=product['name'])
-    product_info1 = Product.objects.get(name=product1['name'])
-    product_info2 = Product.objects.get(name=product2['name'])
-    position = {'user': name.id, 'product': product_info.id, 'order': order_info.id, 'quantity': 100}
-    position1 = {'user': name.id, 'product': product_info1.id, 'order': order_info.id, 'quantity': 1}
-    position2 = {'user': name.id, 'product': product_info2.id, 'order': order_info.id, 'quantity': 5}
-    response = client.post(url, position)
-    response1 = client.post(url, position1)
-    response2 = client.post(url, position2)
-    assert response.status_code == HTTP_201_CREATED
-    assert response1.status_code == HTTP_201_CREATED
-    assert response2.status_code == HTTP_201_CREATED
-    """ Фильтр по дате создания """
+@pytest.mark.django_db
+def test_order_filter_by_create_date(product_factory, create_order_by_authenticated_user,
+                                     authenticated_client, admin_client,
+                                     create_positions_by_authenticated_user):
+    """ Тест фильтра по дате создания """
+    product_factory(_quantity=3)
+    order, name = create_order_by_authenticated_user
+    create_positions_by_authenticated_user
     order_info = Order.objects.get(user=order['user'])
     created_at_after = '2021-01-18'
     created_at_before = '2021-02-09'
@@ -197,7 +79,16 @@ def test_order_filter_by_create_date_and_update_date(admin_client, client, djang
         data_from_response = item['created_at'].replace('T', ' ').split('.')[0]
         data_from_db = str(order_info.created_at).split('.')[0]
         assert data_from_response == data_from_db
-    """ Фильтр по дате обновления """
+
+
+@pytest.mark.django_db
+def test_order_filter_by_update_date(product_factory, create_order_by_authenticated_user,
+                                     authenticated_client, admin_client,
+                                     create_positions_by_authenticated_user):
+    """ Тест фильтра по дате создания """
+    product_factory(_quantity=3)
+    order, name = create_order_by_authenticated_user
+    create_positions_by_authenticated_user
     order_info = Order.objects.get(user=order['user'])
     now = dt.date.today()
     delta = dt.timedelta(hours=48)
@@ -214,47 +105,16 @@ def test_order_filter_by_create_date_and_update_date(admin_client, client, djang
         assert data_from_response == data_from_db
 
 
-def test_order_filter_by_product_in_positions(admin_client, client, django_user_model):
+@pytest.mark.django_db
+def test_order_filter_by_product_in_positions(product_factory, create_order_by_authenticated_user,
+                                              authenticated_client, admin_client,
+                                              create_positions_by_authenticated_user):
     """ Тест фильтра по продуктам в позициях заказа """
-    """ Создание списка товаров """
-    url = reverse("products-list")
-    product = {"name": "гвозди", "price": 10, "description": "китайские"}
-    product1 = {"name": "молоток", "price": 100, "description": "для забивания китайских гвоздей"}
-    product2 = {"name": "доска", "price": 15, "description": "для китайских гвоздей"}
-    response = admin_client.post(url, product)
-    response1 = admin_client.post(url, product1)
-    response2 = admin_client.post(url, product2)
-    assert response.status_code == HTTP_201_CREATED
-    assert response1.status_code == HTTP_201_CREATED
-    assert response2.status_code == HTTP_201_CREATED
-    """ Регистрация пользователя и создание заказа """
-    username = "foo"
-    password = "bar"
-    user = django_user_model.objects.create_user(username=username, password=password)
-    client.force_login(user)
-    url = reverse("orders-list")
-    name = User.objects.get(pk=user.pk)
-    order = {"user": name.id}
-    resp = client.post(url, order)
-    assert resp.status_code == HTTP_201_CREATED
-    """ Создание позиций заказа пользователем """
-    order_info = Order.objects.get(user=order['user'])
-    url = reverse("positions-list")
-    product_info = Product.objects.get(name=product['name'])
-    product_info1 = Product.objects.get(name=product1['name'])
-    product_info2 = Product.objects.get(name=product2['name'])
-    position = {'user': name.id, 'product': product_info.id, 'order': order_info.id, 'quantity': 100}
-    position1 = {'user': name.id, 'product': product_info1.id, 'order': order_info.id, 'quantity': 1}
-    position2 = {'user': name.id, 'product': product_info2.id, 'order': order_info.id, 'quantity': 5}
-    response = client.post(url, position)
-    response1 = client.post(url, position1)
-    response2 = client.post(url, position2)
-    assert response.status_code == HTTP_201_CREATED
-    assert response1.status_code == HTTP_201_CREATED
-    assert response2.status_code == HTTP_201_CREATED
-    """ Фильтр по продуктам в заказах """
-    name = "молоток"
-    product_id = Product.objects.get(name=name).id
+    product_factory(_quantity=3)
+    create_order_by_authenticated_user
+    create_positions_by_authenticated_user
+    product = create_positions_by_authenticated_user[0]['product']
+    product_id = Product.objects.get(id=product)
     position_id_from_db = Position.objects.get(product=product_id).id
     order_id_from_db = Position.objects.get(product=product_id).order.id
     params = f'position={position_id_from_db}'

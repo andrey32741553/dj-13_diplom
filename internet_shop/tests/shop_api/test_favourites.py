@@ -1,41 +1,33 @@
+import pytest
 from django.urls import reverse
 from rest_framework.status import HTTP_201_CREATED, HTTP_200_OK, HTTP_400_BAD_REQUEST
 
-from shop_api.models import Product, UserMethods
+from shop_api.models import UserMethods
 
 
-def test_create_favourites_by_authenticated_client(client, admin_client, django_user_model):
-    """ Тест добавления товаров в избранные авторизованным пользователем """
-    """ Создание списка товаров админом """
-    url = reverse("products-list")
-    product = {"name": "гвозди", "price": 10, "description": "китайские"}
-    product1 = {"name": "молоток", "price": 100, "description": "для забивания китайских гвоздей"}
-    product2 = {"name": "доска", "price": 5, "description": "для китайских гвоздей"}
-    response = admin_client.post(url, product)
-    response1 = admin_client.post(url, product1)
-    response2 = admin_client.post(url, product2)
-    assert response.status_code == HTTP_201_CREATED
-    assert response1.status_code == HTTP_201_CREATED
-    assert response2.status_code == HTTP_201_CREATED
-    """ Регистрация пользователей """
-    username = "foo"
-    password = "bar"
-    user = django_user_model.objects.create_user(username=username, password=password)
-    client.force_login(user)
+@pytest.mark.django_db
+def test_create_favourites(add_product_to_favourites_list):
     """ Добавление пользователем товара в избранное """
-    url = reverse("favourites-list")
-    product_info = Product.objects.get(name=product['name'])
-    favourite_product = {'product': product_info.id}
-    response = client.post(url, favourite_product)
+    response = add_product_to_favourites_list
     assert response.status_code == HTTP_201_CREATED
+
+
+@pytest.mark.django_db
+def test_get_list_of_favourites_by_authenticated_user(authenticated_client, add_product_to_favourites_list):
     """ Получение списка избранных товаров пользователем """
+    add_product_to_favourites_list
     url = reverse("user-info-list")
-    resp = client.get(url)
+    resp = authenticated_client.get(url)
     assert resp.status_code == HTTP_200_OK
+
+
+@pytest.mark.django_db
+def test_get_own_list_of_favouritess_by_authenticated_user(authenticated_client, add_product_to_favourites_list, django_user_model):
     """ Получение своего списка избранных товаров пользователем """
-    favourites_info = UserMethods.objects.get(username=username)
+    add_product_to_favourites_list
+    favourites_info = UserMethods.objects.get(username="foo")
     url = reverse("user-info-detail", args=(favourites_info.id,))
-    resp = client.get(url)
+    resp = authenticated_client.get(url)
     resp_json = resp.json()
     assert resp.status_code == HTTP_200_OK
     assert str(favourites_info.username) == resp_json['username']
@@ -43,9 +35,9 @@ def test_create_favourites_by_authenticated_client(client, admin_client, django_
     username1 = "vasia"
     password1 = "123456"
     user1 = django_user_model.objects.create_user(username=username1, password=password1)
-    client.force_login(user1)
+    authenticated_client.force_login(user1)
     another_user = UserMethods.objects.get(username=username1)
     url = reverse("user-info-detail", args=(favourites_info.id,))
-    resp = client.get(url)
+    resp = authenticated_client.get(url)
     assert resp.status_code == HTTP_400_BAD_REQUEST
     assert str(another_user) != favourites_info.username
