@@ -312,6 +312,45 @@
   }
 },
 {
+  "model": "admin.logentry",
+  "pk": 97,
+  "fields": {
+    "action_time": "2021-02-23T07:24:35.000Z",
+    "user": 4,
+    "content_type": 8,
+    "object_id": "8",
+    "object_repr": "a09c1975ca70d0bc212fbbe5b7db7cc597ed6641",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 98,
+  "fields": {
+    "action_time": "2021-02-24T09:21:47.853Z",
+    "user": 4,
+    "content_type": 8,
+    "object_id": "4",
+    "object_repr": "88d03ea1613508e0b25076b0dbd20a1304d4e980",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 99,
+  "fields": {
+    "action_time": "2021-02-25T10:25:49.993Z",
+    "user": 4,
+    "content_type": 11,
+    "object_id": "12",
+    "object_repr": "Для работы",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Products\"]}}]"
+  }
+},
+{
   "model": "auth.permission",
   "pk": 1,
   "fields": {
@@ -964,7 +1003,7 @@
   "pk": 4,
   "fields": {
     "password": "pbkdf2_sha256$216000$3X1riBFnrZgW$HzLSNDUQbNE/wH0u3XytVn8F3IYCqvwVJfext4BY6xI=",
-    "last_login": "2021-02-14T10:26:57.324Z",
+    "last_login": "2021-02-24T09:21:29.246Z",
     "is_superuser": true,
     "username": "andrey",
     "first_name": "",
@@ -1169,6 +1208,22 @@
 },
 {
   "model": "sessions.session",
+  "pk": "03o0kjhvgjy793qdu5g6yl09tb77gbmx",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2hBKCwMu3XsGMsOAVA0kpV0Z765NutDtf-_9lwi4rSVsPS1hZnEWkzj9boTxkeoO-I711mRsdV1mkrsiD9rltXF6Xg7376BgL98aIAGTsRm1tY4HsOCZcsboR2CdwedotDKUHBsHSo0WeWKvtWczOCfeH_JeN9E:1lES3V:WE24WnGgciRYuI5bfdXDe6aS0IvbKxHIkDml8urov0o",
+    "expire_date": "2021-03-09T07:24:25.502Z"
+  }
+},
+{
+  "model": "sessions.session",
+  "pk": "2hy5brksk5401kceb35k9spqfsg6zfrp",
+  "fields": {
+    "session_data": ".eJxVjEEOwiAQRe_C2hBKCwMu3XsGMsOAVA0kpV0Z765NutDtf-_9lwi4rSVsPS1hZnEWkzj9boTxkeoO-I711mRsdV1mkrsiD9rltXF6Xg7376BgL98aIAGTsRm1tY4HsOCZcsboR2CdwedotDKUHBsHSo0WeWKvtWczOCfeH_JeN9E:1lEqML:qeaudSYg9wPuIbQoG4Yeh0AXWWsgWeHf_iQ10sFD7G0",
+    "expire_date": "2021-03-10T09:21:29.255Z"
+  }
+},
+{
+  "model": "sessions.session",
   "pk": "7xoy1gvxkjb1s7jq0gbdsiyoq5otibrr",
   "fields": {
     "session_data": ".eJxVjEEOwiAQRe_C2hBKCwMu3XsGMsOAVA0kpV0Z765NutDtf-_9lwi4rSVsPS1hZnEWkzj9boTxkeoO-I711mRsdV1mkrsiD9rltXF6Xg7376BgL98aIAGTsRm1tY4HsOCZcsboR2CdwedotDKUHBsHSo0WeWKvtWczOCfeH_JeN9E:1lA8UY:8nq4AAHq1hOApBreoGEDMrU1_hruA1oG0tmAeGcvlhM",
@@ -1185,40 +1240,10 @@
 },
 {
   "model": "authtoken.token",
-  "pk": "a09c1975ca70d0bc212fbbe5b7db7cc597ed6641",
+  "pk": "88d03ea1613508e0b25076b0dbd20a1304d4e980",
   "fields": {
-    "user": 8,
-    "created": "2021-02-19T09:54:29.894Z"
-  }
-},
-{
-  "model": "shop_api.productcollections",
-  "pk": 43,
-  "fields": {
-    "title": "Для дома",
-    "text": "товары для дома",
-    "created_at": "2021-01-23T15:57:51.676Z",
-    "updated_at": "2021-01-23T15:57:51.676Z"
-  }
-},
-{
-  "model": "shop_api.productcollections",
-  "pk": 44,
-  "fields": {
-    "title": "для гаража",
-    "text": "товары для гаража",
-    "created_at": "2021-01-24T08:55:45.503Z",
-    "updated_at": "2021-01-25T14:29:34.428Z"
-  }
-},
-{
-  "model": "shop_api.productcollections",
-  "pk": 45,
-  "fields": {
-    "title": "для дома и развлечений",
-    "text": "отличная техника для дома и развлечений",
-    "created_at": "2021-02-19T12:46:14.259Z",
-    "updated_at": "2021-02-19T12:53:06.123Z"
+    "user": 4,
+    "created": "2021-02-24T09:21:47.852Z"
   }
 },
 {
@@ -1229,8 +1254,7 @@
     "description": "Вкусный, сочный",
     "price": 150.0,
     "created_at": "2021-01-08T08:29:22.792Z",
-    "updated_at": "2021-01-08T08:29:22.792Z",
-    "product_collection": null
+    "updated_at": "2021-01-08T08:29:22.792Z"
   }
 },
 {
@@ -1241,8 +1265,7 @@
     "description": "Крепкий",
     "price": 800.0,
     "created_at": "2021-01-08T08:30:29.690Z",
-    "updated_at": "2021-01-08T08:30:29.690Z",
-    "product_collection": null
+    "updated_at": "2021-01-08T08:30:29.690Z"
   }
 },
 {
@@ -1253,8 +1276,7 @@
     "description": "Б/у, в хорошем состоянии",
     "price": 100000.0,
     "created_at": "2021-01-08T08:33:40.321Z",
-    "updated_at": "2021-01-08T08:33:40.321Z",
-    "product_collection": null
+    "updated_at": "2021-01-08T08:33:40.321Z"
   }
 },
 {
@@ -1265,8 +1287,7 @@
     "description": "Красивая, пушистая",
     "price": 500.0,
     "created_at": "2021-01-08T08:34:06.842Z",
-    "updated_at": "2021-01-08T08:34:06.842Z",
-    "product_collection": null
+    "updated_at": "2021-01-08T08:34:06.842Z"
   }
 },
 {
@@ -1277,8 +1298,7 @@
     "description": "Крепкий",
     "price": 6000.0,
     "created_at": "2021-01-08T08:34:22.789Z",
-    "updated_at": "2021-01-08T08:34:22.789Z",
-    "product_collection": null
+    "updated_at": "2021-01-08T08:34:22.789Z"
   }
 },
 {
@@ -1289,8 +1309,7 @@
     "description": "Хороший офисный компьютер",
     "price": 35000.0,
     "created_at": "2021-02-19T13:36:43.423Z",
-    "updated_at": "2021-02-19T13:36:43.423Z",
-    "product_collection": null
+    "updated_at": "2021-02-19T13:36:43.423Z"
   }
 },
 {
@@ -1319,18 +1338,6 @@
 },
 {
   "model": "shop_api.order",
-  "pk": 16,
-  "fields": {
-    "user": 4,
-    "status": "DONE",
-    "count": 6,
-    "total": 109200.0,
-    "created_at": "2021-02-12T14:24:28.002Z",
-    "updated_at": "2021-02-19T13:43:00.540Z"
-  }
-},
-{
-  "model": "shop_api.order",
   "pk": 17,
   "fields": {
     "user": 5,
@@ -1354,75 +1361,15 @@
   }
 },
 {
-  "model": "shop_api.productlistforcollection",
-  "pk": 1,
+  "model": "shop_api.order",
+  "pk": 22,
   "fields": {
-    "product": 2,
-    "collection": 43
-  }
-},
-{
-  "model": "shop_api.productlistforcollection",
-  "pk": 2,
-  "fields": {
-    "product": 2,
-    "collection": 43
-  }
-},
-{
-  "model": "shop_api.productlistforcollection",
-  "pk": 3,
-  "fields": {
-    "product": 1,
-    "collection": 43
-  }
-},
-{
-  "model": "shop_api.productlistforcollection",
-  "pk": 4,
-  "fields": {
-    "product": 4,
-    "collection": 43
-  }
-},
-{
-  "model": "shop_api.productlistforcollection",
-  "pk": 5,
-  "fields": {
-    "product": 3,
-    "collection": 44
-  }
-},
-{
-  "model": "shop_api.productlistforcollection",
-  "pk": 6,
-  "fields": {
-    "product": 5,
-    "collection": 44
-  }
-},
-{
-  "model": "shop_api.productlistforcollection",
-  "pk": 7,
-  "fields": {
-    "product": 4,
-    "collection": 44
-  }
-},
-{
-  "model": "shop_api.productlistforcollection",
-  "pk": 58,
-  "fields": {
-    "product": 5,
-    "collection": 45
-  }
-},
-{
-  "model": "shop_api.productlistforcollection",
-  "pk": 59,
-  "fields": {
-    "product": 8,
-    "collection": 45
+    "user": 4,
+    "status": "NEW",
+    "count": 6,
+    "total": 138200.0,
+    "created_at": "2021-02-26T12:56:47.539Z",
+    "updated_at": "2021-02-26T22:57:16.003Z"
   }
 },
 {
@@ -1490,15 +1437,6 @@
 },
 {
   "model": "shop_api.position",
-  "pk": 8,
-  "fields": {
-    "product": 3,
-    "order": 16,
-    "quantity": 1
-  }
-},
-{
-  "model": "shop_api.position",
   "pk": 9,
   "fields": {
     "product": 2,
@@ -1526,29 +1464,38 @@
 },
 {
   "model": "shop_api.position",
-  "pk": 12,
-  "fields": {
-    "product": 2,
-    "order": 16,
-    "quantity": 4
-  }
-},
-{
-  "model": "shop_api.position",
-  "pk": 13,
-  "fields": {
-    "product": 5,
-    "order": 16,
-    "quantity": 1
-  }
-},
-{
-  "model": "shop_api.position",
   "pk": 14,
   "fields": {
     "product": 1,
     "order": 19,
     "quantity": 1
+  }
+},
+{
+  "model": "shop_api.position",
+  "pk": 77,
+  "fields": {
+    "product": 8,
+    "order": 22,
+    "quantity": 1
+  }
+},
+{
+  "model": "shop_api.position",
+  "pk": 78,
+  "fields": {
+    "product": 3,
+    "order": 22,
+    "quantity": 1
+  }
+},
+{
+  "model": "shop_api.position",
+  "pk": 79,
+  "fields": {
+    "product": 2,
+    "order": 22,
+    "quantity": 4
   }
 },
 {
@@ -1600,6 +1547,37 @@
   }
 },
 {
+  "model": "shop_api.productcollections",
+  "pk": 11,
+  "fields": {
+    "title": "Для дома",
+    "text": "Товары для семьи и дома",
+    "created_at": "2021-02-24T13:43:37.462Z",
+    "updated_at": "2021-02-25T09:44:37.580Z",
+    "products": [
+      2,
+      4,
+      5,
+      8
+    ]
+  }
+},
+{
+  "model": "shop_api.productcollections",
+  "pk": 12,
+  "fields": {
+    "title": "Для работы",
+    "text": "Отличные товары для хобби и работы",
+    "created_at": "2021-02-25T09:46:42.356Z",
+    "updated_at": "2021-02-25T10:25:49.988Z",
+    "products": [
+      3,
+      5,
+      8
+    ]
+  }
+},
+{
   "model": "shop_api.favourites",
   "pk": 10,
   "fields": {
@@ -1637,6 +1615,14 @@
   "fields": {
     "user": 3,
     "product": 2
+  }
+},
+{
+  "model": "shop_api.favourites",
+  "pk": 15,
+  "fields": {
+    "user": 4,
+    "product": 8
   }
 }
 ]
