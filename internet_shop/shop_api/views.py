@@ -14,7 +14,7 @@ from shop_api.serializers import ProductSerializer, ProductDetailSerializer, \
     ReviewUpdateSerializer, OrderUpdateSerializer, \
     FavouritesSerializer, UserSerializer, UserDetailSerializer, FavouritesCreateSerializer, \
     CollectionsSerializer, CollectionsCreateSerializer, \
-    CollectionsDetailSerializer  # , CollectionsUpdateSerializer
+    CollectionsDetailSerializer
 
 
 class ProductViewSet(ModelViewSet):
