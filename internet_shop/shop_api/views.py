@@ -2,19 +2,18 @@ from django.db import transaction
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
-from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 
 from shop_api.filters import ProductFilter, ReviewFilter, OrderFilter
-from shop_api.models import Product, Review, Order, Position, Favourites, UserMethods, ProductCollections
+from shop_api.models import Product, Review, Order, Position, UserMethods, ProductCollections
 
 from shop_api.serializers import ProductSerializer, ProductDetailSerializer, \
     ReviewCreateSerializer, ReviewSerializer, OrderSerializer, OrderCreateSerializer, \
     PositionCreateSerializer, OrderDetailSerializer, \
     ReviewUpdateSerializer, OrderUpdateSerializer, \
-    FavouritesSerializer, UserSerializer, UserDetailSerializer, FavouritesCreateSerializer, \
+    UserSerializer, UserDetailSerializer, \
     CollectionsSerializer, CollectionsCreateSerializer, \
-    CollectionsDetailSerializer
+    CollectionsDetailSerializer, FavouritesCreateSerializer
 
 
 class ProductViewSet(ModelViewSet):
@@ -159,28 +158,6 @@ class CollectionViewSet(ModelViewSet):
         return []
 
 
-class FavouritesViewSet(ModelViewSet):
-    """ ViewSet для списка избранных товаров """
-    queryset = Favourites.objects.all()
-
-    def get_serializer_class(self):
-        if self.action == "list":
-            return FavouritesSerializer
-        elif self.action == "create":
-            return FavouritesCreateSerializer
-
-    def get_permissions(self):
-        if self.action in ["list", "create", "destroy"]:
-            return [IsAuthenticated()]
-        return []
-
-    def list(self, request, **kwargs):
-        favourites_user = request.user
-        queryset = Favourites.objects.filter(user=favourites_user)
-        serializer = FavouritesSerializer(queryset, many=True)
-        return Response(serializer.data)
-
-
 class UserViewSet(ModelViewSet):
     """ ViewSet для информации о пользователе """
     queryset = UserMethods.objects.all()
@@ -190,9 +167,11 @@ class UserViewSet(ModelViewSet):
             return UserSerializer
         elif self.action == "retrieve":
             return UserDetailSerializer
+        elif self.action == "create":
+            return FavouritesCreateSerializer
 
     def get_permissions(self):
-        if self.action == "list":
+        if self.action in ["list", "create", "retrieve", "destroy"]:
             return [IsAuthenticated()]
         return []
 

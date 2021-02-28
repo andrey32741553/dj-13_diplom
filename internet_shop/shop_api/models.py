@@ -11,9 +11,6 @@ class UserMethods(User):
     def __str__(self):
         return self.username
 
-    def get_favourites(self):
-        return self.favourites.all()
-
     class Meta:
         proxy = True
 
@@ -32,6 +29,7 @@ class Product(models.Model):
     name = models.CharField("Название", max_length=50)
     description = models.TextField("Описание", default='')
     price = models.FloatField("Цена", default=0.00)
+    favourites = models.ManyToManyField(UserMethods, related_name='products')
     created_at = models.DateTimeField("Создано", auto_now_add=True)
     updated_at = models.DateTimeField("Обновлено", auto_now=True)
 
@@ -129,28 +127,6 @@ class ProductCollections(models.Model):
     class Meta:
         verbose_name = "Подборка"
         verbose_name_plural = "Подборки"
-
-
-class Favourites(models.Model):
-    """ Избранное """
-
-    user = models.ForeignKey(
-        UserMethods,
-        verbose_name="Пользователь",
-        on_delete=models.CASCADE,
-        related_name="favourites"
-    )
-    product = models.ForeignKey(
-        Product,
-        verbose_name="Товар",
-        on_delete=models.CASCADE,
-        related_name="favourites")
-
-    def __str__(self):
-        return self.product.name
-
-    class Meta:
-        verbose_name = "Избранное"
 
 
 @receiver(post_save, sender=Position)
