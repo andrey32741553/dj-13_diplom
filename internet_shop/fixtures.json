@@ -1,356 +1,5 @@
 [
 {
-  "model": "admin.logentry",
-  "pk": 73,
-  "fields": {
-    "action_time": "2021-02-13T05:38:17.922Z",
-    "user": 4,
-    "content_type": 4,
-    "object_id": "5",
-    "object_repr": "petya",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 74,
-  "fields": {
-    "action_time": "2021-02-13T05:38:49.860Z",
-    "user": 4,
-    "content_type": 12,
-    "object_id": "17",
-    "object_repr": "User: petya has 0 items in order. Their total is $0.0",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 75,
-  "fields": {
-    "action_time": "2021-02-13T05:39:06.214Z",
-    "user": 4,
-    "content_type": 12,
-    "object_id": "17",
-    "object_repr": "User: petya has 4 items in order. Their total is $3200.00",
-    "action_flag": 2,
-    "change_message": "[{\"added\": {\"name\": \"\\u041d\\u0430\\u0438\\u043c\\u0435\\u043d\\u043e\\u0432\\u0430\\u043d\\u0438\\u0435\", \"object\": \"This entry contains 4 \\u0421\\u0442\\u0443\\u043b(s).\"}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 76,
-  "fields": {
-    "action_time": "2021-02-13T05:39:13.983Z",
-    "user": 4,
-    "content_type": 12,
-    "object_id": "17",
-    "object_repr": "User: petya has 5 items in order. Their total is $9200.00",
-    "action_flag": 2,
-    "change_message": "[{\"added\": {\"name\": \"\\u041d\\u0430\\u0438\\u043c\\u0435\\u043d\\u043e\\u0432\\u0430\\u043d\\u0438\\u0435\", \"object\": \"This entry contains 1 \\u0421\\u0442\\u043e\\u043b(s).\"}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 77,
-  "fields": {
-    "action_time": "2021-02-13T05:39:22.868Z",
-    "user": 4,
-    "content_type": 12,
-    "object_id": "17",
-    "object_repr": "User: petya has 6 items in order. Their total is $9700.00",
-    "action_flag": 2,
-    "change_message": "[{\"added\": {\"name\": \"\\u041d\\u0430\\u0438\\u043c\\u0435\\u043d\\u043e\\u0432\\u0430\\u043d\\u0438\\u0435\", \"object\": \"This entry contains 1 \\u0401\\u043b\\u043a\\u0430(s).\"}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 78,
-  "fields": {
-    "action_time": "2021-02-13T05:41:20.137Z",
-    "user": 4,
-    "content_type": 12,
-    "object_id": "18",
-    "object_repr": "User: petya has 0 items in order. Their total is $0.0",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 79,
-  "fields": {
-    "action_time": "2021-02-13T05:41:39.644Z",
-    "user": 4,
-    "content_type": 12,
-    "object_id": "18",
-    "object_repr": "User: petya has 0 items in order. Their total is $0.00",
-    "action_flag": 3,
-    "change_message": ""
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 80,
-  "fields": {
-    "action_time": "2021-02-14T10:34:11.917Z",
-    "user": 4,
-    "content_type": 4,
-    "object_id": "5",
-    "object_repr": "petya",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"fields\": [\"Active\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 81,
-  "fields": {
-    "action_time": "2021-02-14T10:34:17.290Z",
-    "user": 4,
-    "content_type": 4,
-    "object_id": "7",
-    "object_repr": "test",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"fields\": [\"Active\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 82,
-  "fields": {
-    "action_time": "2021-02-14T10:46:14.634Z",
-    "user": 4,
-    "content_type": 8,
-    "object_id": "4",
-    "object_repr": "56dbe18cd79cd3b2e04d2245c06c5a5597a73a54",
-    "action_flag": 2,
-    "change_message": "[]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 83,
-  "fields": {
-    "action_time": "2021-02-14T10:47:17.832Z",
-    "user": 4,
-    "content_type": 8,
-    "object_id": "4",
-    "object_repr": "56dbe18cd79cd3b2e04d2245c06c5a5597a73a54",
-    "action_flag": 3,
-    "change_message": ""
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 84,
-  "fields": {
-    "action_time": "2021-02-17T14:11:49.116Z",
-    "user": 4,
-    "content_type": 4,
-    "object_id": "8",
-    "object_repr": "admin",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 85,
-  "fields": {
-    "action_time": "2021-02-17T14:12:22.133Z",
-    "user": 4,
-    "content_type": 4,
-    "object_id": "8",
-    "object_repr": "admin",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"fields\": [\"Staff status\", \"Superuser status\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 86,
-  "fields": {
-    "action_time": "2021-02-17T14:13:44.038Z",
-    "user": 4,
-    "content_type": 8,
-    "object_id": "8",
-    "object_repr": "b836d180dea51b27d0be83e4bfb2f9de27dee570",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 87,
-  "fields": {
-    "action_time": "2021-02-18T09:29:33.153Z",
-    "user": 4,
-    "content_type": 8,
-    "object_id": "4",
-    "object_repr": "e72832803e3c08131d413e45a772655d378a7d6d",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 88,
-  "fields": {
-    "action_time": "2021-02-18T09:30:25.713Z",
-    "user": 4,
-    "content_type": 8,
-    "object_id": "4",
-    "object_repr": "e72832803e3c08131d413e45a772655d378a7d6d",
-    "action_flag": 3,
-    "change_message": ""
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 89,
-  "fields": {
-    "action_time": "2021-02-18T12:56:55.528Z",
-    "user": 4,
-    "content_type": 8,
-    "object_id": "4",
-    "object_repr": "71f92936a905195fb724ddd0d263abf0ea61e6cf",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 90,
-  "fields": {
-    "action_time": "2021-02-19T09:54:02.144Z",
-    "user": 4,
-    "content_type": 8,
-    "object_id": "8",
-    "object_repr": "b836d180dea51b27d0be83e4bfb2f9de27dee570",
-    "action_flag": 3,
-    "change_message": ""
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 91,
-  "fields": {
-    "action_time": "2021-02-19T09:54:23.445Z",
-    "user": 4,
-    "content_type": 8,
-    "object_id": "4",
-    "object_repr": "71f92936a905195fb724ddd0d263abf0ea61e6cf",
-    "action_flag": 3,
-    "change_message": ""
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 92,
-  "fields": {
-    "action_time": "2021-02-19T09:54:29.896Z",
-    "user": 4,
-    "content_type": 8,
-    "object_id": "8",
-    "object_repr": "a09c1975ca70d0bc212fbbe5b7db7cc597ed6641",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 93,
-  "fields": {
-    "action_time": "2021-02-19T10:16:27.510Z",
-    "user": 4,
-    "content_type": 10,
-    "object_id": "19",
-    "object_repr": "Ёлка",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 94,
-  "fields": {
-    "action_time": "2021-02-19T12:56:31.645Z",
-    "user": 4,
-    "content_type": 8,
-    "object_id": "3",
-    "object_repr": "a7f47919b671e51a962e6bf0c92d343046b0e2ac",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 95,
-  "fields": {
-    "action_time": "2021-02-19T12:58:07.562Z",
-    "user": 4,
-    "content_type": 4,
-    "object_id": "3",
-    "object_repr": "vasia",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"fields\": [\"Active\"]}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 96,
-  "fields": {
-    "action_time": "2021-02-19T13:38:55.862Z",
-    "user": 4,
-    "content_type": 8,
-    "object_id": "3",
-    "object_repr": "a7f47919b671e51a962e6bf0c92d343046b0e2ac",
-    "action_flag": 3,
-    "change_message": ""
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 97,
-  "fields": {
-    "action_time": "2021-02-23T07:24:35.000Z",
-    "user": 4,
-    "content_type": 8,
-    "object_id": "8",
-    "object_repr": "a09c1975ca70d0bc212fbbe5b7db7cc597ed6641",
-    "action_flag": 3,
-    "change_message": ""
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 98,
-  "fields": {
-    "action_time": "2021-02-24T09:21:47.853Z",
-    "user": 4,
-    "content_type": 8,
-    "object_id": "4",
-    "object_repr": "88d03ea1613508e0b25076b0dbd20a1304d4e980",
-    "action_flag": 1,
-    "change_message": "[{\"added\": {}}]"
-  }
-},
-{
-  "model": "admin.logentry",
-  "pk": 99,
-  "fields": {
-    "action_time": "2021-02-25T10:25:49.993Z",
-    "user": 4,
-    "content_type": 11,
-    "object_id": "12",
-    "object_repr": "Для работы",
-    "action_flag": 2,
-    "change_message": "[{\"changed\": {\"fields\": [\"Products\"]}}]"
-  }
-},
-{
   "model": "auth.permission",
   "pk": 1,
   "fields": {
@@ -1000,24 +649,6 @@
 },
 {
   "model": "auth.user",
-  "pk": 4,
-  "fields": {
-    "password": "pbkdf2_sha256$216000$3X1riBFnrZgW$HzLSNDUQbNE/wH0u3XytVn8F3IYCqvwVJfext4BY6xI=",
-    "last_login": "2021-02-24T09:21:29.246Z",
-    "is_superuser": true,
-    "username": "andrey",
-    "first_name": "",
-    "last_name": "",
-    "email": "",
-    "is_staff": true,
-    "is_active": true,
-    "date_joined": "2021-02-11T09:42:00.994Z",
-    "groups": [],
-    "user_permissions": []
-  }
-},
-{
-  "model": "auth.user",
   "pk": 5,
   "fields": {
     "password": "pbkdf2_sha256$216000$AIZakqoSfISq$dMp1GVHNYQh/YpBoB+LJQavHUWHE28eRn1URvDCUHc4=",
@@ -1066,6 +697,24 @@
     "is_staff": true,
     "is_active": true,
     "date_joined": "2021-02-17T14:11:48Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 16,
+  "fields": {
+    "password": "pbkdf2_sha256$216000$LXVIlivoOQVR$coxVneNtUqr343GRvoXaVwT1TMo+aNZTfX7K0kIg+xI=",
+    "last_login": "2021-02-28T11:09:20.767Z",
+    "is_superuser": true,
+    "username": "andrey",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2021-02-28T11:09:12.532Z",
     "groups": [],
     "user_permissions": []
   }
@@ -1216,14 +865,6 @@
 },
 {
   "model": "sessions.session",
-  "pk": "2hy5brksk5401kceb35k9spqfsg6zfrp",
-  "fields": {
-    "session_data": ".eJxVjEEOwiAQRe_C2hBKCwMu3XsGMsOAVA0kpV0Z765NutDtf-_9lwi4rSVsPS1hZnEWkzj9boTxkeoO-I711mRsdV1mkrsiD9rltXF6Xg7376BgL98aIAGTsRm1tY4HsOCZcsboR2CdwedotDKUHBsHSo0WeWKvtWczOCfeH_JeN9E:1lEqML:qeaudSYg9wPuIbQoG4Yeh0AXWWsgWeHf_iQ10sFD7G0",
-    "expire_date": "2021-03-10T09:21:29.255Z"
-  }
-},
-{
-  "model": "sessions.session",
   "pk": "7xoy1gvxkjb1s7jq0gbdsiyoq5otibrr",
   "fields": {
     "session_data": ".eJxVjEEOwiAQRe_C2hBKCwMu3XsGMsOAVA0kpV0Z765NutDtf-_9lwi4rSVsPS1hZnEWkzj9boTxkeoO-I711mRsdV1mkrsiD9rltXF6Xg7376BgL98aIAGTsRm1tY4HsOCZcsboR2CdwedotDKUHBsHSo0WeWKvtWczOCfeH_JeN9E:1lA8UY:8nq4AAHq1hOApBreoGEDMrU1_hruA1oG0tmAeGcvlhM",
@@ -1239,11 +880,11 @@
   }
 },
 {
-  "model": "authtoken.token",
-  "pk": "88d03ea1613508e0b25076b0dbd20a1304d4e980",
+  "model": "sessions.session",
+  "pk": "kzs8w347ik6h3wg6yvc8tgwtyp5qcu32",
   "fields": {
-    "user": 4,
-    "created": "2021-02-24T09:21:47.852Z"
+    "session_data": ".eJxVjMsOwiAQRf-FtSHl0QFcuu83kBkGpWogKe3K-O_apAvd3nPOfYmI21ri1vMSZxZnoUCcfkfC9Mh1J3zHemsytbouM8ldkQftcmqcn5fD_Tso2Mu3BiYy7JlNGoK2GkZIqJ3RznnD2V5HTQrAu6AwK2ayqA0YHByFoIDE-wMChDem:1lGJwu:3384L1aMbH1VJ0OWPCKYsDzrKqJilaHkUzooqTQLmgE",
+    "expire_date": "2021-03-14T11:09:20.771Z"
   }
 },
 {
@@ -1254,7 +895,8 @@
     "description": "Вкусный, сочный",
     "price": 150.0,
     "created_at": "2021-01-08T08:29:22.792Z",
-    "updated_at": "2021-01-08T08:29:22.792Z"
+    "updated_at": "2021-01-08T08:29:22.792Z",
+    "favourites": []
   }
 },
 {
@@ -1265,7 +907,8 @@
     "description": "Крепкий",
     "price": 800.0,
     "created_at": "2021-01-08T08:30:29.690Z",
-    "updated_at": "2021-01-08T08:30:29.690Z"
+    "updated_at": "2021-01-08T08:30:29.690Z",
+    "favourites": []
   }
 },
 {
@@ -1276,7 +919,10 @@
     "description": "Б/у, в хорошем состоянии",
     "price": 100000.0,
     "created_at": "2021-01-08T08:33:40.321Z",
-    "updated_at": "2021-01-08T08:33:40.321Z"
+    "updated_at": "2021-01-08T08:33:40.321Z",
+    "favourites": [
+      16
+    ]
   }
 },
 {
@@ -1287,7 +933,8 @@
     "description": "Красивая, пушистая",
     "price": 500.0,
     "created_at": "2021-01-08T08:34:06.842Z",
-    "updated_at": "2021-01-08T08:34:06.842Z"
+    "updated_at": "2021-01-08T08:34:06.842Z",
+    "favourites": []
   }
 },
 {
@@ -1298,7 +945,8 @@
     "description": "Крепкий",
     "price": 6000.0,
     "created_at": "2021-01-08T08:34:22.789Z",
-    "updated_at": "2021-01-08T08:34:22.789Z"
+    "updated_at": "2021-01-08T08:34:22.789Z",
+    "favourites": []
   }
 },
 {
@@ -1309,7 +957,10 @@
     "description": "Хороший офисный компьютер",
     "price": 35000.0,
     "created_at": "2021-02-19T13:36:43.423Z",
-    "updated_at": "2021-02-19T13:36:43.423Z"
+    "updated_at": "2021-02-19T13:36:43.423Z",
+    "favourites": [
+      16
+    ]
   }
 },
 {
@@ -1362,14 +1013,14 @@
 },
 {
   "model": "shop_api.order",
-  "pk": 22,
+  "pk": 24,
   "fields": {
-    "user": 4,
-    "status": "NEW",
-    "count": 6,
-    "total": 138200.0,
-    "created_at": "2021-02-26T12:56:47.539Z",
-    "updated_at": "2021-02-26T22:57:16.003Z"
+    "user": 16,
+    "status": "IN_PROGRESS",
+    "count": 5,
+    "total": 38200.0,
+    "created_at": "2021-02-28T11:20:57.055Z",
+    "updated_at": "2021-02-28T11:21:52.448Z"
   }
 },
 {
@@ -1473,28 +1124,19 @@
 },
 {
   "model": "shop_api.position",
-  "pk": 77,
+  "pk": 83,
   "fields": {
     "product": 8,
-    "order": 22,
+    "order": 24,
     "quantity": 1
   }
 },
 {
   "model": "shop_api.position",
-  "pk": 78,
-  "fields": {
-    "product": 3,
-    "order": 22,
-    "quantity": 1
-  }
-},
-{
-  "model": "shop_api.position",
-  "pk": 79,
+  "pk": 84,
   "fields": {
     "product": 2,
-    "order": 22,
+    "order": 24,
     "quantity": 4
   }
 },
@@ -1508,18 +1150,6 @@
     "product": 1,
     "created_at": "2021-01-08T10:11:51.276Z",
     "updated_at": "2021-02-19T13:31:21.038Z"
-  }
-},
-{
-  "model": "shop_api.review",
-  "pk": 2,
-  "fields": {
-    "creator": 4,
-    "review_text": "надёжен",
-    "rating": 4,
-    "product": 3,
-    "created_at": "2021-02-11T10:00:25.194Z",
-    "updated_at": "2021-02-12T23:04:44.548Z"
   }
 },
 {
@@ -1578,51 +1208,18 @@
   }
 },
 {
-  "model": "shop_api.favourites",
-  "pk": 10,
-  "fields": {
-    "user": 4,
-    "product": 5
-  }
-},
-{
-  "model": "shop_api.favourites",
-  "pk": 11,
-  "fields": {
-    "user": 4,
-    "product": 3
-  }
-},
-{
-  "model": "shop_api.favourites",
-  "pk": 12,
-  "fields": {
-    "user": 4,
-    "product": 1
-  }
-},
-{
-  "model": "shop_api.favourites",
+  "model": "shop_api.productcollections",
   "pk": 13,
   "fields": {
-    "user": 4,
-    "product": 2
-  }
-},
-{
-  "model": "shop_api.favourites",
-  "pk": 14,
-  "fields": {
-    "user": 3,
-    "product": 2
-  }
-},
-{
-  "model": "shop_api.favourites",
-  "pk": 15,
-  "fields": {
-    "user": 4,
-    "product": 8
+    "title": "Для развлечений",
+    "text": "товары для развлечений",
+    "created_at": "2021-02-28T09:39:23.590Z",
+    "updated_at": "2021-02-28T09:39:23.590Z",
+    "products": [
+      3,
+      4,
+      8
+    ]
   }
 }
 ]
