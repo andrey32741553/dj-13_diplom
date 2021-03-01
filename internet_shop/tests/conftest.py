@@ -1,5 +1,4 @@
 import pytest
-from django.contrib.auth.models import User
 from django.urls import reverse
 from model_bakery import baker
 from rest_framework.status import HTTP_201_CREATED
@@ -48,7 +47,7 @@ def create_review_by_authenticated_user(product_factory, authenticated_client):
 @pytest.fixture
 def create_order_by_authenticated_user(authenticated_client):
     url = reverse("orders-list")
-    name = User.objects.get(username='foo')
+    name = UserMethods.objects.get(username='foo')
     order = {"user": name.id, "status": "NEW"}
     resp = authenticated_client.post(url, order)
     assert resp.status_code == HTTP_201_CREATED
