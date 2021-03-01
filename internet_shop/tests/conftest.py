@@ -4,7 +4,7 @@ from django.urls import reverse
 from model_bakery import baker
 from rest_framework.status import HTTP_201_CREATED
 
-from shop_api.models import Product, Order
+from shop_api.models import Product, Order, UserMethods
 
 
 @pytest.fixture
@@ -27,10 +27,10 @@ def product_factory():
 @pytest.fixture
 def add_product_to_favourites_list(product_factory, authenticated_client):
     product = product_factory(_quantity=3)
-    url = reverse("favourites-list")
-    product_info = Product.objects.get(name=product[0])
-    favourite_product = {'product': product_info.id}
-    response = authenticated_client.post(url, favourite_product)
+    favourites_info = UserMethods.objects.get(username="foo")
+    url = reverse("user-info-detail", args=(favourites_info.id,))
+    favourites = {"products": [product[0].id, product[1].id, product[2].id]}
+    response = authenticated_client.post(url, favourites)
     return response
 
 
