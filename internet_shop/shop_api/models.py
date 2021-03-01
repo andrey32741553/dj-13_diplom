@@ -6,7 +6,6 @@ from django.contrib.auth.models import User
 
 
 class UserMethods(User):
-    """ Привязка списка избранных товаров к модели User """
 
     def __str__(self):
         return self.username
