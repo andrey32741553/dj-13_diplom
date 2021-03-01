@@ -1,7 +1,6 @@
-from django.contrib.auth.models import User
 from django_filters import rest_framework as filters
 
-from shop_api.models import Product, Review, Order, OrderStatusChoices, Position
+from shop_api.models import Product, Review, Order, OrderStatusChoices, Position, UserMethods
 
 
 class ProductFilter(filters.FilterSet):
@@ -24,7 +23,7 @@ class ReviewFilter(filters.FilterSet):
 
     # фильтр по ID продукта, по автору и дате создания
     product = filters.ModelChoiceFilter(queryset=Product.objects.all())
-    creator = filters.ModelChoiceFilter(queryset=User.objects.all())
+    creator = filters.ModelChoiceFilter(queryset=UserMethods.objects.all())
     created_at = filters.DateFromToRangeFilter()
 
     class Meta:
