@@ -89,7 +89,7 @@ class OrderViewSet(ModelViewSet):
             return OrderCreateSerializer
 
     def get_permissions(self):
-        if self.action in ["create", "destroy"]:
+        if self.action in ["list", "create", "destroy"]:
             return [IsAuthenticated()]
         elif self.action in ["list", "update"]:
             return [IsAdminUser()]
