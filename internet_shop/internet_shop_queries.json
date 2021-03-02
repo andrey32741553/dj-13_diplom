@@ -11,136 +11,6 @@
         {
           "entity": {
             "type": "Service",
-            "id": "3768b512-9f6f-4659-95dd-506b1610d6aa",
-            "name": "Favourites"
-          },
-          "children": [
-            {
-              "entity": {
-                "type": "Request",
-                "method": {
-                  "requestBody": true,
-                  "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
-                  "name": "POST"
-                },
-                "body": {
-                  "formBody": {
-                    "overrideContentType": true,
-                    "encoding": "application/x-www-form-urlencoded",
-                    "items": []
-                  },
-                  "bodyType": "Text",
-                  "textBody": "{\"product\": 2}"
-                },
-                "uri": {
-                  "query": {
-                    "delimiter": "&",
-                    "items": []
-                  },
-                  "scheme": {
-                    "name": "http",
-                    "version": "V11"
-                  },
-                  "host": "127.0.0.1:8000",
-                  "path": "/api/v1/favourites/"
-                },
-                "id": "3d99e667-670a-4fe3-b919-a40859b4ecbd",
-                "name": "create favourites by authenticated user",
-                "headers": [
-                  {
-                    "enabled": true,
-                    "name": "Content-Type",
-                    "value": "application/json"
-                  },
-                  {
-                    "enabled": true,
-                    "name": "Authorization",
-                    "value": "Token a7f47919b671e51a962e6bf0c92d343046b0e2ac"
-                  }
-                ]
-              }
-            },
-            {
-              "entity": {
-                "type": "Request",
-                "method": {
-                  "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
-                  "name": "GET"
-                },
-                "body": {
-                  "formBody": {
-                    "overrideContentType": true,
-                    "encoding": "application/x-www-form-urlencoded",
-                    "items": []
-                  },
-                  "bodyType": "Text"
-                },
-                "uri": {
-                  "query": {
-                    "delimiter": "&",
-                    "items": []
-                  },
-                  "scheme": {
-                    "name": "http",
-                    "version": "V11"
-                  },
-                  "host": "127.0.0.1:8000",
-                  "path": "/api/v1/user-info/3/"
-                },
-                "id": "adc72d50-4ebc-4585-9ca2-f34adf02692b",
-                "name": "get authenticated user favourites",
-                "headers": [
-                  {
-                    "enabled": true,
-                    "name": "Authorization",
-                    "value": "Token a7f47919b671e51a962e6bf0c92d343046b0e2ac"
-                  }
-                ]
-              }
-            },
-            {
-              "entity": {
-                "type": "Request",
-                "method": {
-                  "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
-                  "name": "GET"
-                },
-                "body": {
-                  "formBody": {
-                    "overrideContentType": true,
-                    "encoding": "application/x-www-form-urlencoded",
-                    "items": []
-                  },
-                  "bodyType": "Text"
-                },
-                "uri": {
-                  "query": {
-                    "delimiter": "&",
-                    "items": []
-                  },
-                  "scheme": {
-                    "name": "http",
-                    "version": "V11"
-                  },
-                  "host": "127.0.0.1:8000",
-                  "path": "/api/v1/user-info/"
-                },
-                "id": "79260efa-53e3-43c1-8a50-cd1bdf7b5152",
-                "name": "get list of favourites by authenticated user",
-                "headers": [
-                  {
-                    "enabled": true,
-                    "name": "Authorization",
-                    "value": "Token a7f47919b671e51a962e6bf0c92d343046b0e2ac"
-                  }
-                ]
-              }
-            }
-          ]
-        },
-        {
-          "entity": {
-            "type": "Service",
             "id": "cf1cd9de-0f08-4548-8527-8e534dc6743f",
             "name": "Order"
           },
@@ -160,7 +30,52 @@
                     "items": []
                   },
                   "bodyType": "Text",
-                  "textBody": "{\"user\": 3, \n \"product\": 3, \n \"order\": 11, \n \"quantity\": 3}"
+                  "textBody": "{\"user\": 7, \"status\": \"NEW\"}"
+                },
+                "uri": {
+                  "query": {
+                    "delimiter": "&",
+                    "items": []
+                  },
+                  "scheme": {
+                    "name": "http",
+                    "version": "V11"
+                  },
+                  "host": "127.0.0.1:8000",
+                  "path": "/api/v1/orders/"
+                },
+                "id": "e34dc21f-ae8f-4e63-bc47-d92fa87c6487",
+                "name": "create order by authenticated user",
+                "headers": [
+                  {
+                    "enabled": true,
+                    "name": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "enabled": true,
+                    "name": "Authorization",
+                    "value": "Token f08adcdcbf9f8ecebc5608a0b9d5ba129981dd44"
+                  }
+                ]
+              }
+            },
+            {
+              "entity": {
+                "type": "Request",
+                "method": {
+                  "requestBody": true,
+                  "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+                  "name": "POST"
+                },
+                "body": {
+                  "formBody": {
+                    "overrideContentType": true,
+                    "encoding": "application/x-www-form-urlencoded",
+                    "items": []
+                  },
+                  "bodyType": "Text",
+                  "textBody": "{\"user\": 7, \"product\": 2, \"order\": 25, \"quantity\": 100}"
                 },
                 "uri": {
                   "query": {
@@ -174,8 +89,8 @@
                   "host": "127.0.0.1:8000",
                   "path": "/api/v1/positions/"
                 },
-                "id": "e34dc21f-ae8f-4e63-bc47-d92fa87c6487",
-                "name": "add positions in order by authenticated user",
+                "id": "2b9bf7ac-ddef-4d74-a208-4161596f268d",
+                "name": "create positions in order",
                 "headers": [
                   {
                     "enabled": true,
@@ -185,7 +100,7 @@
                   {
                     "enabled": true,
                     "name": "Authorization",
-                    "value": "Token a7f47919b671e51a962e6bf0c92d343046b0e2ac"
+                    "value": "Token f08adcdcbf9f8ecebc5608a0b9d5ba129981dd44"
                   }
                 ]
               }
@@ -336,7 +251,7 @@
                   {
                     "enabled": true,
                     "name": "Authorization",
-                    "value": "Token a09c1975ca70d0bc212fbbe5b7db7cc597ed6641"
+                    "value": "Token 6d65c4c13509938c031825bc9945989294d47970"
                   }
                 ]
               }
@@ -355,7 +270,8 @@
                     "encoding": "application/x-www-form-urlencoded",
                     "items": []
                   },
-                  "bodyType": "Text"
+                  "bodyType": "Text",
+                  "textBody": "{\"user\": 7, \"status\": \"NEW\"}"
                 },
                 "uri": {
                   "query": {
@@ -380,52 +296,7 @@
                   {
                     "enabled": true,
                     "name": "Authorization",
-                    "value": "Token a7f47919b671e51a962e6bf0c92d343046b0e2ac"
-                  }
-                ]
-              }
-            },
-            {
-              "entity": {
-                "type": "Request",
-                "method": {
-                  "requestBody": true,
-                  "link": "http://tools.ietf.org/html/rfc5789",
-                  "name": "PATCH"
-                },
-                "body": {
-                  "formBody": {
-                    "overrideContentType": true,
-                    "encoding": "application/x-www-form-urlencoded",
-                    "items": []
-                  },
-                  "bodyType": "Text",
-                  "textBody": "{\"quantity\": 4}"
-                },
-                "uri": {
-                  "query": {
-                    "delimiter": "&",
-                    "items": []
-                  },
-                  "scheme": {
-                    "name": "http",
-                    "version": "V11"
-                  },
-                  "host": "127.0.0.1:8000",
-                  "path": "/api/v1/positions/5/"
-                },
-                "id": "5dc486ff-2cd6-4998-b178-5fb171ba4cf1",
-                "name": "update info in positions by authenticated user",
-                "headers": [
-                  {
-                    "enabled": true,
-                    "name": "Content-Type",
-                    "value": "application/json"
-                  },
-                  {
-                    "enabled": true,
-                    "name": "Authorization",
-                    "value": "Token a7f47919b671e51a962e6bf0c92d343046b0e2ac"
+                    "value": "Token f08adcdcbf9f8ecebc5608a0b9d5ba129981dd44"
                   }
                 ]
               }
@@ -457,7 +328,7 @@
                     "version": "V11"
                   },
                   "host": "127.0.0.1:8000",
-                  "path": "/api/v1/orders/19/"
+                  "path": "/api/v1/orders/25/"
                 },
                 "id": "388c320c-d096-49f5-aafc-91bc81e0baf0",
                 "name": "update order status by admin",
@@ -470,7 +341,7 @@
                   {
                     "enabled": true,
                     "name": "Authorization",
-                    "value": "Token a09c1975ca70d0bc212fbbe5b7db7cc597ed6641"
+                    "value": "Token 6d65c4c13509938c031825bc9945989294d47970"
                   }
                 ]
               }
@@ -499,52 +370,7 @@
                     "items": []
                   },
                   "bodyType": "Text",
-                  "textBody": "{\"collection\": 45,\n \"product\": 5}"
-                },
-                "uri": {
-                  "query": {
-                    "delimiter": "&",
-                    "items": []
-                  },
-                  "scheme": {
-                    "name": "http",
-                    "version": "V11"
-                  },
-                  "host": "127.0.0.1:8000",
-                  "path": "/api/v1/product-to-collection/"
-                },
-                "id": "f5eb4c58-a1ce-41cb-9e98-c7d0e38b9c97",
-                "name": "Add product to collection by admin",
-                "headers": [
-                  {
-                    "enabled": true,
-                    "name": "Content-Type",
-                    "value": "application/json"
-                  },
-                  {
-                    "enabled": true,
-                    "name": "Authorization",
-                    "value": "Token a09c1975ca70d0bc212fbbe5b7db7cc597ed6641"
-                  }
-                ]
-              }
-            },
-            {
-              "entity": {
-                "type": "Request",
-                "method": {
-                  "requestBody": true,
-                  "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
-                  "name": "POST"
-                },
-                "body": {
-                  "formBody": {
-                    "overrideContentType": true,
-                    "encoding": "application/x-www-form-urlencoded",
-                    "items": []
-                  },
-                  "bodyType": "Text",
-                  "textBody": "{\"title\": \"для работы\", \n \"text\": \"надёжная техника для работы\"}"
+                  "textBody": "{\"title\": \"для работы\",\n \"text\": \"надёжная техника для работы\",\n \"products\": [1, 2]}"
                 },
                 "uri": {
                   "query": {
@@ -558,8 +384,8 @@
                   "host": "127.0.0.1:8000",
                   "path": "/api/v1/product-collections/"
                 },
-                "id": "5db81fbe-7ee4-4841-9555-f1e39ab5c9fd",
-                "name": "create collection by admin",
+                "id": "f5eb4c58-a1ce-41cb-9e98-c7d0e38b9c97",
+                "name": "Add product to collection by admin",
                 "headers": [
                   {
                     "enabled": true,
@@ -569,7 +395,7 @@
                   {
                     "enabled": true,
                     "name": "Authorization",
-                    "value": "Token a09c1975ca70d0bc212fbbe5b7db7cc597ed6641"
+                    "value": "Token 6d65c4c13509938c031825bc9945989294d47970"
                   }
                 ]
               }
@@ -627,7 +453,7 @@
                     "items": []
                   },
                   "bodyType": "Text",
-                  "textBody": "{\"title\": \"для дома и развлечений\",\n \"text\": \"отличная техника для дома и развлечений\"}"
+                  "textBody": "{\"title\": \"для дома и развлечений\",\n \"text\": \"отличная техника для дома и развлечений\",\n \"products\": [6,5]}"
                 },
                 "uri": {
                   "query": {
@@ -639,7 +465,7 @@
                     "version": "V11"
                   },
                   "host": "127.0.0.1:8000",
-                  "path": "/api/v1/product-collections/45/"
+                  "path": "/api/v1/product-collections/14/"
                 },
                 "id": "1037ab5d-a167-4b7e-a4c5-b9bf8de92a58",
                 "name": "update info about collection by admin",
@@ -652,7 +478,7 @@
                   {
                     "enabled": true,
                     "name": "Authorization",
-                    "value": "Token a09c1975ca70d0bc212fbbe5b7db7cc597ed6641"
+                    "value": "Token 6d65c4c13509938c031825bc9945989294d47970"
                   }
                 ]
               }
@@ -666,6 +492,51 @@
             "name": "Review"
           },
           "children": [
+            {
+              "entity": {
+                "type": "Request",
+                "method": {
+                  "requestBody": true,
+                  "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+                  "name": "POST"
+                },
+                "body": {
+                  "formBody": {
+                    "overrideContentType": true,
+                    "encoding": "application/x-www-form-urlencoded",
+                    "items": []
+                  },
+                  "bodyType": "Text",
+                  "textBody": "{\"review_text\": \"всё понравилось\", \"rating\": 5, \"product\": 8}"
+                },
+                "uri": {
+                  "query": {
+                    "delimiter": "&",
+                    "items": []
+                  },
+                  "scheme": {
+                    "name": "http",
+                    "version": "V11"
+                  },
+                  "host": "127.0.0.1:8000",
+                  "path": "/api/v1/product-reviews/"
+                },
+                "id": "d45ba397-9a90-49c4-8286-4563cc2c78ec",
+                "name": "create review by authenticated user",
+                "headers": [
+                  {
+                    "enabled": true,
+                    "name": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "enabled": true,
+                    "name": "Authorization",
+                    "value": "Token 6d6e67faba887a26a48be2d93e20835b7e3b2b0a"
+                  }
+                ]
+              }
+            },
             {
               "entity": {
                 "type": "Request",
@@ -699,7 +570,7 @@
                   {
                     "enabled": true,
                     "name": "Authorization",
-                    "value": "Token a7f47919b671e51a962e6bf0c92d343046b0e2ac"
+                    "value": "Token 6d6e67faba887a26a48be2d93e20835b7e3b2b0a"
                   }
                 ]
               }
@@ -851,7 +722,7 @@
                   {
                     "enabled": true,
                     "name": "Authorization",
-                    "value": "Token a09c1975ca70d0bc212fbbe5b7db7cc597ed6641"
+                    "value": "Token 6d6e67faba887a26a48be2d93e20835b7e3b2b0a"
                   }
                 ]
               }
@@ -894,7 +765,7 @@
                   {
                     "enabled": true,
                     "name": "Authorization",
-                    "value": "Token a7f47919b671e51a962e6bf0c92d343046b0e2ac"
+                    "value": "Token 6d6e67faba887a26a48be2d93e20835b7e3b2b0a"
                   }
                 ]
               }
@@ -978,6 +849,136 @@
                     "enabled": true,
                     "name": "Authorization",
                     "value": "Token a7f47919b671e51a962e6bf0c92d343046b0e2ac"
+                  }
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "entity": {
+            "type": "Service",
+            "id": "412bef71-c7f2-45b0-8889-7b89e9a8c280",
+            "name": "User-info"
+          },
+          "children": [
+            {
+              "entity": {
+                "type": "Request",
+                "method": {
+                  "requestBody": true,
+                  "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
+                  "name": "POST"
+                },
+                "body": {
+                  "formBody": {
+                    "overrideContentType": true,
+                    "encoding": "application/x-www-form-urlencoded",
+                    "items": []
+                  },
+                  "bodyType": "Text",
+                  "textBody": "{\"products\": [1, 2, 3]}"
+                },
+                "uri": {
+                  "query": {
+                    "delimiter": "&",
+                    "items": []
+                  },
+                  "scheme": {
+                    "name": "http",
+                    "version": "V11"
+                  },
+                  "host": "127.0.0.1:8000",
+                  "path": "/api/v1/user-info/3/"
+                },
+                "id": "1386e72d-d0e5-4e13-820f-b329acebf789",
+                "name": "create favourites",
+                "headers": [
+                  {
+                    "enabled": true,
+                    "name": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "enabled": true,
+                    "name": "Authorization",
+                    "value": "Token 6d6e67faba887a26a48be2d93e20835b7e3b2b0a"
+                  }
+                ]
+              }
+            },
+            {
+              "entity": {
+                "type": "Request",
+                "method": {
+                  "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+                  "name": "GET"
+                },
+                "body": {
+                  "formBody": {
+                    "overrideContentType": true,
+                    "encoding": "application/x-www-form-urlencoded",
+                    "items": []
+                  },
+                  "bodyType": "Text"
+                },
+                "uri": {
+                  "query": {
+                    "delimiter": "&",
+                    "items": []
+                  },
+                  "scheme": {
+                    "name": "http",
+                    "version": "V11"
+                  },
+                  "host": "127.0.0.1:8000",
+                  "path": "/api/v1/user-info/"
+                },
+                "id": "cff4f896-a85e-45b8-b8f6-46457401ffd3",
+                "name": "get list of users",
+                "headers": [
+                  {
+                    "enabled": true,
+                    "name": "Authorization",
+                    "value": "Token 6d6e67faba887a26a48be2d93e20835b7e3b2b0a"
+                  }
+                ]
+              }
+            },
+            {
+              "entity": {
+                "type": "Request",
+                "method": {
+                  "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+                  "name": "GET"
+                },
+                "body": {
+                  "formBody": {
+                    "overrideContentType": true,
+                    "encoding": "application/x-www-form-urlencoded",
+                    "items": []
+                  },
+                  "bodyType": "Text"
+                },
+                "uri": {
+                  "query": {
+                    "delimiter": "&",
+                    "items": []
+                  },
+                  "scheme": {
+                    "name": "http",
+                    "version": "V11"
+                  },
+                  "host": "127.0.0.1:8000",
+                  "path": "/api/v1/user-info/3/"
+                },
+                "id": "4fcbbefe-a8f1-4baa-82a5-335851cd74fa",
+                "name": "get user-info",
+                "headers": [
+                  {
+                    "enabled": true,
+                    "name": "Authorization",
+                    "value": "Token 6d6e67faba887a26a48be2d93e20835b7e3b2b0a"
                   }
                 ]
               }
@@ -1104,7 +1105,7 @@
                   {
                     "enabled": true,
                     "name": "Authorization",
-                    "value": "Token a09c1975ca70d0bc212fbbe5b7db7cc597ed6641"
+                    "value": "Token 6d65c4c13509938c031825bc9945989294d47970"
                   }
                 ]
               }
@@ -1136,7 +1137,7 @@
                     "version": "V11"
                   },
                   "host": "127.0.0.1:8000",
-                  "path": "/api/v1/products/7/"
+                  "path": "/api/v1/products/51/"
                 },
                 "id": "8eec3507-e4b4-4990-bb8e-e605e9f1b25b",
                 "name": "update product by admin",
@@ -1149,7 +1150,7 @@
                   {
                     "enabled": true,
                     "name": "Authorization",
-                    "value": "Token a09c1975ca70d0bc212fbbe5b7db7cc597ed6641"
+                    "value": "Token 6d65c4c13509938c031825bc9945989294d47970"
                   }
                 ]
               }
@@ -1179,7 +1180,7 @@
                     "version": "V11"
                   },
                   "host": "127.0.0.1:8000",
-                  "path": "/api/v1/products/7/"
+                  "path": "/api/v1/products/51/"
                 },
                 "id": "476197b1-07e3-4b34-af06-99123d60772b",
                 "name": "delete product by admin",
@@ -1192,7 +1193,7 @@
                   {
                     "enabled": true,
                     "name": "Authorization",
-                    "value": "Token a09c1975ca70d0bc212fbbe5b7db7cc597ed6641"
+                    "value": "Token 6d65c4c13509938c031825bc9945989294d47970"
                   }
                 ]
               }
@@ -1246,7 +1247,7 @@
                   {
                     "enabled": true,
                     "name": "Authorization",
-                    "value": "Token a09c1975ca70d0bc212fbbe5b7db7cc597ed6641"
+                    "value": "Token 6d6e67faba887a26a48be2d93e20835b7e3b2b0a"
                   }
                 ]
               }
@@ -1295,7 +1296,7 @@
                   {
                     "enabled": true,
                     "name": "Authorization",
-                    "value": "Token a09c1975ca70d0bc212fbbe5b7db7cc597ed6641"
+                    "value": "Token 6d6e67faba887a26a48be2d93e20835b7e3b2b0a"
                   }
                 ]
               }
@@ -1344,7 +1345,7 @@
                   {
                     "enabled": true,
                     "name": "Authorization",
-                    "value": "Token a09c1975ca70d0bc212fbbe5b7db7cc597ed6641"
+                    "value": "Token 6d6e67faba887a26a48be2d93e20835b7e3b2b0a"
                   }
                 ]
               }
