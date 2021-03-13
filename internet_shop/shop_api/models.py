@@ -5,15 +5,6 @@ from django.utils.datetime_safe import datetime
 from django.contrib.auth.models import User
 
 
-class UserMethods(User):
-
-    def __str__(self):
-        return self.username
-
-    class Meta:
-        proxy = True
-
-
 class OrderStatusChoices(models.TextChoices):
     """Статусы заказа"""
 
@@ -28,7 +19,7 @@ class Product(models.Model):
     name = models.CharField("Название", max_length=50)
     description = models.TextField("Описание", default='')
     price = models.FloatField("Цена", default=0.00)
-    favourites = models.ManyToManyField(UserMethods, related_name='products')
+    favourites = models.ManyToManyField(User, related_name='products')
     created_at = models.DateTimeField("Создано", auto_now_add=True)
     updated_at = models.DateTimeField("Обновлено", auto_now=True)
 
@@ -47,7 +38,7 @@ class Order(models.Model):
     """ Модель заказов """
 
     user = models.ForeignKey(
-        UserMethods,
+        User,
         verbose_name="Пользователь",
         on_delete=models.CASCADE,
         related_name="order"
@@ -90,7 +81,7 @@ class Review(models.Model):
     """ Отзывы """
 
     creator = models.ForeignKey(
-        UserMethods,
+        User,
         verbose_name="Автор",
         on_delete=models.CASCADE,
     )

@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.db import transaction
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.exceptions import ValidationError
@@ -5,7 +6,7 @@ from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 
 from shop_api.filters import ProductFilter, ReviewFilter, OrderFilter
-from shop_api.models import Product, Review, Order, Position, UserMethods, ProductCollections
+from shop_api.models import Product, Review, Order, Position, ProductCollections
 
 from shop_api.serializers import ProductSerializer, ProductDetailSerializer, \
     ReviewCreateSerializer, ReviewSerializer, OrderSerializer, OrderCreateSerializer, \
@@ -160,7 +161,7 @@ class CollectionViewSet(ModelViewSet):
 
 class UserViewSet(ModelViewSet):
     """ ViewSet для информации о пользователе """
-    queryset = UserMethods.objects.all()
+    queryset = User.objects.all()
 
     def get_serializer_class(self):
         if self.action == "list":

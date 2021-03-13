@@ -1,8 +1,7 @@
 import pytest
+from django.contrib.auth.models import User
 from django.urls import reverse
 from rest_framework.status import HTTP_201_CREATED, HTTP_200_OK, HTTP_400_BAD_REQUEST
-
-from shop_api.models import UserMethods
 
 
 @pytest.mark.django_db
@@ -25,7 +24,7 @@ def test_get_list_of_favourites_by_authenticated_user(authenticated_client, add_
 def test_get_own_list_of_favouritess_by_authenticated_user(authenticated_client, add_product_to_favourites_list, django_user_model):
     """ Получение своего списка избранных товаров пользователем """
     add_product_to_favourites_list
-    favourites_info = UserMethods.objects.get(username="foo")
+    favourites_info = User.objects.get(username="foo")
     url = reverse("user-info-detail", args=(favourites_info.id,))
     resp = authenticated_client.get(url)
     resp_json = resp.json()
@@ -36,7 +35,7 @@ def test_get_own_list_of_favouritess_by_authenticated_user(authenticated_client,
     password1 = "123456"
     user1 = django_user_model.objects.create_user(username=username1, password=password1)
     authenticated_client.force_login(user1)
-    another_user = UserMethods.objects.get(username=username1)
+    another_user = User.objects.get(username=username1)
     url = reverse("user-info-detail", args=(favourites_info.id,))
     resp = authenticated_client.get(url)
     assert resp.status_code == HTTP_400_BAD_REQUEST

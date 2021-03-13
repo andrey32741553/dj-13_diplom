@@ -1,9 +1,10 @@
 from datetime import datetime
 
+from django.contrib.auth.models import User
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 
-from shop_api.models import Product, Review, Order, Position, UserMethods, ProductCollections
+from shop_api.models import Product, Review, Order, Position, ProductCollections
 
 
 class ProductSerializer(serializers.ModelSerializer):
@@ -258,13 +259,13 @@ class FavouritesCreateSerializer(serializers.ModelSerializer):
     """ Сериализатор создания списка избранных товаров """
 
     class Meta:
-        model = UserMethods
+        model = User
         fields = ("products",)
 
     def create(self, validated_data):
         validated_data['username'] = self.context['request'].user
         products = validated_data.pop('products')
-        user_info = UserMethods.objects.get(username=self.context['request'].user)
+        user_info = User.objects.get(username=self.context['request'].user)
         for product in products:
             user_info.products.add(product.id)
         return user_info
@@ -282,7 +283,7 @@ class UserSerializer(serializers.ModelSerializer):
     """Serializer для списка пользователей."""
 
     class Meta:
-        model = UserMethods
+        model = User
         fields = ('id', 'username')
 
 
@@ -292,12 +293,12 @@ class UserDetailSerializer(serializers.ModelSerializer):
     favourites = serializers.SerializerMethodField()
 
     def get_favourites(self, data):
-        user_info = UserMethods.objects.get(id=self.context['request'].user.id)
+        user_info = User.objects.get(id=self.context['request'].user.id)
         result = user_info.products.all()
         return ProductSerializerForFavourites(result, many=True).data
 
     order = OrderDetailSerializer(many=True, read_only=True)
 
     class Meta:
-        model = UserMethods
+        model = User
         fields = ('username', 'favourites', 'order')
