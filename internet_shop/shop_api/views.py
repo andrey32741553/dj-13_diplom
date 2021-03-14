@@ -6,7 +6,7 @@ from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.viewsets import ModelViewSet
 
 from shop_api.filters import ProductFilter, ReviewFilter, OrderFilter
-from shop_api.models import Product, Review, Order, Position, ProductCollections
+from shop_api.models import Product, Review, Order, ProductCollections
 
 from shop_api.serializers import ProductSerializer, ProductDetailSerializer, \
     ReviewCreateSerializer, ReviewSerializer, OrderSerializer, OrderCreateSerializer, \
@@ -122,20 +122,6 @@ class OrderDetailViewSet(ModelViewSet):
         if self.action in ["create", "destroy", "retrieve"]:
             return [IsAuthenticated()]
         elif self.action in ["update"]:
-            return [IsAdminUser()]
-        return []
-
-
-class PositionViewSet(ModelViewSet):
-    """ViewSet для позиций в заказах """
-
-    queryset = Position.objects.all()
-    serializer_class = PositionCreateSerializer
-
-    def get_permissions(self):
-        if self.action in ["create", "partial_update", "destroy"]:
-            return [IsAuthenticated()]
-        if self.action == "list":
             return [IsAdminUser()]
         return []
 
