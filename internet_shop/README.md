@@ -45,28 +45,21 @@
 ### Тесты ###
 Coverage тест с использованием pytest-cov:
 ```
-Coverage report: 91%Show keyboard shortcuts
-filter...
+Coverage report: 90%
 
-Module	                                    statements	missing	excluded	coverage
-Total	                                                476	41	0	91%
-shop_api\__init__.py	                                0	0	0	100%
-shop_api\admin.py	                                26	0	0	100%
-shop_api\apps.py	                                3	3	0	0%
-shop_api\filters.py	                                25	0	0	100%
-shop_api\migrations\0001_initial.py	                7	0	0	100%
-shop_api\migrations\0002_product_product_collection.py	5	0	0	100%
-shop_api\migrations\0003_auto_20210224_1912.py      	4	0	0	100%
-shop_api\migrations\0004_productcollections.py      	4	0	0	100%
-shop_api\migrations\0005_auto_20210227_2123.py	        4	0	0	100%
-shop_api\migrations\0006_auto_20210227_2127.py	        4	0	0	100%
-shop_api\migrations\0007_auto_20210301_2235.py      	4	0	0	100%
-shop_api\migrations\__init__.py                     	0	0	0	100%
-shop_api\models.py	                                86	7	0	92%
-shop_api\serializers.py	                                170	11	0	94%
-shop_api\tests.py	                                1	1	0	0%
-shop_api\urls.py	                                4	0	0	100%
-shop_api\views.py	                                129	19	0	85%
+Module	statements	missing	excluded	coverage
+Total	                                440	46	0	90%
+shop_api\__init__.py	                0	0	0	100%
+shop_api\admin.py	                26	0	0	100%
+shop_api\apps.py	                3	3	0	0%
+shop_api\filters.py	                26	0	0	100%
+shop_api\migrations\0001_initial.py	7	0	0	100%
+shop_api\migrations\__init__.py	        0	0	0	100%
+shop_api\models.py	                81	7	0	91%
+shop_api\serializers.py	                171	17	0	90%
+shop_api\tests.py	                1	1	0	0%
+shop_api\urls.py	                4	0	0	100%
+shop_api\views.py	                121	18	0	85%
 ```
 ### Примеры запросов ###
 Файл, internet_shop_queries.json, с примерами запросов находится в корне проекта.
