@@ -1,20 +1,13 @@
 import pytest
 from django.contrib.auth.models import User
 from django.urls import reverse
-from rest_framework.status import HTTP_201_CREATED, HTTP_200_OK, HTTP_400_BAD_REQUEST
-
-
-@pytest.mark.django_db
-def test_create_favourites(add_product_to_favourites_list):
-    """ Добавление пользователем товара в избранное """
-    response = add_product_to_favourites_list
-    assert response.status_code == HTTP_201_CREATED
+from rest_framework.status import HTTP_200_OK, HTTP_400_BAD_REQUEST
 
 
 @pytest.mark.django_db
 def test_get_list_of_favourites_by_authenticated_user(authenticated_client, add_product_to_favourites_list):
     """ Получение списка избранных товаров пользователем """
-    add_product_to_favourites_list
+    response = add_product_to_favourites_list
     url = reverse("user-info-list")
     resp = authenticated_client.get(url)
     assert resp.status_code == HTTP_200_OK
@@ -23,7 +16,7 @@ def test_get_list_of_favourites_by_authenticated_user(authenticated_client, add_
 @pytest.mark.django_db
 def test_get_own_list_of_favouritess_by_authenticated_user(authenticated_client, add_product_to_favourites_list, django_user_model):
     """ Получение своего списка избранных товаров пользователем """
-    add_product_to_favourites_list
+    response = add_product_to_favourites_list
     favourites_info = User.objects.get(username="foo")
     url = reverse("user-info-detail", args=(favourites_info.id,))
     resp = authenticated_client.get(url)

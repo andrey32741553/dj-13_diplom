@@ -1,9 +1,10 @@
 import pytest
+from django.contrib.auth.models import User
 from django.urls import reverse
 from model_bakery import baker
 from rest_framework.status import HTTP_201_CREATED
 
-from shop_api.models import Product, Order, UserMethods
+from shop_api.models import Product, Order
 
 
 @pytest.fixture
@@ -26,11 +27,24 @@ def product_factory():
 @pytest.fixture
 def add_product_to_favourites_list(product_factory, authenticated_client):
     product = product_factory(_quantity=3)
-    favourites_info = UserMethods.objects.get(username="foo")
+    favourites_info = User.objects.get(username="foo")
     url = reverse("user-info-detail", args=(favourites_info.id,))
     favourites = {"products": [product[0].id, product[1].id, product[2].id]}
     response = authenticated_client.post(url, favourites)
     return response
+
+
+@pytest.fixture
+def add_product_to_favourites_list(product_factory, authenticated_client):
+    def wrapper():
+        product = product_factory(quantity=3)
+        favourites_info = User.objects.get(username="foo")
+        url = reverse("user-info-detail", args=(favourites_info.id,))
+        favourites = {"products": [product[0].id, product[1].id, product[2].id]}
+        response = authenticated_client.post(url, favourites)
+        assert response.status_code == HTTP_201_CREATED
+        return response
+    return wrapper
 
 
 @pytest.fixture
@@ -47,7 +61,7 @@ def create_review_by_authenticated_user(product_factory, authenticated_client):
 @pytest.fixture
 def create_order_by_authenticated_user(authenticated_client):
     url = reverse("orders-list")
-    name = UserMethods.objects.get(username='foo')
+    name = User.objects.get(username='foo')
     order = {"user": name.id, "status": "NEW"}
     resp = authenticated_client.post(url, order)
     assert resp.status_code == HTTP_201_CREATED
