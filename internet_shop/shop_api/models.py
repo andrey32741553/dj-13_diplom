@@ -1,7 +1,4 @@
 from django.db import models
-from django.db.models.signals import post_save
-from django.dispatch import receiver
-from django.utils.datetime_safe import datetime
 from django.contrib.auth.models import User
 
 
@@ -11,6 +8,7 @@ class OrderStatusChoices(models.TextChoices):
     NEW = "NEW", "Получен"
     IN_PROGRESS = "IN_PROGRESS", "Выполняется"
     DONE = "DONE", "Готов"
+    CANCELLED = "CANCELLED", "Отменён"
 
 
 class Product(models.Model):
@@ -48,8 +46,8 @@ class Order(models.Model):
         default=OrderStatusChoices.NEW
     )
     products = models.ManyToManyField(Product, related_name='order', through='Position')
-    count = models.PositiveIntegerField(default=0)
-    total = models.FloatField(default=0.00)
+    count = models.PositiveIntegerField(editable=False)
+    total = models.FloatField(editable=False)
     created_at = models.DateTimeField("Создано", auto_now_add=True)
     updated_at = models.DateTimeField("Обновлено", auto_now=True)
 
@@ -117,22 +115,3 @@ class ProductCollections(models.Model):
     class Meta:
         verbose_name = "Подборка"
         verbose_name_plural = "Подборки"
-
-
-@receiver(post_save, sender=Position)
-def update_order(sender, instance, **kwargs):
-    """ Подсчёт total в заказах """
-    user_order = Order.objects.filter(user=instance.order.user)
-    line_price = instance.quantity * instance.product.price
-    instance.order.total += line_price
-    user_order.update(total=instance.order.total)
-    instance.order.count += instance.quantity
-    user_order.update(count=instance.order.count)
-    instance.order.updated_at = datetime.now()
-    user_order.update(updated_at=instance.order.updated_at)
-
-
-def save(self, *args, **kwargs):
-    """ Переопредение save в Position """
-    self.revision += 1
-    return super(Position, self).save(*args, **kwargs)
