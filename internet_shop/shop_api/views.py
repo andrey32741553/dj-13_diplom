@@ -8,13 +8,9 @@ from rest_framework.viewsets import ModelViewSet
 from shop_api.filters import ProductFilter, ReviewFilter, OrderFilter
 from shop_api.models import Product, Review, Order, ProductCollections
 
-from shop_api.serializers import ProductSerializer, ProductDetailSerializer, \
-    ReviewCreateSerializer, ReviewSerializer, OrderSerializer, OrderCreateSerializer, \
-    PositionCreateSerializer, OrderDetailSerializer, \
-    ReviewUpdateSerializer, OrderUpdateSerializer, \
-    UserSerializer, UserDetailSerializer, \
-    CollectionsSerializer, CollectionsCreateSerializer, \
-    CollectionsDetailSerializer, FavouritesCreateSerializer
+from shop_api.serializers import ProductSerializer, ProductDetailSerializer, ReviewSerializer, OrderSerializer,\
+    OrderDetailSerializer, UserSerializer, UserDetailSerializer, CollectionsSerializer, CollectionsDetailSerializer,\
+    FavouritesCreateSerializer
 
 
 class ProductViewSet(ModelViewSet):
@@ -45,12 +41,8 @@ class ReviewViewSet(ModelViewSet):
     queryset = Review.objects.all()
 
     def get_serializer_class(self):
-        if self.action in ["list", "retrieve"]:
+        if self.action in ["list", "retrieve", "create", "update"]:
             return ReviewSerializer
-        elif self.action == "create":
-            return ReviewCreateSerializer
-        elif self.action == "update":
-            return ReviewUpdateSerializer
 
     def get_permissions(self):
         if self.action in ["create", "update", "retrieve", "partial_update", "destroy"]:
@@ -77,23 +69,28 @@ class ReviewViewSet(ModelViewSet):
 
 
 class OrderViewSet(ModelViewSet):
-    """ViewSet для заказов """
+    """ViewSet для заказов"""
 
-    filter_backends = (DjangoFilterBackend,)
+    serializer_class = OrderSerializer
     filterset_class = OrderFilter
-    queryset = Order.objects.all()
 
     def get_serializer_class(self):
-        if self.action == "list":
+        if self.action in ["list", "create"]:
             return OrderSerializer
-        elif self.action == "create":
-            return OrderCreateSerializer
+        elif self.action in ["retrieve", "update"]:
+            return OrderDetailSerializer
+
+    def get_queryset(self):
+        """Получение списка заказов (для не-админа - только свои заказы)"""
+        queryset = Order.objects.all()
+        if not (self.request.user.is_staff or self.request.user.is_superuser):
+            queryset = queryset.filter(user=self.request.user)
+        return queryset
 
     def get_permissions(self):
-        if self.action in ["list", "create", "destroy"]:
+        """Получение прав для действий"""
+        if self.action == "create":
             return [IsAuthenticated()]
-        elif self.action in ["list", "update"]:
-            return [IsAdminUser()]
         return []
 
     @transaction.atomic
@@ -106,36 +103,14 @@ class OrderViewSet(ModelViewSet):
         return super().retrieve(request, *args, **kwargs)
 
 
-class OrderDetailViewSet(ModelViewSet):
-    """ ViewSet для информации о заказе конкретного пользователя и добавления товаров в заказ """
-    queryset = Order.objects.all()
-
-    def get_serializer_class(self):
-        if self.action == "retrieve":
-            return OrderDetailSerializer
-        elif self.action == "update":
-            return OrderUpdateSerializer
-        elif self.action == "create":
-            return PositionCreateSerializer
-
-    def get_permissions(self):
-        if self.action in ["create", "destroy", "retrieve"]:
-            return [IsAuthenticated()]
-        elif self.action in ["update"]:
-            return [IsAdminUser()]
-        return []
-
-
 class CollectionViewSet(ModelViewSet):
     """ViewSet для подборок """
 
     queryset = ProductCollections.objects.all()
 
     def get_serializer_class(self):
-        if self.action == "list":
+        if self.action in ["list", "create"]:
             return CollectionsSerializer
-        elif self.action == "create":
-            return CollectionsCreateSerializer
         elif self.action in ["retrieve", "update"]:
             return CollectionsDetailSerializer
 
