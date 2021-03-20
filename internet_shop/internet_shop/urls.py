@@ -17,13 +17,12 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework import routers
 from shop_api.views import ProductViewSet, ReviewViewSet, OrderViewSet, \
-     UserViewSet, CollectionViewSet, OrderDetailViewSet
+     UserViewSet, CollectionViewSet
 
 router = routers.DefaultRouter()
 router.register("products", ProductViewSet, basename="products")
 router.register("product-reviews", ReviewViewSet, basename="product-reviews")
 router.register("orders", OrderViewSet, basename="orders")
-router.register("positions", OrderDetailViewSet, basename="positions")
 router.register("product-collections", CollectionViewSet, basename="product-collections")
 router.register("user-info", UserViewSet, basename="user-info")
 
