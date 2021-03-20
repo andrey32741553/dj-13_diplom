@@ -30,7 +30,7 @@
                     "items": []
                   },
                   "bodyType": "Text",
-                  "textBody": "{\"user\": 7, \"status\": \"NEW\"}"
+                  "textBody": "{\"products\": [{\n                \"product\": 1,\n                \"quantity\": 1\n            },\n            {\n                \"product\": 5,\n                \"quantity\": 2\n            },\n            {\n                \"product\": 2,\n                \"quantity\": 5\n            },\n            {\n                \"product\": 4,\n                \"quantity\": 1\n            },\n            {\n                \"product\": 3,\n                \"quantity\": 4\n            }]}"
                 },
                 "uri": {
                   "query": {
@@ -46,51 +46,6 @@
                 },
                 "id": "e34dc21f-ae8f-4e63-bc47-d92fa87c6487",
                 "name": "create order by authenticated user",
-                "headers": [
-                  {
-                    "enabled": true,
-                    "name": "Content-Type",
-                    "value": "application/json"
-                  },
-                  {
-                    "enabled": true,
-                    "name": "Authorization",
-                    "value": "Token f08adcdcbf9f8ecebc5608a0b9d5ba129981dd44"
-                  }
-                ]
-              }
-            },
-            {
-              "entity": {
-                "type": "Request",
-                "method": {
-                  "requestBody": true,
-                  "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
-                  "name": "POST"
-                },
-                "body": {
-                  "formBody": {
-                    "overrideContentType": true,
-                    "encoding": "application/x-www-form-urlencoded",
-                    "items": []
-                  },
-                  "bodyType": "Text",
-                  "textBody": "{\"user\": 7, \"product\": 2, \"order\": 25, \"quantity\": 100}"
-                },
-                "uri": {
-                  "query": {
-                    "delimiter": "&",
-                    "items": []
-                  },
-                  "scheme": {
-                    "name": "http",
-                    "version": "V11"
-                  },
-                  "host": "127.0.0.1:8000",
-                  "path": "/api/v1/positions/"
-                },
-                "id": "2b9bf7ac-ddef-4d74-a208-4161596f268d",
-                "name": "create positions in order",
                 "headers": [
                   {
                     "enabled": true,
@@ -154,7 +109,7 @@
                   {
                     "enabled": true,
                     "name": "Authorization",
-                    "value": "Token a09c1975ca70d0bc212fbbe5b7db7cc597ed6641"
+                    "value": "Token 6d65c4c13509938c031825bc9945989294d47970"
                   }
                 ]
               }
@@ -208,7 +163,7 @@
                   {
                     "enabled": true,
                     "name": "Authorization",
-                    "value": "Token a09c1975ca70d0bc212fbbe5b7db7cc597ed6641"
+                    "value": "Token 6d65c4c13509938c031825bc9945989294d47970"
                   }
                 ]
               }
@@ -260,9 +215,8 @@
               "entity": {
                 "type": "Request",
                 "method": {
-                  "requestBody": true,
-                  "link": "http://tools.ietf.org/html/rfc7231#section-4.3.3",
-                  "name": "POST"
+                  "link": "http://tools.ietf.org/html/rfc7231#section-4.3.1",
+                  "name": "GET"
                 },
                 "body": {
                   "formBody": {
@@ -270,8 +224,7 @@
                     "encoding": "application/x-www-form-urlencoded",
                     "items": []
                   },
-                  "bodyType": "Text",
-                  "textBody": "{\"user\": 7, \"status\": \"NEW\"}"
+                  "bodyType": "Text"
                 },
                 "uri": {
                   "query": {
@@ -285,18 +238,58 @@
                   "host": "127.0.0.1:8000",
                   "path": "/api/v1/orders/"
                 },
-                "id": "263bee7c-aa39-46f2-a3d5-8c1744fbbf3f",
-                "name": "unable to create order by authenticated user for two times",
+                "id": "536a967a-3400-481a-8076-2943d49097fe",
+                "name": "get list of orders by autenticated user",
                 "headers": [
+                  {
+                    "enabled": true,
+                    "name": "Authorization",
+                    "value": "Token 6d6e67faba887a26a48be2d93e20835b7e3b2b0a"
+                  }
+                ]
+              }
+            },
+            {
+              "entity": {
+                "type": "Request",
+                "method": {
+                  "requestBody": true,
+                  "link": "http://tools.ietf.org/html/rfc7231#section-4.3.4",
+                  "name": "PUT"
+                },
+                "body": {
+                  "formBody": {
+                    "overrideContentType": true,
+                    "encoding": "application/x-www-form-urlencoded",
+                    "items": []
+                  },
+                  "bodyType": "Text",
+                  "textBody": "{\"status\": \"DONE\"}"
+                },
+                "uri": {
+                  "query": {
+                    "delimiter": "&",
+                    "items": []
+                  },
+                  "scheme": {
+                    "name": "http",
+                    "version": "V11"
+                  },
+                  "host": "127.0.0.1:8000",
+                  "path": "/api/v1/orders/11/"
+                },
+                "id": "cf198a2a-bf98-4db8-a2c5-bdb57c105e19",
+                "name": "unable to update order status by authenticated user to another status except \"cancelled\"",
+                "headers": [
+                  {
+                    "enabled": true,
+                    "name": "Authorization",
+                    "value": "Token 6d6e67faba887a26a48be2d93e20835b7e3b2b0a"
+                  },
                   {
                     "enabled": true,
                     "name": "Content-Type",
                     "value": "application/json"
-                  },
-                  {
-                    "enabled": true,
-                    "name": "Authorization",
-                    "value": "Token f08adcdcbf9f8ecebc5608a0b9d5ba129981dd44"
                   }
                 ]
               }
@@ -328,7 +321,7 @@
                     "version": "V11"
                   },
                   "host": "127.0.0.1:8000",
-                  "path": "/api/v1/orders/25/"
+                  "path": "/api/v1/orders/19/"
                 },
                 "id": "388c320c-d096-49f5-aafc-91bc81e0baf0",
                 "name": "update order status by admin",
@@ -342,6 +335,51 @@
                     "enabled": true,
                     "name": "Authorization",
                     "value": "Token 6d65c4c13509938c031825bc9945989294d47970"
+                  }
+                ]
+              }
+            },
+            {
+              "entity": {
+                "type": "Request",
+                "method": {
+                  "requestBody": true,
+                  "link": "http://tools.ietf.org/html/rfc7231#section-4.3.4",
+                  "name": "PUT"
+                },
+                "body": {
+                  "formBody": {
+                    "overrideContentType": true,
+                    "encoding": "application/x-www-form-urlencoded",
+                    "items": []
+                  },
+                  "bodyType": "Text",
+                  "textBody": "{\"status\": \"CANCELLED\"}"
+                },
+                "uri": {
+                  "query": {
+                    "delimiter": "&",
+                    "items": []
+                  },
+                  "scheme": {
+                    "name": "http",
+                    "version": "V11"
+                  },
+                  "host": "127.0.0.1:8000",
+                  "path": "/api/v1/orders/11/"
+                },
+                "id": "4e64b34a-7978-4be0-98d6-e8e805ca7236",
+                "name": "update order status by authenticated user to \"cancelled\"",
+                "headers": [
+                  {
+                    "enabled": true,
+                    "name": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "enabled": true,
+                    "name": "Authorization",
+                    "value": "Token 6d6e67faba887a26a48be2d93e20835b7e3b2b0a"
                   }
                 ]
               }
