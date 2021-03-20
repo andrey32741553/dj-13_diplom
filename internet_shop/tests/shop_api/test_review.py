@@ -64,4 +64,4 @@ def test_filter_review_by_product(product_factory, authenticated_client, create_
     resp_json = resp.json()
     assert resp.status_code == HTTP_200_OK
     for item in resp_json:
-        assert item['product'] == str(product_info.name)
+        assert item['product'] == product_info.id
