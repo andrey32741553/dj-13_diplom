@@ -11,7 +11,7 @@ def test_create_review_by_authenticated_client(authenticated_client, product_fac
     """ Тест создания отзыва авторизованным пользователем и проверка невозможности создания более одного отзыва"""
     url = reverse("product-reviews-list")
     product_factory(_quantity=3)
-    product_info, review = create_review_by_authenticated_user
+    product_info, review = create_review_by_authenticated_user()
     review1 = {'review_text': 'всё понравилось', 'rating': 5, 'product': product_info.id}
     resp = authenticated_client.post(url, review1)
     assert resp.status_code == HTTP_400_BAD_REQUEST
@@ -32,7 +32,7 @@ def test_create_review_by_not_authenticated_client(client, product_factory):
 def test_update_review_by_authenticated_client(product_factory, authenticated_client, create_review_by_authenticated_user):
     """ Тест обновления отзыва авторизованным пользователем"""
     product_factory(_quantity=3)
-    product_info, review = create_review_by_authenticated_user
+    product_info, review = create_review_by_authenticated_user()
     new_review = {"review_text": "всё-таки неочень", "rating": 2, "product": product_info.id}
     review_info = Review.objects.get(review_text=review["review_text"])
     url = reverse("product-reviews-detail", args=(review_info.id,))
@@ -46,7 +46,7 @@ def test_update_review_by_authenticated_client(product_factory, authenticated_cl
 def test_destroy_review_by_authenticated_client(product_factory, create_review_by_authenticated_user, authenticated_client):
     """ Тест удаления отзыва авторизованным пользователем """
     product_factory(_quantity=3)
-    product_info, review = create_review_by_authenticated_user
+    product_info, review = create_review_by_authenticated_user()
     review_info = Review.objects.get(review_text=review["review_text"])
     url = reverse("product-reviews-detail", args=(review_info.id,))
     resp = authenticated_client.delete(url)
@@ -57,7 +57,7 @@ def test_destroy_review_by_authenticated_client(product_factory, create_review_b
 def test_filter_review_by_product(product_factory, authenticated_client, create_review_by_authenticated_user):
     """ Тест фильтра отзывов по продуктам """
     product_factory(_quantity=3)
-    product_info, review = create_review_by_authenticated_user
+    product_info, review = create_review_by_authenticated_user()
     params = f'product={product_info.id}'
     url = reverse("product-reviews-list") + '?' + params
     resp = authenticated_client.get(url)

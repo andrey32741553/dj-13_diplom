@@ -9,7 +9,7 @@ from shop_api.models import ProductCollections
 def test_add_products_to_product_collections_by_admin(admin_client, client,
                                                       create_product_collections_by_admin):
     """ Тест добавления товаров в подборки админом """
-    product_collections = create_product_collections_by_admin
+    create_product_collections_by_admin()
     """ Изменение информации о подборке админом """
     new_text = {'title': 'для дома и развлечений', 'text': 'отличная техника для дома и развлечений'}
     collection_info = ProductCollections.objects.get(title='для развлечений')

@@ -1,4 +1,6 @@
 import pytest
+from django.contrib.auth.models import User
+
 from django.urls import reverse
 from rest_framework.status import HTTP_200_OK
 
@@ -7,32 +9,22 @@ import datetime as dt
 
 
 @pytest.mark.django_db
-def test_create_order_and_positions_by_authenticated_client(product_factory, authenticated_client,
-                                                            create_order_by_authenticated_user,
-                                                            create_positions_by_authenticated_user):
-    """ Тест на создание заказа и создание позиций заказа  """
-    product_factory(_quantity=3)
-    create_order_by_authenticated_user
-    create_positions_by_authenticated_user
-
-
-@pytest.mark.django_db
 def test_get_list_of_orders_by_admin(product_factory, admin_client, create_order_by_authenticated_user):
     """ Тест на вывод списка заказов """
     product_factory(_quantity=3)
-    create_order_by_authenticated_user
+    create_order_by_authenticated_user()
     url = reverse("orders-list")
     resp = admin_client.get(url)
     assert resp.status_code == HTTP_200_OK
 
 
 @pytest.mark.django_db
-def test_get_own_list_of_orders_by_authenticated_user(product_factory, authenticated_client,
+def test_get_own_list_of_orders_by_authenticated_user(authenticated_client,
                                                       create_order_by_authenticated_user):
     """ Тест на получение своего заказа пользователем"""
-    product_factory(_quantity=3)
-    order, name = create_order_by_authenticated_user
-    order_info = Order.objects.get(user=order["user"])
+    create_order_by_authenticated_user()
+    user = User.objects.get(username='foo').id
+    order_info = Order.objects.get(user=user)
     url = reverse("orders-detail", args=(order_info.id,))
     resp = authenticated_client.get(url)
     resp_json = resp.json()
@@ -41,13 +33,12 @@ def test_get_own_list_of_orders_by_authenticated_user(product_factory, authentic
 
 
 @pytest.mark.django_db
-def test_order_filter_by_total_price(product_factory, create_order_by_authenticated_user,
-                                     authenticated_client, admin_client, create_positions_by_authenticated_user):
+def test_order_filter_by_total_price(create_order_by_authenticated_user,
+                                     authenticated_client, admin_client):
     """ Тест фильтра по итоговой цене """
-    product_factory(_quantity=3)
-    order, name = create_order_by_authenticated_user
-    create_positions_by_authenticated_user
-    order_info = Order.objects.get(user=order['user'])
+    create_order_by_authenticated_user()
+    user = User.objects.get(username='foo').id
+    order_info = Order.objects.get(user=user)
     total_price__gt = 10
     total_price__lt = 1200
     params = f'total_price__gt={total_price__gt}&total_price__lt={total_price__lt}'
@@ -60,14 +51,12 @@ def test_order_filter_by_total_price(product_factory, create_order_by_authentica
 
 
 @pytest.mark.django_db
-def test_order_filter_by_create_date(product_factory, create_order_by_authenticated_user,
-                                     authenticated_client, admin_client,
-                                     create_positions_by_authenticated_user):
+def test_order_filter_by_create_date(create_order_by_authenticated_user,
+                                     authenticated_client, admin_client):
     """ Тест фильтра по дате создания """
-    product_factory(_quantity=3)
-    order, name = create_order_by_authenticated_user
-    create_positions_by_authenticated_user
-    order_info = Order.objects.get(user=order['user'])
+    create_order_by_authenticated_user()
+    user = User.objects.get(username='foo').id
+    order_info = Order.objects.get(user=user)
     created_at_after = '2021-01-18'
     created_at_before = '2021-02-09'
     params = f'created_at_after={created_at_after}&created_at_before={created_at_before}'
@@ -82,14 +71,12 @@ def test_order_filter_by_create_date(product_factory, create_order_by_authentica
 
 
 @pytest.mark.django_db
-def test_order_filter_by_update_date(product_factory, create_order_by_authenticated_user,
-                                     authenticated_client, admin_client,
-                                     create_positions_by_authenticated_user):
+def test_order_filter_by_update_date(create_order_by_authenticated_user,
+                                     authenticated_client, admin_client):
     """ Тест фильтра по дате создания """
-    product_factory(_quantity=3)
-    order, name = create_order_by_authenticated_user
-    create_positions_by_authenticated_user
-    order_info = Order.objects.get(user=order['user'])
+    create_order_by_authenticated_user()
+    user = User.objects.get(username='foo').id
+    order_info = Order.objects.get(user=user)
     now = dt.date.today()
     delta = dt.timedelta(hours=48)
     two_days_ago = now - delta
@@ -106,15 +93,11 @@ def test_order_filter_by_update_date(product_factory, create_order_by_authentica
 
 
 @pytest.mark.django_db
-def test_order_filter_by_product_in_positions(product_factory, create_order_by_authenticated_user,
-                                              authenticated_client, admin_client,
-                                              create_positions_by_authenticated_user):
+def test_order_filter_by_product_in_positions(create_order_by_authenticated_user,
+                                              authenticated_client, admin_client):
     """ Тест фильтра по продуктам в позициях заказа """
-    product_factory(_quantity=3)
-    create_order_by_authenticated_user
-    create_positions_by_authenticated_user
-    product = create_positions_by_authenticated_user[0]['product']
-    product_id = Product.objects.get(id=product)
+    order = create_order_by_authenticated_user()
+    product_id = Product.objects.get(id=order['products'][0]['product'])
     position_id_from_db = Position.objects.get(product=product_id).id
     order_id_from_db = Position.objects.get(product=product_id).order.id
     params = f'position={position_id_from_db}'
