@@ -1,5 +1,96 @@
 [
 {
+  "model": "admin.logentry",
+  "pk": 104,
+  "fields": {
+    "action_time": "2021-03-02T09:52:56.349Z",
+    "user": 16,
+    "content_type": 8,
+    "object_id": "16",
+    "object_repr": "6d6e67faba887a26a48be2d93e20835b7e3b2b0a",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 105,
+  "fields": {
+    "action_time": "2021-03-02T09:53:02.019Z",
+    "user": 16,
+    "content_type": 8,
+    "object_id": "3",
+    "object_repr": "6d6e67faba887a26a48be2d93e20835b7e3b2b0a",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"User\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 106,
+  "fields": {
+    "action_time": "2021-03-02T09:53:16.225Z",
+    "user": 16,
+    "content_type": 8,
+    "object_id": "16",
+    "object_repr": "6d65c4c13509938c031825bc9945989294d47970",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 107,
+  "fields": {
+    "action_time": "2021-03-02T10:15:29.643Z",
+    "user": 16,
+    "content_type": 8,
+    "object_id": "7",
+    "object_repr": "f08adcdcbf9f8ecebc5608a0b9d5ba129981dd44",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 108,
+  "fields": {
+    "action_time": "2021-03-02T10:20:17.688Z",
+    "user": 16,
+    "content_type": 4,
+    "object_id": "7",
+    "object_repr": "test",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Active\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 109,
+  "fields": {
+    "action_time": "2021-03-13T04:50:02.735Z",
+    "user": 16,
+    "content_type": 4,
+    "object_id": "17",
+    "object_repr": "Nbgjr",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 110,
+  "fields": {
+    "action_time": "2021-03-13T04:50:41.291Z",
+    "user": 16,
+    "content_type": 4,
+    "object_id": "17",
+    "object_repr": "Nbgjr",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
   "model": "auth.permission",
   "pk": 1,
   "fields": {
@@ -677,7 +768,7 @@
     "last_name": "",
     "email": "",
     "is_staff": false,
-    "is_active": false,
+    "is_active": true,
     "date_joined": "2021-02-13T11:09:36Z",
     "groups": [],
     "user_permissions": []
@@ -706,7 +797,7 @@
   "pk": 16,
   "fields": {
     "password": "pbkdf2_sha256$216000$LXVIlivoOQVR$coxVneNtUqr343GRvoXaVwT1TMo+aNZTfX7K0kIg+xI=",
-    "last_login": "2021-02-28T11:09:20.767Z",
+    "last_login": "2021-03-16T09:05:31.272Z",
     "is_superuser": true,
     "username": "andrey",
     "first_name": "",
@@ -881,10 +972,42 @@
 },
 {
   "model": "sessions.session",
+  "pk": "gsv4wzzh2qygw3h4qjrftvq97jfnodef",
+  "fields": {
+    "session_data": ".eJxVjMsOwiAQRf-FtSHl0QFcuu83kBkGpWogKe3K-O_apAvd3nPOfYmI21ri1vMSZxZnoUCcfkfC9Mh1J3zHemsytbouM8ldkQftcmqcn5fD_Tso2Mu3BiYy7JlNGoK2GkZIqJ3RznnD2V5HTQrAu6AwK2ayqA0YHByFoIDE-wMChDem:1lM5dr:Rhmg-T-n_rxFJ30CUdF682KXCuLrmMtOhuRZ2R7y3-w",
+    "expire_date": "2021-03-30T09:05:31.364Z"
+  }
+},
+{
+  "model": "sessions.session",
   "pk": "kzs8w347ik6h3wg6yvc8tgwtyp5qcu32",
   "fields": {
     "session_data": ".eJxVjMsOwiAQRf-FtSHl0QFcuu83kBkGpWogKe3K-O_apAvd3nPOfYmI21ri1vMSZxZnoUCcfkfC9Mh1J3zHemsytbouM8ldkQftcmqcn5fD_Tso2Mu3BiYy7JlNGoK2GkZIqJ3RznnD2V5HTQrAu6AwK2ayqA0YHByFoIDE-wMChDem:1lGJwu:3384L1aMbH1VJ0OWPCKYsDzrKqJilaHkUzooqTQLmgE",
     "expire_date": "2021-03-14T11:09:20.771Z"
+  }
+},
+{
+  "model": "authtoken.token",
+  "pk": "6d65c4c13509938c031825bc9945989294d47970",
+  "fields": {
+    "user": 16,
+    "created": "2021-03-02T09:53:16.224Z"
+  }
+},
+{
+  "model": "authtoken.token",
+  "pk": "6d6e67faba887a26a48be2d93e20835b7e3b2b0a",
+  "fields": {
+    "user": 3,
+    "created": "2021-03-02T09:52:56.348Z"
+  }
+},
+{
+  "model": "authtoken.token",
+  "pk": "f08adcdcbf9f8ecebc5608a0b9d5ba129981dd44",
+  "fields": {
+    "user": 7,
+    "created": "2021-03-02T10:15:29.642Z"
   }
 },
 {
@@ -896,7 +1019,9 @@
     "price": 150.0,
     "created_at": "2021-01-08T08:29:22.792Z",
     "updated_at": "2021-01-08T08:29:22.792Z",
-    "favourites": []
+    "favourites": [
+      3
+    ]
   }
 },
 {
@@ -908,7 +1033,9 @@
     "price": 800.0,
     "created_at": "2021-01-08T08:30:29.690Z",
     "updated_at": "2021-01-08T08:30:29.690Z",
-    "favourites": []
+    "favourites": [
+      3
+    ]
   }
 },
 {
@@ -921,7 +1048,8 @@
     "created_at": "2021-01-08T08:33:40.321Z",
     "updated_at": "2021-01-08T08:33:40.321Z",
     "favourites": [
-      16
+      16,
+      3
     ]
   }
 },
@@ -968,11 +1096,11 @@
   "pk": 11,
   "fields": {
     "user": 3,
-    "status": "NEW",
+    "status": "CANCELLED",
     "count": 19,
     "total": 817650.0,
     "created_at": "2021-01-19T09:24:04.415Z",
-    "updated_at": "2021-02-19T23:25:43.244Z"
+    "updated_at": "2021-03-20T05:24:30.070Z"
   }
 },
 {
@@ -1008,19 +1136,43 @@
     "count": 4,
     "total": 600.0,
     "created_at": "2021-02-19T10:40:47.337Z",
-    "updated_at": "2021-02-19T11:09:22.765Z"
+    "updated_at": "2021-03-20T04:59:04.883Z"
   }
 },
 {
   "model": "shop_api.order",
-  "pk": 24,
+  "pk": 25,
+  "fields": {
+    "user": 7,
+    "status": "IN_PROGRESS",
+    "count": 100,
+    "total": 80000.0,
+    "created_at": "2021-03-02T10:20:22.648Z",
+    "updated_at": "2021-03-02T10:32:10.541Z"
+  }
+},
+{
+  "model": "shop_api.order",
+  "pk": 26,
   "fields": {
     "user": 16,
-    "status": "IN_PROGRESS",
-    "count": 5,
-    "total": 38200.0,
-    "created_at": "2021-02-28T11:20:57.055Z",
-    "updated_at": "2021-02-28T11:21:52.448Z"
+    "status": "NEW",
+    "count": 14,
+    "total": 203850.0,
+    "created_at": "2021-03-13T07:50:26.955Z",
+    "updated_at": "2021-03-14T16:56:26.823Z"
+  }
+},
+{
+  "model": "shop_api.order",
+  "pk": 98,
+  "fields": {
+    "user": 7,
+    "status": "NEW",
+    "count": 13,
+    "total": 416650.0,
+    "created_at": "2021-03-20T04:53:07.427Z",
+    "updated_at": "2021-03-20T04:53:07.476Z"
   }
 },
 {
@@ -1124,19 +1276,100 @@
 },
 {
   "model": "shop_api.position",
-  "pk": 83,
+  "pk": 85,
   "fields": {
-    "product": 8,
-    "order": 24,
+    "product": 2,
+    "order": 25,
+    "quantity": 100
+  }
+},
+{
+  "model": "shop_api.position",
+  "pk": 86,
+  "fields": {
+    "product": 2,
+    "order": 26,
+    "quantity": 4
+  }
+},
+{
+  "model": "shop_api.position",
+  "pk": 87,
+  "fields": {
+    "product": 3,
+    "order": 26,
     "quantity": 1
   }
 },
 {
   "model": "shop_api.position",
-  "pk": 84,
+  "pk": 124,
+  "fields": {
+    "product": 8,
+    "order": 26,
+    "quantity": 1
+  }
+},
+{
+  "model": "shop_api.position",
+  "pk": 125,
+  "fields": {
+    "product": 4,
+    "order": 26,
+    "quantity": 5
+  }
+},
+{
+  "model": "shop_api.position",
+  "pk": 126,
+  "fields": {
+    "product": 5,
+    "order": 26,
+    "quantity": 1
+  }
+},
+{
+  "model": "shop_api.position",
+  "pk": 201,
+  "fields": {
+    "product": 1,
+    "order": 98,
+    "quantity": 1
+  }
+},
+{
+  "model": "shop_api.position",
+  "pk": 202,
+  "fields": {
+    "product": 5,
+    "order": 98,
+    "quantity": 2
+  }
+},
+{
+  "model": "shop_api.position",
+  "pk": 203,
   "fields": {
     "product": 2,
-    "order": 24,
+    "order": 98,
+    "quantity": 5
+  }
+},
+{
+  "model": "shop_api.position",
+  "pk": 204,
+  "fields": {
+    "product": 4,
+    "order": 98,
+    "quantity": 1
+  }
+},
+{
+  "model": "shop_api.position",
+  "pk": 205,
+  "fields": {
+    "product": 3,
+    "order": 98,
     "quantity": 4
   }
 },
@@ -1174,6 +1407,30 @@
     "product": 8,
     "created_at": "2021-02-19T13:41:13.041Z",
     "updated_at": "2021-02-19T13:41:13.041Z"
+  }
+},
+{
+  "model": "shop_api.review",
+  "pk": 21,
+  "fields": {
+    "creator": 3,
+    "review_text": "всё понравилось",
+    "rating": 5,
+    "product": 8,
+    "created_at": "2021-03-02T10:35:59.048Z",
+    "updated_at": "2021-03-02T10:35:59.048Z"
+  }
+},
+{
+  "model": "shop_api.review",
+  "pk": 24,
+  "fields": {
+    "creator": 16,
+    "review_text": "слабый",
+    "rating": 2,
+    "product": 8,
+    "created_at": "2021-03-20T06:10:42.964Z",
+    "updated_at": "2021-03-20T06:14:29.285Z"
   }
 },
 {
@@ -1219,6 +1476,20 @@
       3,
       4,
       8
+    ]
+  }
+},
+{
+  "model": "shop_api.productcollections",
+  "pk": 14,
+  "fields": {
+    "title": "для дома и развлечений",
+    "text": "отличная техника для дома и развлечений",
+    "created_at": "2021-03-02T10:00:11.904Z",
+    "updated_at": "2021-03-02T10:02:16.554Z",
+    "products": [
+      1,
+      2
     ]
   }
 }
