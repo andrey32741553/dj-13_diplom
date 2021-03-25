@@ -83,7 +83,7 @@ class OrderSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Order
-        fields = '__all__'
+        fields = ('__all__')
         read_only_fields = ('status',)
 
     def create(self, validated_data):
@@ -96,8 +96,7 @@ class OrderSerializer(serializers.ModelSerializer):
         order = super().create(validated_data)
         for position in positions.values():
             for item in position:
-                price = Product.objects.get(id=item['product'].id).price
-                validated_data['total'] += price * item['quantity']
+                validated_data['total'] += item['product'].price * item['quantity']
                 validated_data['count'] += item['quantity']
                 positions_objs.append(Position(quantity=item['quantity'], product=item['product'], order=order))
         order.count = validated_data['count']
