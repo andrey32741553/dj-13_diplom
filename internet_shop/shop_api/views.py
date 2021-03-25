@@ -71,7 +71,6 @@ class ReviewViewSet(ModelViewSet):
 class OrderViewSet(ModelViewSet):
     """ViewSet для заказов"""
 
-    serializer_class = OrderSerializer
     filterset_class = OrderFilter
 
     def get_serializer_class(self):
@@ -81,14 +80,12 @@ class OrderViewSet(ModelViewSet):
             return OrderDetailSerializer
 
     def get_queryset(self):
-        """Получение списка заказов (для не-админа - только свои заказы)"""
         queryset = Order.objects.all()
         if not (self.request.user.is_staff or self.request.user.is_superuser):
-            queryset = queryset.filter(user=self.request.user)
+            queryset = queryset.filter(user=self.request.user.id)
         return queryset
 
     def get_permissions(self):
-        """Получение прав для действий"""
         if self.action == "create":
             return [IsAuthenticated()]
         return []
