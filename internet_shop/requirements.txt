@@ -5,5 +5,4 @@ django-filter
 pytest
 pytest-django
 pytest-cov
-djoser
 model_bakery
