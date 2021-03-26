@@ -6,15 +6,11 @@ from shop_api.models import Product
 
 
 @pytest.mark.django_db
-def test_create_product_by_authenticated_client(client, django_user_model):
+def test_create_product_by_authenticated_client(authenticated_client):
     """ Тест на невозможность создания товара пользователем """
-    username = "foo"
-    password = "bar"
-    user = django_user_model.objects.create_user(username=username, password=password)
-    client.force_login(user)
     url = reverse("products-list")
     product = {"name": "Test", "price": 50, "description": "так себе яблоки"}
-    response = client.post(url, product)
+    response = authenticated_client.post(url, product)
     assert response.status_code == HTTP_403_FORBIDDEN
 
 
@@ -34,7 +30,7 @@ def test_update_product_by_admin(admin_client, product_factory):
     new_product_name = {"name": "новьё", "price": 150, "description": "подороже"}
     product_info = Product.objects.get(name=product[0])
     url = reverse("products-detail", args=(product_info.id,))
-    resp = admin_client.put(url, data=new_product_name, content_type='application/json')
+    resp = admin_client.put(url, data=new_product_name, format='json')
     new_product = Product.objects.get(name=new_product_name['name'])
     assert resp.status_code == HTTP_200_OK
     assert new_product.price == 150
@@ -46,7 +42,7 @@ def test_destroy_product_by_admin(admin_client, product_factory):
     product = product_factory(_quantity=3)
     product = Product.objects.get(name=product[0])
     url = reverse("products-detail", args=(product.id,))
-    resp = admin_client.delete(url)
+    resp = admin_client.delete(url, format='json')
     assert resp.status_code == HTTP_204_NO_CONTENT
 
 

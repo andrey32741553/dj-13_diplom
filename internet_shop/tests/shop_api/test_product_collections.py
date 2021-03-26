@@ -14,7 +14,7 @@ def test_add_products_to_product_collections_by_admin(admin_client, client,
     new_text = {'title': 'для дома и развлечений', 'text': 'отличная техника для дома и развлечений'}
     collection_info = ProductCollections.objects.get(title='для развлечений')
     url = reverse("product-collections-detail", args=(collection_info.id,))
-    resp = admin_client.put(url, data=new_text, content_type='application/json')
+    resp = admin_client.put(url, data=new_text, format='json')
     new_collection = ProductCollections.objects.get(title=new_text['title'])
     assert resp.status_code == HTTP_200_OK
     assert new_collection.text == "отличная техника для дома и развлечений"

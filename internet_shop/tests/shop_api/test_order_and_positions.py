@@ -9,9 +9,8 @@ import datetime as dt
 
 
 @pytest.mark.django_db
-def test_get_list_of_orders_by_admin(product_factory, admin_client, create_order_by_authenticated_user):
+def test_get_list_of_orders_by_admin(admin_client, create_order_by_authenticated_user):
     """ Тест на вывод списка заказов """
-    product_factory(_quantity=3)
     create_order_by_authenticated_user()
     url = reverse("orders-list")
     resp = admin_client.get(url)

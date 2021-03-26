@@ -2,17 +2,29 @@ import pytest
 from django.contrib.auth.models import User
 from django.urls import reverse
 from model_bakery import baker
+from rest_framework.authtoken.models import Token
 from rest_framework.status import HTTP_201_CREATED
+from rest_framework.test import APIClient
 
 from shop_api.models import Product
 
 
 @pytest.fixture
-def authenticated_client(client, django_user_model):
+def authenticated_client(django_user_model):
+    client = APIClient()
     username = "foo"
     password = "bar"
     user = django_user_model.objects.create_user(username=username, password=password)
-    client.force_login(user)
+    token = Token.objects.create(user=user)
+    client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
+    return client
+
+
+@pytest.fixture
+def admin_client(admin_user):
+    client = APIClient()
+    token = Token.objects.create(user=admin_user)
+    client.credentials(HTTP_AUTHORIZATION='Token ' + token.key)
     return client
 
 
@@ -31,9 +43,7 @@ def add_product_to_favourites_list(product_factory, authenticated_client):
         favourites_info = User.objects.get(username="foo")
         url = reverse("user-info-detail", args=(favourites_info.id,))
         favourites = {"products": [product[0].id, product[1].id, product[2].id]}
-        print(favourites)
         response = authenticated_client.post(url, favourites)
-        print(response)
         assert response.status_code == HTTP_201_CREATED
         return favourites
     return wrapper
@@ -70,7 +80,7 @@ def create_order_by_authenticated_user(product_factory, authenticated_client):
                     "product": product[2].id,
                     "quantity": 5
                 }]}
-        resp = authenticated_client.post(url, order, content_type='application/json')
+        resp = authenticated_client.post(url, order, format='json')
         assert resp.status_code == HTTP_201_CREATED
         return order
     return wrapper
