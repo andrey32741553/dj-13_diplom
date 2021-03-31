@@ -30,6 +30,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/', include('shop_api.urls')),
     path('api/v1/', include(router.urls)),
-    path('auth/', include('djoser.urls')),
-    path('auth/', include('djoser.urls.authtoken'))
 ]
